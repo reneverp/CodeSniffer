@@ -1,0 +1,10 @@
+@echo off
+
+SET CURRENTDIR=%~dp0
+
+SET OLDCLASSPATH=%CLASSPATH%
+SET CLASSPATH=.;%CURRENTDIR%antlr-4.7-complete.jar;%CLASSPATH%
+
+java org.antlr.v4.Tool %*
+
+SET CLASSPATH=%OLDCLASSPATH%
