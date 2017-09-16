@@ -1,5 +1,7 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CodeSniffer
 {
@@ -7,20 +9,22 @@ namespace CodeSniffer
     {
         static void Main(string[] args)
         {
-            AntlrFileStream filestream = new AntlrFileStream(@"D:\svn\ganttproject-ganttproject-2.8.5\ganttproject-ganttproject-2.8.5\ganttproject\src\net\sourceforge\ganttproject\shape\PaintCellRenderer.java");
+            DirectoryUtil dirUtil = new DirectoryUtil();
+            dirUtil.DeleteLogFile();
 
-            JavaLexer lexer = new JavaLexer(filestream);
-            CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+            var files = dirUtil.GetFileNames(@"D:\svn\ganttproject-ganttproject-2.8.5\ganttproject-ganttproject-2.8.5\ganttproject\src\net\sourceforge\ganttproject", "java");
 
-            JavaParser parser = new JavaParser(tokenStream);
+            Parser parser = new Parser();
 
-            var bla = parser.compilationUnit();
+            List<Task> tasks = new List<Task>();
 
-            ParseTreeWalker walker = new ParseTreeWalker();
+            foreach (var file in files)
+            {
+                tasks.Add(Task.Run(() => parser.Parse(files[0])));
+            }
 
-            MyListener listener = new MyListener();
+            Task.WaitAll(tasks.ToArray());
 
-            walker.Walk(listener, bla);
         }
     }
 }

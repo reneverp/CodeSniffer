@@ -45,11 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DirectoryUtil.cs" />
     <Compile Include="Generated_Parser\JavaBaseListener.cs" />
     <Compile Include="Generated_Parser\JavaLexer.cs" />
     <Compile Include="Generated_Parser\JavaListener.cs" />
     <Compile Include="Generated_Parser\JavaParser.cs" />
-    <Compile Include="MyListener.cs" />
+    <Compile Include="Listeners\JavaClassListener.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
