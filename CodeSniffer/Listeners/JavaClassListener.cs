@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Antlr4.Runtime.Misc;
 using System.IO;
 using System.Threading;
+using CodeSniffer.Models;
 
 namespace CodeSniffer.Listeners
 {
@@ -13,9 +14,16 @@ namespace CodeSniffer.Listeners
     {
         private string _logfileName;
 
-        public JavaClassListener()
+        private static int id = 0;
+
+        private Project _project;
+
+        private Class currentClass;
+
+        public JavaClassListener(Project project)
         {
-            _logfileName = "test" + Thread.CurrentThread.ManagedThreadId + ".log";
+            _logfileName = "test" + id++ + ".log";
+            _project = project;
         }
 
         public override void EnterFormalParameterList([NotNull] JavaParser.FormalParameterListContext context)
@@ -51,7 +59,6 @@ namespace CodeSniffer.Listeners
 
                 writer.Write("EXCPLICIT INVCATION SUFFIX: ");
 
-
                 var inputStream = context.Start.InputStream;
 
                 var interval = new Interval(context.Start.StartIndex, context.Stop.StopIndex);
@@ -73,7 +80,36 @@ namespace CodeSniffer.Listeners
 
                 writer.WriteLine(inputStream.GetText(interval));
                 writer.Flush();
+
+                Method methodModel = new Method(inputStream.GetText(interval).Split('\n').Count(), 1, 1, inputStream.GetText(interval));
+                if (currentClass != null)
+                    currentClass.AddMethod(methodModel);
             }
+        }
+
+        public override void EnterClassDeclaration([NotNull] JavaParser.ClassDeclarationContext context)
+        {
+            using (var stream = File.Open(_logfileName, FileMode.Append))
+            {
+                StreamWriter writer = new StreamWriter(stream);
+
+                var inputStream = context.Start.InputStream;
+
+                var interval = new Interval(context.Start.StartIndex, context.Stop.StopIndex);
+
+                writer.WriteLine(inputStream.GetText(interval));
+                writer.Flush();
+
+                Class classModel = new Class(inputStream.GetText(interval).Split('\n').Count(), inputStream.GetText(interval));
+                _project.AddClass(classModel);
+
+                currentClass = classModel;
+            }
+        }
+
+        public override void ExitClassDeclaration([NotNull] JavaParser.ClassDeclarationContext context)
+        {
+            currentClass = null;
         }
     }
 }

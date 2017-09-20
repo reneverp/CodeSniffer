@@ -1,6 +1,7 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using CodeSniffer.Listeners;
+using CodeSniffer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,7 @@ namespace CodeSniffer
 {
     class Parser
     {
-
-        public void Parse(string file)
+        public void Parse(string file, Project project)
         {
             AntlrFileStream filestream = new AntlrFileStream(file);
 
@@ -24,10 +24,11 @@ namespace CodeSniffer
             var bla = parser.compilationUnit();
 
             ParseTreeWalker walker = new ParseTreeWalker();
-
-            JavaClassListener listener = new JavaClassListener();
+            
+            JavaClassListener listener = new JavaClassListener(project);
 
             walker.Walk(listener, bla);
+
         }
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from d:\git\afstuderen\codesniffer\CodeSniffer\Build\..\ThirdParty\Antlr\Grammars\Java.g4 by ANTLR 4.7
+// Generated from D:\git\afstuderen\codesniffer\CodeSniffer\Build\..\ThirdParty\Antlr\Grammars\Java.g4 by ANTLR 4.7
 
 // Unreachable code detected
 #pragma warning disable 0162
