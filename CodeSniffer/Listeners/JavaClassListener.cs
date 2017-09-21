@@ -42,6 +42,9 @@ namespace CodeSniffer.Listeners
                 writer.WriteLine("Number of Parameters: " + list.Count());
                 writer.Flush();
             }
+
+            //if (currentClass != null)
+                //currentClass.
         }
 
         public override void EnterStatementExpression([NotNull] JavaParser.StatementExpressionContext context)
@@ -81,7 +84,14 @@ namespace CodeSniffer.Listeners
                 writer.WriteLine(inputStream.GetText(interval));
                 writer.Flush();
 
-                Method methodModel = new Method(inputStream.GetText(interval).Split('\n').Count(), 1, 1, inputStream.GetText(interval));
+                var parameters = context.formalParameters()?.formalParameterList()?.formalParameter();
+
+                int numberOfParams = 0;
+
+                if (parameters != null)
+                    numberOfParams = parameters.Count();
+
+                Method methodModel = new Method(inputStream.GetText(interval).Split('\n').Count(), 1, 1, numberOfParams, inputStream.GetText(interval));
                 if (currentClass != null)
                     currentClass.AddMethod(methodModel);
             }

@@ -14,14 +14,17 @@ namespace CodeSniffer.Models
 
         public int NumberOfStatements { get; private set; }
 
+        public int NumberOfParams { get; private set; }
+
         public string Text { get; private set; }
 
-        public Method(int linesOfCode, int complexity, int numberOfStatements, string text)
+        public Method(int linesOfCode, int complexity, int numberOfStatements, int numberOfParameters, string text)
         {
             LinesOfCode = linesOfCode;
             Complexity = complexity;
             NumberOfStatements = numberOfStatements;
             Text = text;
+            NumberOfParams = numberOfParameters;
         }
     }
 }

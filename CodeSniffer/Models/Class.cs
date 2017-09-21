@@ -4,7 +4,7 @@ namespace CodeSniffer.Models
 {
     class Class
     {
-        private IList<Method> _methodList;
+        public IList<Method> Methods { get; private set; }
 
         public int LinesOfCode { get; private set; }
 
@@ -14,7 +14,7 @@ namespace CodeSniffer.Models
         {
             get
             {
-                return _methodList.Count;
+                return Methods.Count;
             }
         }
 
@@ -22,12 +22,12 @@ namespace CodeSniffer.Models
         {
             LinesOfCode = linesOfCode;
             Text = text;
-            _methodList = new List<Method>();
+            Methods = new List<Method>();
         }
 
         public void AddMethod(Method method)
         {
-            _methodList.Add(method);
+            Methods.Add(method);
         }
 
 
