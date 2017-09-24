@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace CodeSniffer
 
             //ThreadPool.SetMaxThreads(8, 8);
 
-            var a = Stopwatch.StartNew();
+            var stopWatch = Stopwatch.StartNew();
 
             DirectoryUtil dirUtil = new DirectoryUtil();
             dirUtil.DeleteLogFile();
@@ -38,27 +39,38 @@ namespace CodeSniffer
 
             Task.WaitAll(tasks.ToArray());
 
-            a.Stop();
+            stopWatch.Stop();
 
-            System.Console.WriteLine("Time needed for parsing::: " + a.Elapsed.ToString());
-
-            System.Console.WriteLine("Detected number of classes:: " + project.Classes.Count);
-
-            foreach(var cl in project.Classes)
+            using (var stream = new StreamWriter(File.Open("overall.log", FileMode.OpenOrCreate)))
             {
-                System.Console.WriteLine("NumberOfMethods: " + cl.NumberOfMethods);
-                System.Console.WriteLine("Classname: " + cl.Text);
-                foreach(var met in cl.Methods)
+
+                project.Sort();
+
+                stream.WriteLine("Time needed for parsing::: " + stopWatch.Elapsed.ToString());
+
+                var classes = project.Classes;
+
+                stream.WriteLine("Detected number of classes:: " + classes.Count);
+
+                foreach (var cl in classes)
                 {
-                    Console.WriteLine("Method number of params: " + met.NumberOfParams);
-                    Console.WriteLine("Method: " + met.Text);
-                    System.Console.WriteLine("---------");
+                    stream.WriteLine("NumberOfMethods: " + cl.NumberOfMethods);
+                    stream.WriteLine("Class complexity: " + cl.Complexity);
+                    stream.WriteLine("Class loc: " + cl.LinesOfCode);
+                    
+                    foreach (var met in cl.Methods)
+                    {
+                        stream.WriteLine("Method number of params: " + met.NumberOfParams);
+                        stream.WriteLine("Method loc: " + met.LinesOfCode);
+                        stream.WriteLine("Method complexity: " + met.Complexity);
+                        stream.WriteLine("Method Number of Statements: " + met.NumberOfStatements);
+                        stream.WriteLine("---------");
+                    }
+
+                    stream.WriteLine("---------");
+                    stream.WriteLine("\n");
 
                 }
-
-                System.Console.WriteLine("---------");
-                System.Console.WriteLine("\n");
-
             }
 
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(project);

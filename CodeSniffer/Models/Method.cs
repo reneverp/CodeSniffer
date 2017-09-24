@@ -8,21 +8,20 @@ namespace CodeSniffer.Models
 {
     class Method
     {
-        public int LinesOfCode { get; private set; }
+        public double LinesOfCode { get; private set; }
 
-        public int Complexity { get; private set; }
+        public int Complexity { get; set; }
 
-        public int NumberOfStatements { get; private set; }
+        public int NumberOfStatements { get; set; }
 
-        public int NumberOfParams { get; private set; }
+        public int NumberOfParams { get; set; }
 
         public string Text { get; private set; }
 
-        public Method(int linesOfCode, int complexity, int numberOfStatements, int numberOfParameters, string text)
+
+        public Method(int numberOfParameters, string text)
         {
-            LinesOfCode = linesOfCode;
-            Complexity = complexity;
-            NumberOfStatements = numberOfStatements;
+            LinesOfCode = Metrics.LinesOfCode.Calculate(text);
             Text = text;
             NumberOfParams = numberOfParameters;
         }
