@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime.Misc;
 using CodeSniffer.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace CodeSniffer.Listeners
 {
     class StatementListener : JavaBaseListener
     {
+        private static Logger Logger = LogManager.GetCurrentClassLogger();
+        
         private Method _currentMethod;
 
         public void setCurrentMethod(Method currentMethod)
@@ -24,9 +27,8 @@ namespace CodeSniffer.Listeners
 
         public override void EnterStatement([NotNull] JavaParser.StatementContext context)
         {
-            Console.WriteLine("parsing statement");
-
-
+            Logger.Debug("parsing statement");
+            
             //measure the complexity: https://www.leepoint.net/principles_and_practices/complexity/complexity-java-method.html
 
             //TODO: remove this complexity measurement to a metric class

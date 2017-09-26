@@ -5,11 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Antlr4.Runtime.Misc;
+using NLog;
 
 namespace CodeSniffer.Listeners
 {
     class MethodListener : JavaBaseListener
     {
+        private static Logger Logger = LogManager.GetCurrentClassLogger();
+        
         private Class _currentClass;
         private StatementListener _statementListener;
 
@@ -30,7 +33,7 @@ namespace CodeSniffer.Listeners
 
         public override void EnterMethodDeclaration([NotNull] JavaParser.MethodDeclarationContext context)
         {
-            Console.WriteLine("parsing method");
+            Logger.Debug("parsing method");
 
             var inputStream = context.Start.InputStream;
 

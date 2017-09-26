@@ -2,11 +2,14 @@
 using System.Linq;
 using Antlr4.Runtime.Misc;
 using CodeSniffer.Models;
+using NLog;
 
 namespace CodeSniffer.Listeners
 {
     class ClassListener : JavaBaseListener
     {
+        private static Logger Logger = LogManager.GetCurrentClassLogger();
+
         private CompilationUnit _currentComilationUnit;
         private MethodListener _methodListener;
 
@@ -27,7 +30,7 @@ namespace CodeSniffer.Listeners
 
         public override void EnterClassDeclaration([NotNull] JavaParser.ClassDeclarationContext context)
         {
-            Console.WriteLine("parsing class");
+            Logger.Debug("parsing class");
 
             var inputStream = context.Start.InputStream;
 
