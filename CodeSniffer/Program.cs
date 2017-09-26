@@ -15,10 +15,6 @@ namespace CodeSniffer
     {
         static void Main(string[] args)
         {
-            System.Console.ReadKey();
-
-            //ThreadPool.SetMaxThreads(8, 8);
-
             var stopWatch = Stopwatch.StartNew();
 
             DirectoryUtil dirUtil = new DirectoryUtil();
@@ -41,36 +37,29 @@ namespace CodeSniffer
 
             stopWatch.Stop();
 
-            using (var stream = new StreamWriter(File.Open("overall.log", FileMode.OpenOrCreate)))
+            using (var stream = new StreamWriter(File.Open("overall.log", FileMode.Create)))
             {
+                int totalnumberOfClasses = 0;
 
                 project.Sort();
 
                 stream.WriteLine("Time needed for parsing::: " + stopWatch.Elapsed.ToString());
 
-                var classes = project.Classes;
+                var compilationUnits = project.CompilationUnits;
 
-                stream.WriteLine("Detected number of classes:: " + classes.Count);
+                stream.WriteLine("Detected number of compilationUnits:: " + compilationUnits.Count);
 
-                foreach (var cl in classes)
+                foreach (var compilationUnit in compilationUnits)
                 {
-                    stream.WriteLine("NumberOfMethods: " + cl.NumberOfMethods);
-                    stream.WriteLine("Class complexity: " + cl.Complexity);
-                    stream.WriteLine("Class loc: " + cl.LinesOfCode);
-                    
-                    foreach (var met in cl.Methods)
+                    var classes = compilationUnit.Classes;
+
+                    if (classes != null)
                     {
-                        stream.WriteLine("Method number of params: " + met.NumberOfParams);
-                        stream.WriteLine("Method loc: " + met.LinesOfCode);
-                        stream.WriteLine("Method complexity: " + met.Complexity);
-                        stream.WriteLine("Method Number of Statements: " + met.NumberOfStatements);
-                        stream.WriteLine("---------");
+                        totalnumberOfClasses = PrintClasses(stream, totalnumberOfClasses, classes);
                     }
-
-                    stream.WriteLine("---------");
-                    stream.WriteLine("\n");
-
                 }
+
+                stream.WriteLine("TOTAL CLASSES: " + totalnumberOfClasses);
             }
 
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(project);
@@ -79,6 +68,45 @@ namespace CodeSniffer
             {
                 file.WriteLine(json);
             }
+        }
+
+        private static int PrintClasses(StreamWriter stream, int totalnumberOfClasses, IList<Class> classes)
+        {
+ 
+            totalnumberOfClasses += classes.Count;
+
+            foreach (var cl in classes)
+            {
+                if(cl == null)
+                {
+                    break;
+                }
+
+                stream.WriteLine("ClassName: " + cl.Name);
+                stream.WriteLine("NumberOfMethods: " + cl.NumberOfMethods);
+                stream.WriteLine("Class complexity: " + cl.Complexity);
+                stream.WriteLine("Class loc: " + cl.LinesOfCode);
+
+                foreach (var met in cl.Methods)
+                {
+                    stream.WriteLine("Method number of params: " + met.NumberOfParams);
+                    stream.WriteLine("Method loc: " + met.LinesOfCode);
+                    stream.WriteLine("Method complexity: " + met.Complexity);
+                    stream.WriteLine("Method Number of Statements: " + met.NumberOfStatements);
+                    stream.WriteLine("---------");
+                }
+
+                stream.WriteLine("---------");
+                stream.WriteLine("\n");
+
+                if(cl.Classes.Count > 0)
+                {
+                    PrintClasses(stream, totalnumberOfClasses, cl.Classes);
+                }
+
+            }
+
+            return totalnumberOfClasses;
         }
     }
 }

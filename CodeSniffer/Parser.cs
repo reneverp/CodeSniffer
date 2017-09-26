@@ -2,11 +2,6 @@
 using Antlr4.Runtime.Tree;
 using CodeSniffer.Listeners;
 using CodeSniffer.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeSniffer
 {
@@ -21,14 +16,13 @@ namespace CodeSniffer
 
             JavaParser parser = new JavaParser(tokenStream);
 
-            var bla = parser.compilationUnit();
+            var startingPonit = parser.compilationUnit();
+
+            GenericListener genericListener = new GenericListener(project);
 
             ParseTreeWalker walker = new ParseTreeWalker();
-            
-            JavaClassListener listener = new JavaClassListener(project);
 
-            walker.Walk(listener, bla);
-
+            walker.Walk(genericListener, startingPonit);
         }
     }
 }

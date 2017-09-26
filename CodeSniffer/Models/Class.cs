@@ -7,8 +7,11 @@ namespace CodeSniffer.Models
     class Class
     {
         public IList<Method> Methods { get; private set; }
+        public IList<Class> Classes { get; private set; }
 
         public double LinesOfCode { get; private set; }
+
+        public string Name { get; private set; }
 
         public string Text { get; private set; }
 
@@ -37,11 +40,13 @@ namespace CodeSniffer.Models
             }
         }
 
-        public Class(string text)
+        public Class(string name, string text)
         {
+            Name = name;
             LinesOfCode = Metrics.LinesOfCode.Calculate(text);
             Text = text;
             Methods = new List<Method>();
+            Classes = new List<Class>();
         }
 
         public void AddMethod(Method method)
@@ -50,6 +55,11 @@ namespace CodeSniffer.Models
             {
                 Methods.Add(method);
             }
+        }
+
+        public void AddClass(Class classToAdd)
+        {
+            Classes.Add(classToAdd);
         }
 
         public void Sort()

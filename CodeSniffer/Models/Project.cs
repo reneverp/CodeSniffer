@@ -6,30 +6,26 @@ namespace CodeSniffer.Models
 {
     class Project
     {
-        public IList<Class> Classes { get; private set; }
+        public IList<CompilationUnit> CompilationUnits { get; private set; }
 
         private Object lockObj = new Object();
 
         public Project()
         {
-            Classes = new List<Class>();
+            CompilationUnits = new List<CompilationUnit>();
         }
 
-        public void AddClass(Class classToAdd)
+        public void AddComilationUnit(CompilationUnit classToAdd)
         {
             lock (lockObj)
             {
-                Classes.Add(classToAdd);
+                CompilationUnits.Add(classToAdd);
             }
         }
 
         public void Sort()
         {
-            Classes = Classes.OrderByDescending(x => x.Complexity).ToList();
-            foreach(var cl in Classes)
-            {
-                cl.Sort();
-            }
+            //TODO;
         }
     }
 }
