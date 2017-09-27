@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace CodeSniffer.Models
 {
-    class Class
+    public class Class
     {
         public IList<Method> Methods { get; private set; }
         public IList<Class> Classes { get; private set; }

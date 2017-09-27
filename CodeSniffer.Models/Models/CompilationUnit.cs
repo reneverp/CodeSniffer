@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeSniffer.Models
 {
-    class CompilationUnit
+    public class CompilationUnit
     {
         public IList<Class> Classes { get; private set; }
 

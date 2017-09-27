@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeSniffer.Models
 {
-    class Method
+    public class Method
     {
         public double LinesOfCode { get; private set; }
 

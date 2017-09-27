@@ -1,11 +1,12 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using CodeSniffer.Interfaces;
 using CodeSniffer.Listeners;
 using CodeSniffer.Models;
 
 namespace CodeSniffer
 {
-    class Parser
+    public class Parser : IParser
     {
         public void Parse(string file, Project project)
         {

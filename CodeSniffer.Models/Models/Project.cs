@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace CodeSniffer.Models
 {
-    class Project
+    public class Project
     {
         public IList<CompilationUnit> CompilationUnits { get; private set; }
 
