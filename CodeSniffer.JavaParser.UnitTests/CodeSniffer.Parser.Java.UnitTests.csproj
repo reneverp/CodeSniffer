@@ -73,7 +73,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>echo -- ugly trick -- use mono to be Travis compatible.
-$(SolutionDir)packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe $(SolutionDir)bin\$(ConfigurationName)\CodeSniffer.Parser.Java.UnitTests.dll</PostBuildEvent>
+    <PostBuildEvent>$(SolutionDir)packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe $(SolutionDir)bin\$(ConfigurationName)\CodeSniffer.Parser.Java.UnitTests.dll</PostBuildEvent>
   </PropertyGroup>
 </Project>
