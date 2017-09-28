@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer", "CodeSniffer\CodeSniffer.csproj", "{1C89DEED-5763-400B-9C68-86BD5052810A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.Console", "CodeSniffer\CodeSniffer.Console.csproj", "{1C89DEED-5763-400B-9C68-86BD5052810A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.Interfaces", "CodeSniffer.Interfaces\CodeSniffer.Interfaces.csproj", "{1B48EE95-C9CB-49D8-8480-59C5DE751C04}"
 EndProject

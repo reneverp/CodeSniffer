@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1C89DEED-5763-400B-9C68-86BD5052810A}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CodeSniffer</RootNamespace>
-    <AssemblyName>CodeSniffer</AssemblyName>
+    <RootNamespace>CodeSniffer.Console</RootNamespace>
+    <AssemblyName>CodeSniffer.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

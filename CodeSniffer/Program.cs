@@ -1,12 +1,11 @@
 ﻿using CodeSniffer.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
 using NLog;
 using System;
 
-namespace CodeSniffer
+namespace CodeSniffer.Console
 {
     class Program
     {
@@ -14,7 +13,15 @@ namespace CodeSniffer
 
         static void Main(string[] args)
         {
-            Console.ReadKey();
+            if(args.Length < 1)
+            {
+                System.Console.WriteLine("Directory argument missing.\n\n" +
+                                         "Example: CodeSniffer.Console.exe <path_to_source>\n\n");
+
+                return;
+            }
+
+            System.Console.ReadKey();
 
             var stopWatch = Stopwatch.StartNew();
 
@@ -23,7 +30,7 @@ namespace CodeSniffer
             DirectoryUtil dirUtil = new DirectoryUtil();
             dirUtil.DeleteLogFile();
 
-            var files = dirUtil.GetFileNames(@"D:\svn\ganttproject-ganttproject-2.8.5\ganttproject-ganttproject-2.8.5\ganttproject\src\net\sourceforge\ganttproject", "java");
+            var files = dirUtil.GetFileNames(args[0], "java");
 
             Parser parser = new Parser();
 
