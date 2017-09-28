@@ -86,9 +86,9 @@
       <Project>{1b48ee95-c9cb-49d8-8480-59c5de751c04}</Project>
       <Name>CodeSniffer.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CodeSniffer.JavaParser\CodeSniffer.JavaParser.csproj">
+    <ProjectReference Include="..\CodeSniffer.JavaParser\CodeSniffer.Parser.Java.csproj">
       <Project>{eb80ddcc-4b22-45f3-904e-ccf62f296dfe}</Project>
-      <Name>CodeSniffer.JavaParser</Name>
+      <Name>CodeSniffer.Parser.Java</Name>
     </ProjectReference>
     <ProjectReference Include="..\CodeSniffer.Models\CodeSniffer.Models.csproj">
       <Project>{eb2bda30-9729-48fa-b41c-01bc46f92e8b}</Project>

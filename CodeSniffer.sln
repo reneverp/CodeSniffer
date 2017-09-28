@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.Interfaces", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.Models", "CodeSniffer.Models\CodeSniffer.Models.csproj", "{EB2BDA30-9729-48FA-B41C-01BC46F92E8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.JavaParser", "CodeSniffer.JavaParser\CodeSniffer.JavaParser.csproj", "{EB80DDCC-4B22-45F3-904E-CCF62F296DFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.Parser.Java", "CodeSniffer.JavaParser\CodeSniffer.Parser.Java.csproj", "{EB80DDCC-4B22-45F3-904E-CCF62F296DFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.Parser.Java.UnitTests", "CodeSniffer.JavaParser.UnitTests\CodeSniffer.Parser.Java.UnitTests.csproj", "{EDCF2B06-8491-4F3A-A631-B6A8E1FE30E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{EB80DDCC-4B22-45F3-904E-CCF62F296DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB80DDCC-4B22-45F3-904E-CCF62F296DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB80DDCC-4B22-45F3-904E-CCF62F296DFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDCF2B06-8491-4F3A-A631-B6A8E1FE30E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDCF2B06-8491-4F3A-A631-B6A8E1FE30E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDCF2B06-8491-4F3A-A631-B6A8E1FE30E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDCF2B06-8491-4F3A-A631-B6A8E1FE30E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

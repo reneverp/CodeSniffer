@@ -2,14 +2,10 @@
 using CodeSniffer.Models;
 using NLog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeSniffer.Listeners
 {
-    class StatementListener : JavaBaseListener
+    public class StatementListener : JavaBaseListener
     {
         private static Logger Logger = LogManager.GetCurrentClassLogger();
         
@@ -41,20 +37,24 @@ namespace CodeSniffer.Listeners
                 var interval = new Interval(context.Start.StartIndex, context.Stop.StopIndex);
 
                 var text = context.GetText();
-                var startText = text.Substring(0, Math.Min(text.Length - 1, 10)).ToLower();
 
-                if (startText.StartsWith("if") ||
-                    startText.StartsWith("else") ||
-                    startText.StartsWith("for") ||
-                    startText.StartsWith("foreach") ||
-                    startText.StartsWith("while") ||
-                    startText.StartsWith("do") ||
-                    startText.StartsWith("catch") ||
-                    startText.StartsWith("switch") ||
-                    startText.StartsWith("case"))
-                {
-                    _currentMethod.Complexity++;
-                }
+                Statement statement = new Statement(text);
+
+                _currentMethod.AddStatement(statement);
+                //var startText = text.Substring(0, Math.Min(text.Length - 1, 10)).ToLower();
+
+                //if (startText.StartsWith("if") ||
+                //    startText.StartsWith("else") ||
+                //    startText.StartsWith("for") ||
+                //    startText.StartsWith("foreach") ||
+                //    startText.StartsWith("while") ||
+                //    startText.StartsWith("do") ||
+                //    startText.StartsWith("catch") ||
+                //    startText.StartsWith("switch") ||
+                //    startText.StartsWith("case"))
+                //{
+                //    _currentMethod.Complexity++;
+                //}
             }
         }
     }

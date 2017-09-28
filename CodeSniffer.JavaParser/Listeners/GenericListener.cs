@@ -3,7 +3,7 @@ using Antlr4.Runtime.Misc;
 
 namespace CodeSniffer.Listeners
 {
-    class GenericListener : JavaBaseListener
+    public class GenericListener : JavaBaseListener
     {
         private StatementListener _statementListener;
         private MethodListener _methodListener;

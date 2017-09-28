@@ -1,12 +1,10 @@
-﻿using System;
-using System.Linq;
-using Antlr4.Runtime.Misc;
+﻿using Antlr4.Runtime.Misc;
 using CodeSniffer.Models;
 using NLog;
 
 namespace CodeSniffer.Listeners
 {
-    class ClassListener : JavaBaseListener
+    public class ClassListener : JavaBaseListener
     {
         private static Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -37,7 +35,8 @@ namespace CodeSniffer.Listeners
             var interval = new Interval(context.Start.StartIndex, context.Stop.StopIndex);
 
             Class classModel = new Class(context.Identifier()?.GetText(), inputStream.GetText(interval));
-            _currentComilationUnit.AddClass(classModel);
+            if (_currentComilationUnit != null)
+                _currentComilationUnit.AddClass(classModel);
 
             _methodListener.setCurrentClass(classModel);
         }

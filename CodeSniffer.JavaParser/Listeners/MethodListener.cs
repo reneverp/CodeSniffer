@@ -1,15 +1,11 @@
 ﻿using CodeSniffer.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Antlr4.Runtime.Misc;
 using NLog;
 
 namespace CodeSniffer.Listeners
 {
-    class MethodListener : JavaBaseListener
+    public class MethodListener : JavaBaseListener
     {
         private static Logger Logger = LogManager.GetCurrentClassLogger();
         

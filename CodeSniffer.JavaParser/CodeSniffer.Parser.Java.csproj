@@ -7,8 +7,8 @@
     <ProjectGuid>{EB80DDCC-4B22-45F3-904E-CCF62F296DFE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CodeSniffer.JavaParser</RootNamespace>
-    <AssemblyName>CodeSniffer.JavaParser</AssemblyName>
+    <RootNamespace>CodeSniffer.Parser.Java</RootNamespace>
+    <AssemblyName>CodeSniffer.Parser.Java</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
