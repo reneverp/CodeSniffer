@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.Parser.Java", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.Parser.Java.UnitTests", "CodeSniffer.JavaParser.UnitTests\CodeSniffer.Parser.Java.UnitTests.csproj", "{EDCF2B06-8491-4F3A-A631-B6A8E1FE30E3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Parser", "Parser", "{729E752E-9C91-4051-80F5-D9A28B06279A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{8290E73B-4F42-446D-A147-FDCF369C5B48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1C89DEED-5763-400B-9C68-86BD5052810A} = {8290E73B-4F42-446D-A147-FDCF369C5B48}
+		{EB80DDCC-4B22-45F3-904E-CCF62F296DFE} = {729E752E-9C91-4051-80F5-D9A28B06279A}
+		{EDCF2B06-8491-4F3A-A631-B6A8E1FE30E3} = {729E752E-9C91-4051-80F5-D9A28B06279A}
 	EndGlobalSection
 EndGlobal
