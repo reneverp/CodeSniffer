@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.Console", "CodeSniffer\CodeSniffer.Console.csproj", "{1C89DEED-5763-400B-9C68-86BD5052810A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.Console", "CodeSniffer.Console\CodeSniffer.Console.csproj", "{1C89DEED-5763-400B-9C68-86BD5052810A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.Interfaces", "CodeSniffer.Interfaces\CodeSniffer.Interfaces.csproj", "{1B48EE95-C9CB-49D8-8480-59C5DE751C04}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Parser", "Parser", "{729E752E-9C91-4051-80F5-D9A28B06279A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{8290E73B-4F42-446D-A147-FDCF369C5B48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer", "CodeSniffer\CodeSniffer.csproj", "{5D682A2F-7726-4C46-B5C1-C644D885A521}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{EDCF2B06-8491-4F3A-A631-B6A8E1FE30E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDCF2B06-8491-4F3A-A631-B6A8E1FE30E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDCF2B06-8491-4F3A-A631-B6A8E1FE30E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D682A2F-7726-4C46-B5C1-C644D885A521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D682A2F-7726-4C46-B5C1-C644D885A521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D682A2F-7726-4C46-B5C1-C644D885A521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D682A2F-7726-4C46-B5C1-C644D885A521}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,5 +57,6 @@ Global
 		{1C89DEED-5763-400B-9C68-86BD5052810A} = {8290E73B-4F42-446D-A147-FDCF369C5B48}
 		{EB80DDCC-4B22-45F3-904E-CCF62F296DFE} = {729E752E-9C91-4051-80F5-D9A28B06279A}
 		{EDCF2B06-8491-4F3A-A631-B6A8E1FE30E3} = {729E752E-9C91-4051-80F5-D9A28B06279A}
+		{5D682A2F-7726-4C46-B5C1-C644D885A521} = {8290E73B-4F42-446D-A147-FDCF369C5B48}
 	EndGlobalSection
 EndGlobal
