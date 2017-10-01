@@ -76,4 +76,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(SolutionDir)packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe $(SolutionDir)bin\$(Configuration)\CodeSniffer.Parser.Java.UnitTests.dll</PostBuildEvent>
+  </PropertyGroup>
 </Project>
