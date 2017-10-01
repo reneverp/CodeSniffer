@@ -1,6 +1,0 @@
-language: csharp
-solution: CodeSniffer.sln
-script:
- - xbuild /p:Configuration=Debug CodeSniffer.sln
- - xbuild /p:Configuration=Release CodeSniffer.sln
- - mono ./packages/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe ./bin/Release/CodeSniffer.Parser.Java.UnitTests.dll
