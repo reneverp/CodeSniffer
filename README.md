@@ -1,3 +1,3 @@
-# CodeSniffer ![build-badge](https://travis-ci.org/rve10/CodeSniffer.svg?branch=master)
+# CodeSniffer [![Build Status](http://renevanerp.nl:8080/buildStatus/icon?job=CodeSniffer)](http://renevanerp.nl:8080/job/CodeSniffer/)
 
 An adaptive code smell detector
