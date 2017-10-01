@@ -1,9 +1,11 @@
 ﻿using CodeSniffer.Models;
 using Antlr4.Runtime.Misc;
+using System;
+using CodeSniffer.Interfaces;
 
 namespace CodeSniffer.Listeners
 {
-    public class GenericListener : JavaBaseListener
+    public class GenericListener : BaseListener
     {
         private StatementListener _statementListener;
         private MethodListener _methodListener;
@@ -16,6 +18,8 @@ namespace CodeSniffer.Listeners
             _methodListener = new MethodListener(_statementListener);
             _classListener = new ClassListener(_methodListener);
             _compilationUnitListener = new CompilationUnitListener(project, _classListener);
+
+            _classListener.ParseInfoUpdate += (string info) => InvokeParseInfoUpdate(info);
         }
 
         public override void EnterCompilationUnit([NotNull] JavaParser.CompilationUnitContext context)

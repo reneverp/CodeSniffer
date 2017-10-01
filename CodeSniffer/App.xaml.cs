@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CodeSniffer.ViewModels;
 using System.Windows;
+using System;
 
-namespace Console
+namespace CodeSniffer
 {
     /// <summary>
     /// Interaction logic for App.xaml

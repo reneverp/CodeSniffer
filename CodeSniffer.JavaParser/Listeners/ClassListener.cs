@@ -1,10 +1,12 @@
-﻿using Antlr4.Runtime.Misc;
+﻿using System;
+using Antlr4.Runtime.Misc;
+using CodeSniffer.Interfaces;
 using CodeSniffer.Models;
 using NLog;
 
 namespace CodeSniffer.Listeners
 {
-    public class ClassListener : JavaBaseListener
+    public class ClassListener : BaseListener
     {
         private static Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -39,6 +41,8 @@ namespace CodeSniffer.Listeners
                 _currentComilationUnit.AddClass(classModel);
 
             _methodListener.setCurrentClass(classModel);
+
+            InvokeParseInfoUpdate("Finished parsing class: " + classModel.Name);
         }
 
         public override void ExitClassDeclaration([NotNull] JavaParser.ClassDeclarationContext context)

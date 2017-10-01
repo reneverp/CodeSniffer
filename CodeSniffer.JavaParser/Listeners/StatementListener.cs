@@ -5,7 +5,7 @@ using System;
 
 namespace CodeSniffer.Listeners
 {
-    public class StatementListener : JavaBaseListener
+    public class StatementListener : BaseListener
     {
         private static Logger Logger = LogManager.GetCurrentClassLogger();
         
@@ -55,6 +55,9 @@ namespace CodeSniffer.Listeners
                 //{
                 //    _currentMethod.Complexity++;
                 //}
+
+                InvokeParseInfoUpdate("Parsing statement: " + statement.Text);
+
             }
         }
     }

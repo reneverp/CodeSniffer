@@ -1,0 +1,55 @@
+﻿<Window x:Class="CodeSniffer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CodeSniffer"
+        xmlns:viewModels ="clr-namespace:CodeSniffer.ViewModels"
+        xmlns:converters ="clr-namespace:CodeSniffer.Converters"
+        xmlns:ap="clr-namespace:CodeSniffer.AttachedProperties"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="768" Width="1024"
+        d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=False}"
+
+>
+    <Window.Resources>
+        <converters:StringToHtmlCodeBlockConverter x:Key="StringToHtmlCodeBlockConverter" />
+    </Window.Resources>
+    
+    <Grid Name="MainLayoutGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="100" MinHeight="25" />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" VerticalAlignment="Top" Height="20">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open"/>
+                <MenuItem Header="_Close"/>
+                <MenuItem Header="_Refresh" Command="{Binding RefreshCommand}"/>
+                <MenuItem Header="_Exit" Command="{Binding ExitCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" MinWidth="200"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontSize="55" Grid.Column="0">left</TextBlock>
+            <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch"/>
+            <WebBrowser VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" ap:HtmlAttachedProperty.Html="{Binding CodePanelText, Converter={StaticResource StringToHtmlCodeBlockConverter}}"/>
+        </Grid>
+
+        <GridSplitter Grid.Row="2" Height="4" HorizontalAlignment="Stretch"/>
+
+        <TextBox Name="tb" Grid.Row="3" Text="{Binding ParseInfoLines}" VerticalScrollBarVisibility="Auto" />
+
+    </Grid>
+
+</Window>
+
+

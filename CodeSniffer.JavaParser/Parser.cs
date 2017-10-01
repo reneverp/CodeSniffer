@@ -1,4 +1,5 @@
-﻿using Antlr4.Runtime;
+﻿using System;
+using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using CodeSniffer.Interfaces;
 using CodeSniffer.Listeners;
@@ -8,6 +9,8 @@ namespace CodeSniffer
 {
     public class Parser : IParser
     {
+        public event Action<string> NotifyParseInfoUpdated;
+
         public void Parse(string file, Project project)
         {
             AntlrFileStream filestream = new AntlrFileStream(file);
@@ -20,6 +23,8 @@ namespace CodeSniffer
             var startingPonit = parser.compilationUnit();
 
             GenericListener genericListener = new GenericListener(project);
+
+            genericListener.ParseInfoUpdate += (string info) => NotifyParseInfoUpdated?.Invoke(info);
 
             ParseTreeWalker walker = new ParseTreeWalker();
 

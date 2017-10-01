@@ -4,7 +4,7 @@ using NLog;
 
 namespace CodeSniffer.Listeners
 {
-    public class CompilationUnitListener : JavaBaseListener
+    public class CompilationUnitListener : BaseListener
     {
         private static Logger Logger = LogManager.GetCurrentClassLogger();
         

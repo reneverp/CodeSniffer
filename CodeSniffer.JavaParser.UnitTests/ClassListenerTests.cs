@@ -40,7 +40,7 @@ namespace CodeSniffer.Parser.Java.UnitTests
         [Test]
         public void GivenNoActiveCompilationUnit_WhenAClassIsFound_ThenTheClassIsIgnored()
         {
-            Method method = new Method(0, "");
+            Method method = new Method("", 0, "");
 
             Mocks.ClassContextMock classContext = new Mocks.ClassContextMock(null, 1);
 

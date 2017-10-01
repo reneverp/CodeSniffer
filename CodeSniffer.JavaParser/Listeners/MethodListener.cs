@@ -5,7 +5,7 @@ using NLog;
 
 namespace CodeSniffer.Listeners
 {
-    public class MethodListener : JavaBaseListener
+    public class MethodListener : BaseListener
     {
         private static Logger Logger = LogManager.GetCurrentClassLogger();
         
@@ -42,11 +42,13 @@ namespace CodeSniffer.Listeners
             if (parameters != null)
                 numberOfParams = parameters.Count();
 
-            Method methodModel = new Method(numberOfParams, inputStream.GetText(interval));
+            Method methodModel = new Method(context.Identifier()?.GetText(), numberOfParams, inputStream.GetText(interval));
             if (_currentClass != null)
                 _currentClass.AddMethod(methodModel);
 
             _statementListener.setCurrentMethod(methodModel);
+
+            InvokeParseInfoUpdate("Parsing method: " + methodModel.Name);
         }
 
         public override void ExitMethodDeclaration([NotNull] JavaParser.MethodDeclarationContext context)

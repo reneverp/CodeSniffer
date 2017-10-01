@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr4.Runtime.Standard, Version=4.7.0.0, Culture=neutral, PublicKeyToken=e78b2c5abd1fcb3f, processorArchitecture=MSIL">
@@ -52,6 +54,7 @@
     <Compile Include="Generated_Parser\JavaLexer.cs" />
     <Compile Include="Generated_Parser\JavaListener.cs" />
     <Compile Include="Generated_Parser\JavaParser.cs" />
+    <Compile Include="Listeners\BaseListener.cs" />
     <Compile Include="Listeners\ClassListener.cs" />
     <Compile Include="Listeners\CompilationUnitListener.cs" />
     <Compile Include="Listeners\GenericListener.cs" />

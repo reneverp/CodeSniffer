@@ -22,7 +22,7 @@ namespace CodeSniffer.Parser.Java.UnitTests
         [Test]
         public void GivenAnActiveMethod_WhenAStatmentIsFound_ThenTheStatmentIsAddedToTheClassModel()
         {
-            Method method = new Method(0, "");
+            Method method = new Method("", 0, "");
 
             _statementListener.setCurrentMethod(method);
 
@@ -38,8 +38,6 @@ namespace CodeSniffer.Parser.Java.UnitTests
         [Test]
         public void GivenNoActiveMethod_WhenAStatmentIsFound_ThenTheStatmentIsIgnored()
         {
-            Method method = new Method(0, "");
-
             Mocks.StatementContextMock statementContext = new Mocks.StatementContextMock(null, 1);
 
             Assert.DoesNotThrow(() => _statementListener.EnterStatement(statementContext) );

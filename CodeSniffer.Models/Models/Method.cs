@@ -16,14 +16,17 @@ namespace CodeSniffer.Models
 
         public int NumberOfParams { get; set; }
 
+        public string Name { get; private set; }
+
         public string Text { get; private set; }
 
         public IList<Statement> Statements { get; private set; }
 
 
-        public Method(int numberOfParameters, string text)
+        public Method(string name, int numberOfParameters, string text)
         {
             LinesOfCode = Metrics.LinesOfCode.Calculate(text);
+            Name = name;
             Text = text;
             NumberOfParams = numberOfParameters;
             Complexity = 1; // cyclomatic complexity always starts with 1 for method
