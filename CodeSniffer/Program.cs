@@ -29,7 +29,7 @@ namespace CodeSniffer
 
         private static void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            _viewModel.Refresh(null);
+            _viewModel.Refresh();
         }
     }
 }

@@ -51,6 +51,8 @@ namespace CodeSniffer.ViewModels
 
         public ICommand RefreshCommand { get; private set; }
 
+        public ICommand OpenCommand { get; private set; }
+
         public ICommand ShowCodeFragmentCommand { get; private set; }
 
 
@@ -63,8 +65,8 @@ namespace CodeSniffer.ViewModels
             _parser = asyncParser;
             CodeFragment = "";
 
-            ExitCommand = new RelayCommand<object>((object a) => Environment.Exit(0));
-            RefreshCommand = new RelayCommand<object>(Refresh);
+            ExitCommand = new RelayCommand(() => Environment.Exit(0));
+            RefreshCommand = new RelayCommand(Refresh);
             ShowCodeFragmentCommand = new RelayCommand<ICodeFragment>(ShowCodeFragment);
         }
 
@@ -76,7 +78,7 @@ namespace CodeSniffer.ViewModels
             }
         }
 
-        public async void Refresh(object param)
+        public async void Refresh()
         {
             ParseInfoLines = "";
             CodeFragments = new ObservableCollection<CodeFragmentViewModel>();
