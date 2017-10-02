@@ -64,6 +64,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeSniffer.Interfaces\CodeSniffer.Interfaces.csproj">
+      <Project>{1B48EE95-C9CB-49D8-8480-59C5DE751C04}</Project>
+      <Name>CodeSniffer.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CodeSniffer.JavaParser\CodeSniffer.Parser.Java.csproj">
       <Project>{eb80ddcc-4b22-45f3-904e-ccf62f296dfe}</Project>
       <Name>CodeSniffer.Parser.Java</Name>

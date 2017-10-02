@@ -1,4 +1,5 @@
-﻿using CodeSniffer.ViewModels;
+﻿using CodeSniffer.Utilities;
+using CodeSniffer.ViewModels;
 using System;
 using System.Windows;
 
@@ -15,8 +16,9 @@ namespace CodeSniffer
 
             Parser parser = new Parser();
             DirectoryUtil dirUtil = new DirectoryUtil();
+            AsyncParserWrapper asyncParser = new AsyncParserWrapper(parser, dirUtil);
 
-            _viewModel = new MainWindowViewModel(parser, dirUtil);
+            _viewModel = new MainWindowViewModel(asyncParser);
             var window = new MainWindow { DataContext = _viewModel };
 
             window.Loaded += OnWindowLoaded;
@@ -27,7 +29,7 @@ namespace CodeSniffer
 
         private static void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            _viewModel.Refresh();
+            _viewModel.Refresh(null);
         }
     }
 }

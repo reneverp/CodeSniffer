@@ -11,7 +11,7 @@ namespace CodeSniffer
     {
         public event Action<string> NotifyParseInfoUpdated;
 
-        public void Parse(string file, Project project)
+        public void Parse(string file, IProject project)
         {
             AntlrFileStream filestream = new AntlrFileStream(file);
 

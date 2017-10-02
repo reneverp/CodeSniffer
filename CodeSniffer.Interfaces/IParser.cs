@@ -1,5 +1,4 @@
-﻿using CodeSniffer.Models;
-using System;
+﻿using System;
 
 namespace CodeSniffer.Interfaces
 {
@@ -7,6 +6,6 @@ namespace CodeSniffer.Interfaces
     {
         event Action<string> NotifyParseInfoUpdated;
 
-        void Parse(string filename, Project project);
+        void Parse(string filename, IProject project);
     }
 }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CodeSniffer.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace CodeSniffer.Models
 {
-    public class Class
+    public class Class : ICodeFragment
     {
         public IList<Method> Methods { get; private set; }
         public IList<Class> Classes { get; private set; }
@@ -13,7 +14,9 @@ namespace CodeSniffer.Models
 
         public string Name { get; private set; }
 
-        public string Text { get; private set; }
+        public string Content { get; private set; }
+
+        public IList<ICodeFragment> Children => Methods.Cast<ICodeFragment>().ToList();
 
         private Object lockObj = new Object();
 
@@ -44,7 +47,7 @@ namespace CodeSniffer.Models
         {
             Name = name;
             LinesOfCode = Metrics.LinesOfCode.Calculate(text);
-            Text = text;
+            Content = text;
             Methods = new List<Method>();
             Classes = new List<Class>();
         }
@@ -61,12 +64,5 @@ namespace CodeSniffer.Models
         {
             Classes.Add(classToAdd);
         }
-
-        public void Sort()
-        {
-            Methods = Methods.OrderByDescending(x => x.Complexity).ToList();
-        }
-
-
     }
 }

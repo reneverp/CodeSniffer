@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeSniffer.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,17 @@ using System.Threading.Tasks;
 
 namespace CodeSniffer.Models
 {
-    public class Statement
+    public class Statement : ICodeFragment
     {
-        public string Text { get; private set; }
+        public string Content { get; private set; }
+
+        public string Name => "statement";
+
+        public IList<ICodeFragment> Children => null;
 
         public Statement(string text)
         {
-            Text = text;
+            Content = text;
         }
     }
 }

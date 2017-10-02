@@ -5,13 +5,12 @@ using System.Windows.Input;
 
 namespace CodeSniffer
 {
-    class RelayCommand : ICommand
+    class RelayCommand<T> : ICommand
     {
-        private Action _actionToBeExecuted;
-
+        private Action<T> _actionToBeExecuted;
         public event EventHandler CanExecuteChanged;
 
-        public RelayCommand(Action actionToBeExecuted)
+        public RelayCommand(Action<T> actionToBeExecuted)
         {
             _actionToBeExecuted = actionToBeExecuted;
         }
@@ -28,7 +27,7 @@ namespace CodeSniffer
 
         public void Execute(object parameter)
         {
-            _actionToBeExecuted();
+            _actionToBeExecuted((T)parameter);
         }
     }
 }

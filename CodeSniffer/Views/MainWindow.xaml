@@ -7,6 +7,7 @@
         xmlns:viewModels ="clr-namespace:CodeSniffer.ViewModels"
         xmlns:converters ="clr-namespace:CodeSniffer.Converters"
         xmlns:ap="clr-namespace:CodeSniffer.AttachedProperties"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Title="MainWindow" Height="768" Width="1024"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=False}"
@@ -16,9 +17,10 @@
         <converters:StringToHtmlCodeBlockConverter x:Key="StringToHtmlCodeBlockConverter" />
     </Window.Resources>
     
-    <Grid Name="MainLayoutGrid">
+    <Grid Name="MainLayoutGrid" Background="#FFF0F0F0">
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*" />
             <RowDefinition Height="5" />
             <RowDefinition Height="100" MinHeight="25" />
@@ -33,20 +35,50 @@
             </MenuItem>
         </Menu>
 
-        <Grid Grid.Row="1">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Background="Black" >
+            <StackPanel>
+                <Button Width="50" Height="50" Command="{Binding SmellDetectedCommand}" CommandParameter="true">Yes</Button>
+            </StackPanel>
+            <StackPanel>
+                <Button Width="50" Height="50" Command="{Binding SmellDetectedCommand}" CommandParameter="false">No</Button>
+            </StackPanel>
+        </StackPanel>
+        
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" MinWidth="200"/>
+                <ColumnDefinition Width="300" MinWidth="200"/>
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock FontSize="55" Grid.Column="0">left</TextBlock>
+
+            <TreeView Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding CodeFragments}" Name="treeView">
+
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding Name}" />
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+                
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectedItemChanged">
+                        <i:InvokeCommandAction Command="{Binding ShowCodeFragmentCommand}" CommandParameter="{Binding SelectedItem.Model, ElementName=treeView}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </TreeView>
             <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch"/>
-            <WebBrowser VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" ap:HtmlAttachedProperty.Html="{Binding CodePanelText, Converter={StaticResource StringToHtmlCodeBlockConverter}}"/>
+            <WebBrowser VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" ap:HtmlAttachedProperty.Html="{Binding CodeFragment, Converter={StaticResource StringToHtmlCodeBlockConverter}}"/>
         </Grid>
 
-        <GridSplitter Grid.Row="2" Height="4" HorizontalAlignment="Stretch"/>
+        <GridSplitter Grid.Row="3" Height="4" HorizontalAlignment="Stretch"/>
 
-        <TextBox Name="tb" Grid.Row="3" Text="{Binding ParseInfoLines}" VerticalScrollBarVisibility="Auto" />
+        <TextBox Name="tb" Grid.Row="4" Text="{Binding ParseInfoLines}" VerticalScrollBarVisibility="Auto" />
 
     </Grid>
 

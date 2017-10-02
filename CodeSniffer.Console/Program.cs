@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using NLog;
 using System;
+using CodeSniffer.Interfaces;
 
 namespace CodeSniffer.Console
 {
@@ -49,8 +50,6 @@ namespace CodeSniffer.Console
 
             int totalnumberOfClasses = 0;
 
-            project.Sort();
-
             logger.Info("Time needed for parsing::: " + stopWatch.Elapsed.ToString());
 
             var compilationUnits = project.CompilationUnits;
@@ -74,12 +73,12 @@ namespace CodeSniffer.Console
             System.Console.WriteLine("Parsing finished at: " + DateTime.Now);
         }
 
-        private static int PrintClasses(int totalnumberOfClasses, IList<Class> classes)
+        private static int PrintClasses(int totalnumberOfClasses, IList<ICodeFragment> classes)
         {
  
             totalnumberOfClasses += classes.Count;
 
-            foreach (var cl in classes)
+            foreach (Class cl in classes)
             {
                 if(cl == null)
                 {
@@ -102,7 +101,7 @@ namespace CodeSniffer.Console
 
                 if(cl.Classes.Count > 0)
                 {
-                    PrintClasses(totalnumberOfClasses, cl.Classes);
+                    PrintClasses(totalnumberOfClasses, cl.Children);
                 }
 
             }

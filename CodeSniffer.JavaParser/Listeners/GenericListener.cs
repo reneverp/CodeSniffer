@@ -12,7 +12,7 @@ namespace CodeSniffer.Listeners
         private ClassListener _classListener;
         private CompilationUnitListener _compilationUnitListener;
 
-        public GenericListener(Project project)
+        public GenericListener(IProject project)
         {
             _statementListener = new StatementListener();
             _methodListener = new MethodListener(_statementListener);

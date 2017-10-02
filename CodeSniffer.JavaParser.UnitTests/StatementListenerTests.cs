@@ -32,7 +32,7 @@ namespace CodeSniffer.Parser.Java.UnitTests
             _statementListener.resetCurrentMethod();
 
             Assert.AreEqual(method.NumberOfStatements, 1);
-            Assert.AreEqual("test", method.Statements[0].Text);
+            Assert.AreEqual("test", method.Statements[0].Content);
         }
 
         [Test]

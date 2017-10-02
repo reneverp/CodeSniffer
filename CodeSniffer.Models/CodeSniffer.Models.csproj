@@ -52,5 +52,11 @@
     <Compile Include="Models\Statement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeSniffer.Interfaces\CodeSniffer.Interfaces.csproj">
+      <Project>{1b48ee95-c9cb-49d8-8480-59c5de751c04}</Project>
+      <Name>CodeSniffer.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

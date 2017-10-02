@@ -42,15 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICodeFragment.cs" />
+    <Compile Include="ICompilationUnit.cs" />
     <Compile Include="IListener.cs" />
     <Compile Include="IParser.cs" />
+    <Compile Include="IProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CodeSniffer.Models\CodeSniffer.Models.csproj">
-      <Project>{eb2bda30-9729-48fa-b41c-01bc46f92e8b}</Project>
-      <Name>CodeSniffer.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,12 +1,9 @@
-﻿using System;
+﻿using CodeSniffer.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeSniffer.Models
 {
-    public class Method
+    public class Method : ICodeFragment
     {
         public double LinesOfCode { get; private set; }
 
@@ -18,7 +15,9 @@ namespace CodeSniffer.Models
 
         public string Name { get; private set; }
 
-        public string Text { get; private set; }
+        public string Content { get; private set; }
+
+        public IList<ICodeFragment> Children => null;
 
         public IList<Statement> Statements { get; private set; }
 
@@ -27,7 +26,7 @@ namespace CodeSniffer.Models
         {
             LinesOfCode = Metrics.LinesOfCode.Calculate(text);
             Name = name;
-            Text = text;
+            Content = text;
             NumberOfParams = numberOfParameters;
             Complexity = 1; // cyclomatic complexity always starts with 1 for method
             Statements = new List<Statement>();

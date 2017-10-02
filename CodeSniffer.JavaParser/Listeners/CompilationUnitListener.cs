@@ -1,4 +1,5 @@
 ﻿using Antlr4.Runtime.Misc;
+using CodeSniffer.Interfaces;
 using CodeSniffer.Models;
 using NLog;
 
@@ -8,10 +9,10 @@ namespace CodeSniffer.Listeners
     {
         private static Logger Logger = LogManager.GetCurrentClassLogger();
         
-        private Project _project;
+        private IProject _project;
         private ClassListener _classListener;
 
-        public CompilationUnitListener(Project project, ClassListener classListener)
+        public CompilationUnitListener(IProject project, ClassListener classListener)
         {
             _project = project;
             _classListener = classListener;

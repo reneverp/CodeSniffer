@@ -34,7 +34,7 @@ namespace CodeSniffer.Parser.Java.UnitTests
             _classListener.resetCurrentComilationUnit();
 
             Assert.AreEqual(compilationUnit.Classes.Count, 1);
-            Assert.AreEqual("test", compilationUnit.Classes[0].Text); 
+            Assert.AreEqual("test", compilationUnit.Classes[0].Content); 
         }
 
         [Test]
