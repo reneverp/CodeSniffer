@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using System.Reflection;
 using System.Windows.Data;
 
 namespace CodeSniffer.Converters
@@ -21,20 +24,27 @@ namespace CodeSniffer.Converters
 
         private string StringToHtml(string input)
         {
+            string cssFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Css\desert.css");
+
+           
             string output = "<html>"
                             + "<head>"
-                                + "<script src=\"https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js\"></script>"
-                                + "<style>"
+                                + "<link rel=\"stylesheet\" type=\"text/css\" href=\""+ cssFilePath +"\">"
+                                  + "<script src=\"https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js\"></script>"
+                                  + "<style>"
                                     + "pre.prettyprint {"
-                                        + "border: none !important;"
-                                    + "}"
+                                                + "border: none !important;"
+                                                + "padding: 0;"
+                                                + "margin: 0;"
+                                        + "}"
                                 + "</style>"
                             + "</head>"
+                            + "<body>"
                             + "<pre class=\"prettyprint\">";
 
-            output += input.Replace("\n", "<br/>");
+            output += input.Replace("\n", Environment.NewLine);
 
-            output += "</pre></html>";
+            output += "</body></pre></html>";
 
 
             return output;

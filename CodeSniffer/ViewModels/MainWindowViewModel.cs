@@ -92,6 +92,7 @@ namespace CodeSniffer.ViewModels
         public async void Refresh()
         {
             ParseInfoLines = "";
+            CodeFragment = "";
             CodeFragments = new ObservableCollection<CodeFragmentViewModel>();
 
             OnParseInfoUpdated("Parsing files started");
@@ -111,8 +112,6 @@ namespace CodeSniffer.ViewModels
             FillCodeFragments();
 
             OnParseInfoUpdated("Parsed " + _project.GetClassCount() + " classes in " + _project.GetCompilationUnitsCount() + " compilation units");
-
-
         }
 
         private void FillCodeFragments()
@@ -133,6 +132,10 @@ namespace CodeSniffer.ViewModels
             }
 
             CodeFragments = SortCodeFragments(CodeFragments);
+
+            var fragment = CodeFragments.FirstOrDefault();
+            if (fragment != null)
+                fragment.IsSelected = true;
         }
 
         private ObservableCollection<CodeFragmentViewModel> SortCodeFragments(ObservableCollection<CodeFragmentViewModel> codeFragments)

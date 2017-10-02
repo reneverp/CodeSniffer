@@ -119,7 +119,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Css\desert.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Css\sunburst.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CodeSniffer.Interfaces\CodeSniffer.Interfaces.csproj">
       <Project>{1b48ee95-c9cb-49d8-8480-59c5de751c04}</Project>
