@@ -7,12 +7,15 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using CodeSniffer.ApplicationInterfaces;
 
 namespace CodeSniffer.ViewModels
 {
     class MainWindowViewModel : ViewModelBase
     {
         private readonly AsyncParserWrapper _parser;
+        private readonly ApplicationInterfaces.IOService _ioService;
+
         private ObservableCollection<CodeFragmentViewModel> _codeFragments;
 
         private IProject _project;
@@ -56,18 +59,26 @@ namespace CodeSniffer.ViewModels
         public ICommand ShowCodeFragmentCommand { get; private set; }
 
 
-        public MainWindowViewModel(AsyncParserWrapper asyncParser)
+        public MainWindowViewModel(AsyncParserWrapper asyncParser, ApplicationInterfaces.IOService ioService)
         {
             //TODO: remove hardcoded path
             _sourcePath = @"D:\svn\ganttproject-ganttproject-2.8.5\ganttproject-ganttproject-2.8.5\ganttproject\src\net\sourceforge\ganttproject";
 
             _project = new Project();
             _parser = asyncParser;
+            _ioService = ioService;
             CodeFragment = "";
 
             ExitCommand = new RelayCommand(() => Environment.Exit(0));
             RefreshCommand = new RelayCommand(Refresh);
+            OpenCommand = new RelayCommand(OpenFolder);
             ShowCodeFragmentCommand = new RelayCommand<ICodeFragment>(ShowCodeFragment);
+        }
+
+        private void OpenFolder()
+        {
+            _sourcePath = _ioService.OpenFolderDialog();
+            Refresh();
         }
 
         private void ShowCodeFragment(ICodeFragment codeFragment)

@@ -18,7 +18,9 @@ namespace CodeSniffer
             DirectoryUtil dirUtil = new DirectoryUtil();
             AsyncParserWrapper asyncParser = new AsyncParserWrapper(parser, dirUtil);
 
-            _viewModel = new MainWindowViewModel(asyncParser);
+            ApplicationInterfaces.IOService ioService = new IOService();
+
+            _viewModel = new MainWindowViewModel(asyncParser, ioService);
             var window = new MainWindow { DataContext = _viewModel };
 
             window.Loaded += OnWindowLoaded;

@@ -28,7 +28,7 @@
 
         <Menu Grid.Row="0" VerticalAlignment="Top" Height="20">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open" Command="{Binding OpenFolderCommand}"/>
+                <MenuItem Header="_Open" Command="{Binding OpenCommand}"/>
                 <MenuItem Header="_Close"/>
                 <MenuItem Header="_Refresh" Command="{Binding RefreshCommand}"/>
                 <MenuItem Header="_Exit" Command="{Binding ExitCommand}"/>
