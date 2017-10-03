@@ -81,27 +81,29 @@
             
             <GridSplitter Grid.Column="3" Width="4" HorizontalAlignment="Stretch"/>
 
-            <StackPanel Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="{Binding CurrentCodeFragment.Name}"/>
-                </StackPanel> 
-                <ItemsControl ItemsSource="{Binding Metrics}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Vertical">
-                                <Grid Margin="0,5,20,5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="40"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding Name}" HorizontalAlignment="Right"></TextBlock>
-                                    <TextBlock Grid.Column="1" Text="{Binding Value}" HorizontalAlignment="Right"/>
-                                </Grid>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
+            <Border Grid.Column="4" BorderBrush="Black" BorderThickness="0.6">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding CurrentCodeFragment.Name}"/>
+                    </StackPanel>
+                    <ItemsControl ItemsSource="{Binding Metrics}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <Grid Margin="0,5,20,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="40"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Name}" HorizontalAlignment="Right"></TextBlock>
+                                        <TextBlock Grid.Column="1" Text="{Binding Value}" HorizontalAlignment="Right"/>
+                                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
         </Grid>
 
         <GridSplitter Grid.Row="3" Height="4" HorizontalAlignment="Stretch"/>
