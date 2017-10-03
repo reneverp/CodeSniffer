@@ -21,12 +21,24 @@ namespace CodeSniffer.ViewModels
         private IProject _project;
         private string _sourcePath;
         private string _activeCodeFragment;
+        private ObservableCollection<MetricViewModel> _metrics;
+
         private string _parseInfo;
 
         public string CodeFragment {
             get { return _activeCodeFragment; }
             set {
                 _activeCodeFragment = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<MetricViewModel> Metrics
+        {
+            get { return _metrics; }
+            set
+            {
+                _metrics = value;
                 NotifyPropertyChanged();
             }
         }
@@ -86,6 +98,12 @@ namespace CodeSniffer.ViewModels
             if (codeFragment != null)
             {
                 CodeFragment = codeFragment.Content;
+                Metrics = new ObservableCollection<MetricViewModel>();
+
+                foreach(var metric in codeFragment.Metrics)
+                {
+                    Metrics.Add(new MetricViewModel(metric));
+                }
             }
         }
 
