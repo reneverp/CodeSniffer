@@ -9,14 +9,23 @@ namespace CodeSniffer.ViewModels
         private bool _isSelected;
 
         public string Name { get; set; }
+        public string Content { get; set; }
+
 
         public ICodeFragment Model { get; set; }
 
         public ObservableCollection<CodeFragmentViewModel> Children { get; set; }
 
-        public CodeFragmentViewModel(string name, ICodeFragment model)
+        public CodeFragmentViewModel()
         {
-            Name = name;
+            Name = "";
+            Content = "";
+        }
+
+        public CodeFragmentViewModel(ICodeFragment model)
+        {
+            Name = model.Name;
+            Content = model.Content;
             Model = model;
             Children = new ObservableCollection<CodeFragmentViewModel>();
         }

@@ -69,7 +69,7 @@
                 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedItemChanged">
-                        <i:InvokeCommandAction Command="{Binding ShowCodeFragmentCommand}" CommandParameter="{Binding SelectedItem.Model, ElementName=treeView}"/>
+                        <i:InvokeCommandAction Command="{Binding ShowCodeFragmentCommand}" CommandParameter="{Binding SelectedItem, ElementName=treeView}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 
@@ -77,26 +77,31 @@
             
             <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch"/>
             
-            <WebBrowser VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" ap:HtmlAttachedProperty.Html="{Binding CodeFragment, Converter={StaticResource StringToHtmlCodeBlockConverter}}"/>
+            <WebBrowser VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" ap:HtmlAttachedProperty.Html="{Binding CurrentCodeFragment.Content, Converter={StaticResource StringToHtmlCodeBlockConverter}}"/>
             
             <GridSplitter Grid.Column="3" Width="4" HorizontalAlignment="Stretch"/>
 
-            <ItemsControl Grid.Column="4" ItemsSource="{Binding Metrics}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <Grid Margin="0,5,20,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="40"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding Name}" HorizontalAlignment="Right"></TextBlock>
-                                <TextBlock Grid.Column="1" Text="{Binding Value}" HorizontalAlignment="Right"/>
-                            </Grid>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <StackPanel Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding CurrentCodeFragment.Name}"/>
+                </StackPanel> 
+                <ItemsControl ItemsSource="{Binding Metrics}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <Grid Margin="0,5,20,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Name}" HorizontalAlignment="Right"></TextBlock>
+                                    <TextBlock Grid.Column="1" Text="{Binding Value}" HorizontalAlignment="Right"/>
+                                </Grid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
         </Grid>
 
         <GridSplitter Grid.Row="3" Height="4" HorizontalAlignment="Stretch"/>

@@ -20,15 +20,17 @@ namespace CodeSniffer.ViewModels
 
         private IProject _project;
         private string _sourcePath;
-        private string _activeCodeFragment;
         private ObservableCollection<MetricViewModel> _metrics;
 
         private string _parseInfo;
+        private CodeFragmentViewModel _currentCodeFragment;
 
-        public string CodeFragment {
-            get { return _activeCodeFragment; }
-            set {
-                _activeCodeFragment = value;
+        public CodeFragmentViewModel CurrentCodeFragment
+        {
+            get { return _currentCodeFragment; }
+            set
+            {
+                _currentCodeFragment = value;
                 NotifyPropertyChanged();
             }
         }
@@ -79,12 +81,12 @@ namespace CodeSniffer.ViewModels
             _project = new Project();
             _parser = asyncParser;
             _ioService = ioService;
-            CodeFragment = "";
+            CurrentCodeFragment = new CodeFragmentViewModel();
 
             ExitCommand = new RelayCommand(() => Environment.Exit(0));
             RefreshCommand = new RelayCommand(Refresh);
             OpenCommand = new RelayCommand(OpenFolder);
-            ShowCodeFragmentCommand = new RelayCommand<ICodeFragment>(ShowCodeFragment);
+            ShowCodeFragmentCommand = new RelayCommand<CodeFragmentViewModel>(ShowCodeFragment);
         }
 
         private void OpenFolder()
@@ -93,14 +95,14 @@ namespace CodeSniffer.ViewModels
             Refresh();
         }
 
-        private void ShowCodeFragment(ICodeFragment codeFragment)
+        private void ShowCodeFragment(CodeFragmentViewModel codeFragment)
         {
             if (codeFragment != null)
             {
-                CodeFragment = codeFragment.Content;
+                CurrentCodeFragment = codeFragment;
                 Metrics = new ObservableCollection<MetricViewModel>();
 
-                foreach(var metric in codeFragment.Metrics)
+                foreach(var metric in codeFragment.Model.Metrics)
                 {
                     Metrics.Add(new MetricViewModel(metric));
                 }
@@ -110,8 +112,9 @@ namespace CodeSniffer.ViewModels
         public async void Refresh()
         {
             ParseInfoLines = "";
-            CodeFragment = "";
+            CurrentCodeFragment = new CodeFragmentViewModel();
             CodeFragments = new ObservableCollection<CodeFragmentViewModel>();
+            Metrics = new ObservableCollection<MetricViewModel>();
 
             OnParseInfoUpdated("Parsing files started");
 
@@ -138,12 +141,12 @@ namespace CodeSniffer.ViewModels
             {
                 foreach (var cl in compilationUnit.Classes)
                 {
-                    var clItem = new CodeFragmentViewModel(cl.Name, cl);
+                    var clItem = new CodeFragmentViewModel(cl);
                     CodeFragments.Add(clItem);
 
                     foreach (var method in cl.Children)
                     {
-                        var mItem = new CodeFragmentViewModel(method.Name, method);
+                        var mItem = new CodeFragmentViewModel(method);
                         clItem.AddChild(mItem);
                     }
                 }
