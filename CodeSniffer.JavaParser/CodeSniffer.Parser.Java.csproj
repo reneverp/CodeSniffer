@@ -57,7 +57,8 @@
     <Compile Include="Listeners\BaseListener.cs" />
     <Compile Include="Listeners\ClassListener.cs" />
     <Compile Include="Listeners\CompilationUnitListener.cs" />
-    <Compile Include="Listeners\GenericListener.cs" />
+    <Compile Include="Listeners\OrchestratingListener.cs" />
+    <Compile Include="Listeners\MemberDeclarationListener.cs" />
     <Compile Include="Listeners\MethodListener.cs" />
     <Compile Include="Listeners\StatementListener.cs" />
     <Compile Include="Parser.cs" />

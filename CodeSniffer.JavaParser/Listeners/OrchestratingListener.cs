@@ -1,22 +1,22 @@
-﻿using CodeSniffer.Models;
-using Antlr4.Runtime.Misc;
-using System;
+﻿using Antlr4.Runtime.Misc;
 using CodeSniffer.Interfaces;
 
 namespace CodeSniffer.Listeners
 {
-    public class GenericListener : BaseListener
+    public class OrchestratingListener : BaseListener
     {
         private StatementListener _statementListener;
         private MethodListener _methodListener;
+        private MemberDeclarationListener _memberListener;
         private ClassListener _classListener;
         private CompilationUnitListener _compilationUnitListener;
 
-        public GenericListener(IProject project)
+        public OrchestratingListener(IProject project)
         {
             _statementListener = new StatementListener();
             _methodListener = new MethodListener(_statementListener);
-            _classListener = new ClassListener(_methodListener);
+            _memberListener = new MemberDeclarationListener();
+            _classListener = new ClassListener(_methodListener, _memberListener);
             _compilationUnitListener = new CompilationUnitListener(project, _classListener);
 
             _classListener.ParseInfoUpdate += (string info) => InvokeParseInfoUpdate(info);
@@ -50,6 +50,16 @@ namespace CodeSniffer.Listeners
         public override void ExitMethodDeclaration([NotNull] JavaParser.MethodDeclarationContext context)
         {
             _methodListener.ExitMethodDeclaration(context);
+        }
+
+        public override void EnterMemberDeclaration([NotNull] JavaParser.MemberDeclarationContext context)
+        {
+            _memberListener.EnterMemberDeclaration(context);
+        }
+
+        public override void ExitMemberDeclaration([NotNull] JavaParser.MemberDeclarationContext context)
+        {
+            _memberListener.ExitMemberDeclaration(context);
         }
 
         public override void EnterStatement([NotNull] JavaParser.StatementContext context)

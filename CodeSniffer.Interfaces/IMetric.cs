@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeSniffer.Metrics
+namespace CodeSniffer.Interfaces
 {
-    interface IMetric
+    public interface IMetric
     {
-        double Calculate(string text);
+        string Name { get; }
+        double Calculate();
     }
 }

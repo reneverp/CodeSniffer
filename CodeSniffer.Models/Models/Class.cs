@@ -1,4 +1,5 @@
 ﻿using CodeSniffer.Interfaces;
+using CodeSniffer.Models.Metrics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +11,16 @@ namespace CodeSniffer.Models
         public IList<Method> Methods { get; private set; }
         public IList<Class> Classes { get; private set; }
 
-        public double LinesOfCode { get; private set; }
-
         public string Name { get; private set; }
 
         public string Content { get; private set; }
 
         public IList<ICodeFragment> Children => Methods.Cast<ICodeFragment>().ToList();
+
+        public IList<IMetric> Metrics { get; private set; }
+
+        public IList<string> MemberDeclarartions { get; private set; }
+
 
         private Object lockObj = new Object();
 
@@ -29,27 +33,17 @@ namespace CodeSniffer.Models
             }
         }
 
-        public int Complexity
-        {
-            get
-            {
-                int totalComplexity = 0;
-                foreach(var met in Methods)
-                {
-                    totalComplexity += met.Complexity;
-                }
-
-                return totalComplexity;
-            }
-        }
-
         public Class(string name, string text)
         {
             Name = name;
-            LinesOfCode = Metrics.LinesOfCode.Calculate(text);
             Content = text;
             Methods = new List<Method>();
             Classes = new List<Class>();
+            MemberDeclarartions = new List<string>();
+
+            Metrics = new List<IMetric>();
+            Metrics.Add(new LinesOfCode(Content));
+            Metrics.Add(new NumberOfMembers(MemberDeclarartions));
         }
 
         public void AddMethod(Method method)
@@ -62,7 +56,18 @@ namespace CodeSniffer.Models
 
         public void AddClass(Class classToAdd)
         {
-            Classes.Add(classToAdd);
+            lock (lockObj)
+            {
+                Classes.Add(classToAdd);
+            }
+        }
+
+        public void AddMemberDecleration(string member)
+        {
+            lock (lockObj)
+            {
+                MemberDeclarartions.Add(member);
+            }
         }
     }
 }

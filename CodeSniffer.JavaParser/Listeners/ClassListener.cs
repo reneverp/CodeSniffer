@@ -12,10 +12,12 @@ namespace CodeSniffer.Listeners
 
         private CompilationUnit _currentComilationUnit;
         private MethodListener _methodListener;
+        private MemberDeclarationListener _memberListener;
 
-        public ClassListener(MethodListener methodListener)
+        public ClassListener(MethodListener methodListener, MemberDeclarationListener memberListener)
         {
             _methodListener = methodListener;
+            _memberListener = memberListener;
         }
 
         public void setCurrentCompilationUnit(CompilationUnit currentCompilationUnit)
@@ -41,6 +43,7 @@ namespace CodeSniffer.Listeners
                 _currentComilationUnit.AddClass(classModel);
 
             _methodListener.setCurrentClass(classModel);
+            _memberListener.setCurrentClass(classModel);
 
             InvokeParseInfoUpdate("Finished parsing class: " + classModel.Name);
         }
@@ -48,6 +51,7 @@ namespace CodeSniffer.Listeners
         public override void ExitClassDeclaration([NotNull] JavaParser.ClassDeclarationContext context)
         {
             _methodListener.resetCurrentClass();
+            _memberListener.resetCurrentClass();
         }
     }
 }

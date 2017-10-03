@@ -1,16 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CodeSniffer.Interfaces;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CodeSniffer.Metrics
+namespace CodeSniffer.Models.Metrics
 {
-    class LinesOfCode //: IMetric
+    class LinesOfCode : IMetric
     {
-        public static double Calculate(string text)
+        private string _code;
+
+        public string Name => "Lines of Code";
+
+        public LinesOfCode(string code)
         {
-            var lines = text.Split(Environment.NewLine.ToArray());
+            _code = code;
+        }
+
+        public double Calculate()
+        {
+            var lines = _code.Split(Environment.NewLine.ToArray());
 
             return lines.Count();
         }

@@ -13,6 +13,8 @@ namespace CodeSniffer.Models
 
         public string Name => "statement";
 
+        public IList<IMetric> Metrics => null;
+
         public IList<ICodeFragment> Children => null;
 
         public Statement(string text)

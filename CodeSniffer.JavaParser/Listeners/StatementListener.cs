@@ -25,13 +25,8 @@ namespace CodeSniffer.Listeners
         {
             Logger.Debug("parsing statement");
 
-            //measure the complexity: https://www.leepoint.net/principles_and_practices/complexity/complexity-java-method.html
-
-            //TODO: remove this complexity measurement to a metric class
             if (_currentMethod != null)
             {
-                _currentMethod.NumberOfStatements++;
-
                 var inputStream = context.Start.InputStream;
 
                 var interval = new Interval(context.Start.StartIndex, context.Stop.StopIndex);
@@ -41,23 +36,8 @@ namespace CodeSniffer.Listeners
                 Statement statement = new Statement(text);
 
                 _currentMethod.AddStatement(statement);
-                //var startText = text.Substring(0, Math.Min(text.Length - 1, 10)).ToLower();
-
-                //if (startText.StartsWith("if") ||
-                //    startText.StartsWith("else") ||
-                //    startText.StartsWith("for") ||
-                //    startText.StartsWith("foreach") ||
-                //    startText.StartsWith("while") ||
-                //    startText.StartsWith("do") ||
-                //    startText.StartsWith("catch") ||
-                //    startText.StartsWith("switch") ||
-                //    startText.StartsWith("case"))
-                //{
-                //    _currentMethod.Complexity++;
-                //}
 
                 InvokeParseInfoUpdate("Parsing statement: " + statement.Content);
-
             }
         }
 

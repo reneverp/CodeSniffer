@@ -1,33 +1,46 @@
-﻿using System;
+﻿using CodeSniffer.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CodeSniffer.Metrics
+namespace CodeSniffer.Models.Metrics
 {
-    class CyclometicComplexity
+    class CyclometicComplexity : IMetric
     {
+        private IList<Statement> _statements;
+
+        public string Name => "Cyclometic Complexity";
+
+        public CyclometicComplexity(IList<Statement> statements)
+        {
+            _statements = statements;
+        }
+
         public double Calculate()
         {
-            var text = "";//context.GetText();
-            var startText = text.Substring(0, Math.Min(text.Length - 1, 10)).ToLower();
+            //measure the complexity: https://www.leepoint.net/principles_and_practices/complexity/complexity-java-method.html
+            //Cyclometic complexity starts with 1;
+            //for every conditional, 1 is added.
+            int complexity = 1;
 
-            if (startText.StartsWith("if") ||
-                startText.StartsWith("else") ||
-                startText.StartsWith("for") ||
-                startText.StartsWith("foreach") ||
-                startText.StartsWith("while") ||
-                startText.StartsWith("do") ||
-                startText.StartsWith("catch") ||
-                startText.StartsWith("switch") ||
-                startText.StartsWith("case"))
+            foreach (var statement in _statements)
             {
-                //currentMethod.Complexity++;
+                var text = statement.Content;
+
+                if (text.StartsWith("if") ||
+                    text.StartsWith("else") ||
+                    text.StartsWith("for") ||
+                    text.StartsWith("foreach") ||
+                    text.StartsWith("while") ||
+                    text.StartsWith("do") ||
+                    text.StartsWith("catch") ||
+                    text.StartsWith("switch") ||
+                    text.StartsWith("case"))
+                {
+                    complexity++;
+                }
             }
 
 
-            return 0; //TODO!
+            return complexity;
         }
     }
 }

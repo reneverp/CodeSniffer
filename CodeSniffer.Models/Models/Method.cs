@@ -1,40 +1,45 @@
 ﻿using CodeSniffer.Interfaces;
+using CodeSniffer.Models.Metrics;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CodeSniffer.Models
 {
     public class Method : ICodeFragment
     {
-        public double LinesOfCode { get; private set; }
-
-        public int Complexity { get; set; }
-
-        public int NumberOfStatements { get; set; }
-
-        public int NumberOfParams { get; set; }
-
         public string Name { get; private set; }
 
         public string Content { get; private set; }
 
-        public IList<ICodeFragment> Children => null;
+        public IList<ICodeFragment> Children => Statements.Cast<ICodeFragment>().ToList();
+
+        public IList<IMetric> Metrics { get; private set; }
 
         public IList<Statement> Statements { get; private set; }
 
+        public IList<string> Parameters { get; private set; }
 
-        public Method(string name, int numberOfParameters, string text)
+        public Method(string name, string text)
         {
-            LinesOfCode = Metrics.LinesOfCode.Calculate(text);
             Name = name;
             Content = text;
-            NumberOfParams = numberOfParameters;
-            Complexity = 1; // cyclomatic complexity always starts with 1 for method
             Statements = new List<Statement>();
+            Parameters = new List<string>();
+
+            Metrics = new List<IMetric>();
+            Metrics.Add(new LinesOfCode(Content));
+            Metrics.Add(new CyclometicComplexity(Statements));
+            Metrics.Add(new NumberOfParameters(Parameters));
         }
 
         public void AddStatement(Statement statement)
         {
             Statements.Add(statement);
+        }
+
+        public void AddParameter(string param)
+        {
+            Parameters.Add(param);
         }
     }
 }

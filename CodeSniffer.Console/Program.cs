@@ -85,18 +85,18 @@ namespace CodeSniffer.Console
                     break;
                 }
 
-                logger.Info("ClassName: " + cl.Name);
-                logger.Info("NumberOfMethods: " + cl.NumberOfMethods);
-                logger.Info("Class complexity: " + cl.Complexity);
-                logger.Info("Class loc: " + cl.LinesOfCode);
+                //logger.Info("ClassName: " + cl.Name);
+                //logger.Info("NumberOfMethods: " + cl.NumberOfMethods);
+                //logger.Info("Class complexity: " + cl.Complexity);
+                //logger.Info("Class loc: " + cl.LinesOfCode);
 
-                foreach (var met in cl.Methods)
-                {
-                    logger.Info("Method number of params: " + met.NumberOfParams);
-                    logger.Info("Method loc: " + met.LinesOfCode);
-                    logger.Info("Method complexity: " + met.Complexity);
-                    logger.Info("Method Number of Statements: " + met.NumberOfStatements);
-                }
+                //foreach (var met in cl.Methods)
+                //{
+                //    logger.Info("Method number of params: " + met.NumberOfParams);
+                //    logger.Info("Method loc: " + met.LinesOfCode);
+                //    logger.Info("Method complexity: " + met.Complexity);
+                //    logger.Info("Method Number of Statements: " + met.NumberOfStatements);
+                //}
 
 
                 if(cl.Classes.Count > 0)

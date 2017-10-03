@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CodeSniffer.Interfaces
 {
@@ -12,5 +8,6 @@ namespace CodeSniffer.Interfaces
         string Name { get; }
 
         IList<ICodeFragment> Children { get; }
+        IList<IMetric> Metrics { get; }
     }
 }

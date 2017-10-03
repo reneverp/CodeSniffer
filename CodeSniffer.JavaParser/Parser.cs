@@ -22,7 +22,7 @@ namespace CodeSniffer
 
             var startingPonit = parser.compilationUnit();
 
-            GenericListener genericListener = new GenericListener(project);
+            OrchestratingListener genericListener = new OrchestratingListener(project);
 
             genericListener.ParseInfoUpdate += (string info) => NotifyParseInfoUpdated?.Invoke(info);
 

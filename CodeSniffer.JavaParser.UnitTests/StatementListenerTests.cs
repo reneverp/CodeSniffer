@@ -22,7 +22,7 @@ namespace CodeSniffer.Parser.Java.UnitTests
         [Test]
         public void GivenAnActiveMethod_WhenAStatmentIsFound_ThenTheStatmentIsAddedToTheClassModel()
         {
-            Method method = new Method("", 0, "");
+            Method method = new Method("", "");
 
             _statementListener.setCurrentMethod(method);
 
@@ -31,7 +31,7 @@ namespace CodeSniffer.Parser.Java.UnitTests
 
             _statementListener.resetCurrentMethod();
 
-            Assert.AreEqual(method.NumberOfStatements, 1);
+            Assert.AreEqual(method.Statements.Count, 1);
             Assert.AreEqual("test", method.Statements[0].Content);
         }
 

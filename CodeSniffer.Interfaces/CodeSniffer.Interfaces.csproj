@@ -45,6 +45,7 @@
     <Compile Include="ICodeFragment.cs" />
     <Compile Include="ICompilationUnit.cs" />
     <Compile Include="IListener.cs" />
+    <Compile Include="IMetric.cs" />
     <Compile Include="IParser.cs" />
     <Compile Include="IProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -23,7 +23,9 @@ namespace CodeSniffer.Parser.Java.UnitTests
                                             _project,
                                                 new ClassListener(
                                                     new MethodListener(
-                                                        new StatementListener())));
+                                                        new StatementListener()
+                                                        ),
+                                                    new MemberDeclarationListener()));
         }
 
         [Test]
