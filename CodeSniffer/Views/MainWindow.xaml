@@ -82,7 +82,7 @@
             <GridSplitter Grid.Column="3" Width="4" HorizontalAlignment="Stretch"/>
 
             <Border Grid.Column="4" BorderBrush="Black" BorderThickness="0.6">
-                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" >
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="{Binding CurrentCodeFragment.Name}"/>
                     </StackPanel>
