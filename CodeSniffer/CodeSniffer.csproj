@@ -75,8 +75,9 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ApplicationInterfaces\IOService.cs" />
     <Compile Include="Utilities\IOService.cs" />
-    <Compile Include="Utilities\ParallelParserWrapper.cs" />
+    <Compile Include="Utilities\AsyncParserWrapper.cs" />
     <Compile Include="ViewModels\CodeFragmentViewModel.cs" />
+    <Compile Include="ViewModels\CodeSmellViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

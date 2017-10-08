@@ -15,6 +15,9 @@ namespace CodeSniffer.Models
 
         public IList<IMetric> Metrics => null;
 
+        public IList<ICodeSmell> CodeSmells => null;
+
+
         public IList<ICodeFragment> Children => null;
 
         public Statement(string text)

@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using CodeSniffer.ApplicationInterfaces;
+using System.Collections.Generic;
 
 namespace CodeSniffer.ViewModels
 {
@@ -21,9 +22,12 @@ namespace CodeSniffer.ViewModels
         private IProject _project;
         private string _sourcePath;
         private ObservableCollection<MetricViewModel> _metrics;
+        private ObservableCollection<CodeSmellViewModel> _codeSmells;
+
 
         private string _parseInfo;
         private CodeFragmentViewModel _currentCodeFragment;
+        private LinkedList<CodeFragmentViewModel> _flatList;
 
         public CodeFragmentViewModel CurrentCodeFragment
         {
@@ -41,6 +45,16 @@ namespace CodeSniffer.ViewModels
             set
             {
                 _metrics = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<CodeSmellViewModel> CodeSmells
+        {
+            get { return _codeSmells; }
+            set
+            {
+                _codeSmells = value;
                 NotifyPropertyChanged();
             }
         }
@@ -72,6 +86,10 @@ namespace CodeSniffer.ViewModels
 
         public ICommand ShowCodeFragmentCommand { get; private set; }
 
+        public ICommand NextCommand { get; private set; }
+
+        public ICommand PrevCommand { get; private set; }
+
 
         public MainWindowViewModel(AsyncParserWrapper asyncParser, ApplicationInterfaces.IOService ioService)
         {
@@ -87,6 +105,50 @@ namespace CodeSniffer.ViewModels
             RefreshCommand = new RelayCommand(Refresh);
             OpenCommand = new RelayCommand(OpenFolder);
             ShowCodeFragmentCommand = new RelayCommand<CodeFragmentViewModel>(ShowCodeFragment);
+
+            NextCommand = new RelayCommand(SelectNextFragment);
+            PrevCommand = new RelayCommand(SelectPreviousFragment);
+        }
+
+        private void SelectPreviousFragment()
+        {
+            var previousCodeFragment = _flatList.Find(CurrentCodeFragment).Previous.Value;
+
+            if (previousCodeFragment != null)
+            {
+                if (!CodeFragments.Contains(previousCodeFragment))
+                {
+                    //if the next code fragment is not at the root level, set the root level parent to active
+                    var parent = FindRelatedParent(previousCodeFragment);
+                    if (parent != null)
+                        parent.IsActive = true;
+                }
+
+                previousCodeFragment.IsSelected = true;
+            }
+        }
+
+        private void SelectNextFragment()
+        {
+            var nextCodeFragment = _flatList.Find(CurrentCodeFragment).Next.Value;
+
+            if (nextCodeFragment != null)
+            {
+                if (!CodeFragments.Contains(nextCodeFragment))
+                {
+                    //if the next code fragment is not at the root level, set the root level parent to active
+                    var parent = FindRelatedParent(nextCodeFragment);
+                    if (parent != null)
+                        parent.IsActive = true;
+                }
+
+                nextCodeFragment.IsSelected = true;
+            }
+        }
+
+        private CodeFragmentViewModel FindRelatedParent(CodeFragmentViewModel codeFragment)
+        {
+            return CodeFragments.Where(x => x.Children.Contains(codeFragment)).FirstOrDefault();
         }
 
         private void OpenFolder()
@@ -100,11 +162,20 @@ namespace CodeSniffer.ViewModels
             if (codeFragment != null)
             {
                 CurrentCodeFragment = codeFragment;
+
                 Metrics = new ObservableCollection<MetricViewModel>();
 
                 foreach(var metric in codeFragment.Model.Metrics)
                 {
                     Metrics.Add(new MetricViewModel(metric));
+                }
+
+
+
+                CodeSmells = new ObservableCollection<CodeSmellViewModel>();
+                foreach(var codesmell in codeFragment.Model.CodeSmells)
+                {
+                    CodeSmells.Add(new CodeSmellViewModel(codesmell));
                 }
             }
         }
@@ -154,9 +225,28 @@ namespace CodeSniffer.ViewModels
 
             CodeFragments = SortCodeFragments(CodeFragments);
 
+            _flatList = GetLinkedFlatList(CodeFragments);
+
             var fragment = CodeFragments.FirstOrDefault();
             if (fragment != null)
                 fragment.IsSelected = true;
+        }
+
+        private LinkedList<CodeFragmentViewModel> GetLinkedFlatList(ObservableCollection<CodeFragmentViewModel> codeFragments, LinkedList<CodeFragmentViewModel> linkedList = null)
+        {
+            if (linkedList == null)
+                linkedList = new LinkedList<CodeFragmentViewModel>();
+
+            //TODO: MOVE TO SEPARATE CLASS
+            foreach (var codeFragment in codeFragments)
+            {
+                linkedList.AddLast(codeFragment);
+
+                if (codeFragment.Children != null)
+                    GetLinkedFlatList(codeFragment.Children, linkedList);
+            }
+
+            return linkedList;
         }
 
         private ObservableCollection<CodeFragmentViewModel> SortCodeFragments(ObservableCollection<CodeFragmentViewModel> codeFragments)
@@ -164,6 +254,7 @@ namespace CodeSniffer.ViewModels
             //TODO: MOVE TO SEPARATE CLASS
             foreach (var codeFragment in codeFragments)
             {
+
                 if (codeFragment.Children != null)
                     codeFragment.Children = SortCodeFragments(codeFragment.Children);
             }

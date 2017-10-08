@@ -35,15 +35,6 @@
             </MenuItem>
         </Menu>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Background="Black" >
-            <StackPanel>
-                <Button Width="50" Height="50" Command="{Binding SmellDetectedCommand}" CommandParameter="true">Yes</Button>
-            </StackPanel>
-            <StackPanel>
-                <Button Width="50" Height="50" Command="{Binding SmellDetectedCommand}" CommandParameter="false">No</Button>
-            </StackPanel>
-        </StackPanel>
-        
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300" MinWidth="200"/>
@@ -58,6 +49,7 @@
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}">
                         <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                        <Setter Property="IsExpanded" Value="{Binding IsActive}" />
                     </Style>
                 </TreeView.ItemContainerStyle>
 
@@ -83,10 +75,10 @@
 
             <Border Grid.Column="4" BorderBrush="Black" BorderThickness="0.6">
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding CurrentCodeFragment.Name}"/>
+                    <StackPanel Orientation="Vertical" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}">
+                        <TextBlock Margin="10" Text="{Binding CurrentCodeFragment.Name}"/>
                     </StackPanel>
-                    <ItemsControl ItemsSource="{Binding Metrics}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <ItemsControl ItemsSource="{Binding Metrics}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinHeight="120">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical">
@@ -102,6 +94,29 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
+                    <StackPanel Orientation="Vertical" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}">
+                        <TextBlock Margin="10">Code Smells:</TextBlock>
+                    </StackPanel>
+                    <ItemsControl ItemsSource="{Binding CodeSmells}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinHeight="120">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <Grid Margin="20,5,20,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="40"/>
+                                        </Grid.ColumnDefinitions>
+                                        <CheckBox Grid.Column="0" IsChecked="{Binding IsDetected}" Content="{Binding Name}" HorizontalAlignment="left"/>
+                                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Separator></Separator>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="50" Margin="0,20,0,0">
+                        <Button Width="85" Command="{Binding PrevCommand}">Previous</Button>
+                        <Button Width="85" Command="{Binding NextCommand}" Margin="20,0,0,0">Next</Button>
+                    </StackPanel>
                 </StackPanel>
             </Border>
         </Grid>

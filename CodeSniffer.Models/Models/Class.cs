@@ -1,4 +1,5 @@
 ﻿using CodeSniffer.Interfaces;
+using CodeSniffer.Models.CodeSmells;
 using CodeSniffer.Models.Metrics;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace CodeSniffer.Models
         public IList<ICodeFragment> Children => Methods.Cast<ICodeFragment>().ToList();
 
         public IList<IMetric> Metrics { get; private set; }
+
+        public IList<ICodeSmell> CodeSmells { get; private set; }
 
         public IList<string> MemberDeclarartions { get; private set; }
 
@@ -44,6 +47,9 @@ namespace CodeSniffer.Models
             Metrics = new List<IMetric>();
             Metrics.Add(new LinesOfCode(Content));
             Metrics.Add(new NumberOfMembers(MemberDeclarartions));
+
+            CodeSmells = new List<ICodeSmell>();
+            CodeSmells.Add(new LargeClass());
         }
 
         public void AddMethod(Method method)

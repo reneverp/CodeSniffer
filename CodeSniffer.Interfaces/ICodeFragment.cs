@@ -9,5 +9,6 @@ namespace CodeSniffer.Interfaces
 
         IList<ICodeFragment> Children { get; }
         IList<IMetric> Metrics { get; }
+        IList<ICodeSmell> CodeSmells { get; }
     }
 }

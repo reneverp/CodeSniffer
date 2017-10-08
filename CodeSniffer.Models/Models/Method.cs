@@ -1,4 +1,5 @@
 ﻿using CodeSniffer.Interfaces;
+using CodeSniffer.Models.CodeSmells;
 using CodeSniffer.Models.Metrics;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace CodeSniffer.Models
 
         public IList<IMetric> Metrics { get; private set; }
 
+        public IList<ICodeSmell> CodeSmells { get; private set; }
+
         public IList<Statement> Statements { get; private set; }
 
         public IList<string> Parameters { get; private set; }
@@ -30,6 +33,10 @@ namespace CodeSniffer.Models
             Metrics.Add(new LinesOfCode(Content));
             Metrics.Add(new CyclometicComplexity(Statements));
             Metrics.Add(new NumberOfParameters(Parameters));
+
+            CodeSmells = new List<ICodeSmell>();
+            CodeSmells.Add(new FeatureEnvy());
+            CodeSmells.Add(new LongMethod());
         }
 
         public void AddStatement(Statement statement)

@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeSmells\FeatureEnvy.cs" />
+    <Compile Include="CodeSmells\LargeClass.cs" />
+    <Compile Include="CodeSmells\LongMethod.cs" />
     <Compile Include="Metrics\CyclometicComplexity.cs" />
     <Compile Include="Metrics\LinesOfCode.cs" />
     <Compile Include="Metrics\NumberOfMembers.cs" />

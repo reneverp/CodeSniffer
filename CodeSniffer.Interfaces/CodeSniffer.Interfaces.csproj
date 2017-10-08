@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICodeFragment.cs" />
+    <Compile Include="ICodeSmell.cs" />
     <Compile Include="ICompilationUnit.cs" />
     <Compile Include="IListener.cs" />
     <Compile Include="IMetric.cs" />

@@ -1,0 +1,58 @@
+@startuml
+interface IMetric
+interface ICodeFragment
+interface ICodeSmell
+
+class Class
+class Method
+class Statement
+
+class LinesOfCode
+class Complexity
+class NumberOfMembers
+class NumberOfParameters
+
+class FeatureEnvy
+class LongMethod
+class LargeClass
+
+ICodeFragment <|-- Method
+ICodeFragment <|-- Class
+ICodeFragment <|-- Statement
+
+ICodeFragment ..> IMetric
+IMetric <|--- LinesOfCode
+IMetric <|--- Complexity
+IMetric <|--- NumberOfMembers
+IMetric <|--- NumberOfParameters
+
+ICodeFragment ..> ICodeSmell
+ICodeSmell <|--- FeatureEnvy
+ICodeSmell <|--- LongMethod
+ICodeSmell <|--- LargeClass
+
+class Parser
+
+class BaseListener
+class GenericListener
+class ClassListener
+class MethodListener
+
+Parser *-right- BaseListener
+
+BaseListener <|-- GenericListener
+
+GenericListener *-- ClassListener
+GenericListener *-- MethodListener
+
+
+class Main
+Main *-- Parser
+
+class MainWindowViewModel
+MainWindowViewModel --* Main
+
+MainWindowViewModel o------ ICodeFragment
+
+
+@enduml 

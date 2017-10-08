@@ -1,4 +1,5 @@
 ﻿using CodeSniffer.Interfaces;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace CodeSniffer.ViewModels
@@ -10,8 +11,7 @@ namespace CodeSniffer.ViewModels
 
         public string Name { get; set; }
         public string Content { get; set; }
-
-
+        
         public ICodeFragment Model { get; set; }
 
         public ObservableCollection<CodeFragmentViewModel> Children { get; set; }
@@ -39,6 +39,16 @@ namespace CodeSniffer.ViewModels
         {
             get { return _isSelected; }
             set{
+                _isSelected = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool IsActive
+        {
+            get { return _isSelected; }
+            set
+            {
                 _isSelected = value;
                 NotifyPropertyChanged();
             }
