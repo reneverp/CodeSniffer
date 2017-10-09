@@ -24,5 +24,9 @@ namespace CodeSniffer.Models
         {
             Content = text;
         }
+
+        public void WriteToTrainingSet()
+        {
+        }
     }
 }

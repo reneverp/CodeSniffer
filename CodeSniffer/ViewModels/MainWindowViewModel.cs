@@ -130,6 +130,8 @@ namespace CodeSniffer.ViewModels
 
         private void SelectNextFragment()
         {
+            CurrentCodeFragment.Model.WriteToTrainingSet();
+
             var nextCodeFragment = _flatList.Find(CurrentCodeFragment).Next.Value;
 
             if (nextCodeFragment != null)

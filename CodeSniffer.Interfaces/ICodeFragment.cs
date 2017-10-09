@@ -10,5 +10,8 @@ namespace CodeSniffer.Interfaces
         IList<ICodeFragment> Children { get; }
         IList<IMetric> Metrics { get; }
         IList<ICodeSmell> CodeSmells { get; }
+
+        //TODO: move implementations to separate class
+        void WriteToTrainingSet();
     }
 }

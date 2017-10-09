@@ -1,4 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using CodeSniffer.Interfaces;
+using System.IO;
+using System.Text;
+using System.Windows.Forms;
 
 namespace CodeSniffer.Utilities
 {
