@@ -18,11 +18,21 @@ namespace CodeSniffer.Models
 
         public string Content { get; private set; }
 
-        public IList<ICodeFragment> Children => Methods.Cast<ICodeFragment>().ToList();
+        public IList<ICodeFragment> Children
+        {
+            get
+            {
+                return Methods.Cast<ICodeFragment>().ToList();
+            }
+            set
+            {
+                //not impl. setter is needed for json Serialization / Deserialization :-(
+            }
+        }
 
-        public IList<IMetric> Metrics { get; private set; }
+        public IList<IMetric> Metrics { get; set; }
 
-        public IList<ICodeSmell> CodeSmells { get; private set; }
+        public IList<ICodeSmell> CodeSmells { get; set; }
 
         public IList<string> MemberDeclarartions { get; private set; }
 
@@ -38,6 +48,8 @@ namespace CodeSniffer.Models
             }
         }
 
+        private string _filename;
+
         public Class(string name, string text)
         {
             Name = name;
@@ -52,6 +64,8 @@ namespace CodeSniffer.Models
 
             CodeSmells = new List<ICodeSmell>();
             CodeSmells.Add(new LargeClass());
+
+            _filename = "ClassTrainingSet" + System.DateTime.Now.ToString("_Hmm_ddMMyyyy") + ".csv";
         }
 
         public void AddMethod(Method method)
@@ -83,10 +97,12 @@ namespace CodeSniffer.Models
             StringBuilder sb = new StringBuilder();
             StringBuilder headers = new StringBuilder();
 
+            sb.Append(Name + ",");
+
             for (int i = 0; i < Metrics.Count; i++)
             {
                 var metric = Metrics[i];
-                sb.Append(metric.Calculate());
+                sb.Append(metric.Value);
                 headers.Append(metric.Name);
 
                 sb.Append(",");
@@ -106,7 +122,7 @@ namespace CodeSniffer.Models
                 }
             }
 
-            if (!File.Exists("ClassTrainingSet.csv"))
+            if (!File.Exists(_filename))
             {
                 WriteLine(headers.ToString());
             }
@@ -114,9 +130,9 @@ namespace CodeSniffer.Models
             WriteLine(sb.ToString());
         }
 
-        private static void WriteLine(string line)
+        private void WriteLine(string line)
         {
-            using (StreamWriter writer = new StreamWriter(File.Open("ClassTrainingSet.csv", FileMode.Append, FileAccess.Write)))
+            using (StreamWriter writer = new StreamWriter(File.Open(_filename, FileMode.Append, FileAccess.Write)))
             {
                 writer.WriteLine(line);
             }

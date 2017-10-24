@@ -6,9 +6,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
-using CodeSniffer.ApplicationInterfaces;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace CodeSniffer.ViewModels
 {
@@ -28,6 +27,7 @@ namespace CodeSniffer.ViewModels
         private string _parseInfo;
         private CodeFragmentViewModel _currentCodeFragment;
         private LinkedList<CodeFragmentViewModel> _flatList;
+        private string _filename;
 
         public CodeFragmentViewModel CurrentCodeFragment
         {
@@ -84,11 +84,17 @@ namespace CodeSniffer.ViewModels
 
         public ICommand OpenCommand { get; private set; }
 
+        public ICommand LoadProjectCommand { get; private set; }
+
+        public ICommand SaveProjectCommand { get; private set; }
+        
         public ICommand ShowCodeFragmentCommand { get; private set; }
 
         public ICommand NextCommand { get; private set; }
 
         public ICommand PrevCommand { get; private set; }
+
+        public ICommand ClosingCommand { get; private set; }
 
 
         public MainWindowViewModel(AsyncParserWrapper asyncParser, ApplicationInterfaces.IOService ioService)
@@ -104,10 +110,50 @@ namespace CodeSniffer.ViewModels
             ExitCommand = new RelayCommand(() => Environment.Exit(0));
             RefreshCommand = new RelayCommand(Refresh);
             OpenCommand = new RelayCommand(OpenFolder);
+            LoadProjectCommand = new RelayCommand(LoadProject);
+            SaveProjectCommand = new RelayCommand(SaveProject);
             ShowCodeFragmentCommand = new RelayCommand<CodeFragmentViewModel>(ShowCodeFragment);
 
             NextCommand = new RelayCommand(SelectNextFragment);
             PrevCommand = new RelayCommand(SelectPreviousFragment);
+
+            ClosingCommand = new RelayCommand(Closing);
+
+            _filename = "CodeSnifferSavedProject" + System.DateTime.Now.ToString("_Hmm_ddMMyyyy") + ".json";
+        }
+
+        private void Closing()
+        {
+            SaveProject();
+        }
+
+        private void SaveProject()
+        {
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(CodeFragments, Formatting.Indented, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Objects,
+                TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Full
+            });
+
+
+            _ioService.WriteToFile(_filename, json);
+        }
+
+        private void LoadProject()
+        {
+            string filename = _ioService.OpenFileDialog(false);
+
+            if (!string.IsNullOrEmpty(filename))
+            {
+                string json = _ioService.ReadContentFromFile(filename);
+
+                CodeFragments = Newtonsoft.Json.JsonConvert.DeserializeObject<ObservableCollection<CodeFragmentViewModel>>(json, new JsonSerializerSettings
+                                                                                {
+                                                                                    TypeNameHandling = TypeNameHandling.Objects
+                                                                                });
+
+                UpdateCodeFragments();
+            }
         }
 
         private void SelectPreviousFragment()
@@ -225,6 +271,11 @@ namespace CodeSniffer.ViewModels
                 }
             }
 
+            UpdateCodeFragments();
+        }
+
+        private void UpdateCodeFragments()
+        {
             CodeFragments = SortCodeFragments(CodeFragments);
 
             _flatList = GetLinkedFlatList(CodeFragments);

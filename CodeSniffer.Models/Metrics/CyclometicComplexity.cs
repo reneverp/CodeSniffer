@@ -1,5 +1,6 @@
 ﻿using CodeSniffer.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace CodeSniffer.Models.Metrics
 {
@@ -7,7 +8,29 @@ namespace CodeSniffer.Models.Metrics
     {
         private IList<Statement> _statements;
 
-        public string Name => "Cyclometic Complexity";
+        public string Name
+        {
+            get { return "Cyclometic Complexity"; }
+            set { }
+        }
+
+        private double _value = -1;
+        public double Value
+        {
+            get
+            {
+                if (_value == -1)
+                {
+                    _value = Calculate();
+                }
+
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
 
         public CyclometicComplexity(IList<Statement> statements)
         {

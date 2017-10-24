@@ -7,9 +7,9 @@ namespace CodeSniffer.Interfaces
         string Content { get; }
         string Name { get; }
 
-        IList<ICodeFragment> Children { get; }
-        IList<IMetric> Metrics { get; }
-        IList<ICodeSmell> CodeSmells { get; }
+        IList<ICodeFragment> Children { get; set; }
+        IList<IMetric> Metrics { get; set; }
+        IList<ICodeSmell> CodeSmells { get; set; }
 
         //TODO: move implementations to separate class
         void WriteToTrainingSet();

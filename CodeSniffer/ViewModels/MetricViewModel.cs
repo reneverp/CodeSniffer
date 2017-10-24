@@ -29,7 +29,9 @@ namespace CodeSniffer.ViewModels
         public MetricViewModel(IMetric metric)
         {
             Name = metric.Name;
-            Value = metric.Calculate();
+
+            Value = metric.Value;
+
         }
     }
 }

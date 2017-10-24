@@ -29,7 +29,8 @@
         <Menu Grid.Row="0" VerticalAlignment="Top" Height="20">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open" Command="{Binding OpenCommand}"/>
-                <MenuItem Header="_Close"/>
+                <MenuItem Header="_LoadProject" Command="{Binding LoadProjectCommand}"/>
+                <MenuItem Header="_SaveProject" Command="{Binding SaveProjectCommand}"/>
                 <MenuItem Header="_Refresh" Command="{Binding RefreshCommand}"/>
                 <MenuItem Header="_Exit" Command="{Binding ExitCommand}"/>
             </MenuItem>
@@ -126,6 +127,12 @@
         <TextBox Name="tb" Grid.Row="4" Text="{Binding ParseInfoLines}" VerticalScrollBarVisibility="Auto" />
 
     </Grid>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding ClosingCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
 </Window>
 

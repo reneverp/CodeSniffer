@@ -7,7 +7,29 @@ namespace CodeSniffer.Models.Metrics
     {
         private IList<string> _parameters;
 
-        public string Name => "Number Of Parameters";
+        public string Name
+        {
+            get { return "Number Of Parameters"; }
+            set { }
+        }
+
+        private double _value = -1;
+        public double Value
+        {
+            get
+            {
+                if (_value == -1)
+                {
+                    _value = Calculate();
+                }
+
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
 
         public NumberOfParameters(IList<string> parameters)
         {

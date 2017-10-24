@@ -8,7 +8,28 @@ namespace CodeSniffer.Models.Metrics
     {
         private string _code;
 
-        public string Name => "Lines of Code";
+        public string Name
+        {
+            get { return "Lines of Code"; }
+            set { }
+        }
+
+        private double _value = -1;
+        public double Value {
+            get
+            {
+                if (_value == -1)
+                {
+                    _value = Calculate();
+                }
+
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
 
         public LinesOfCode(string code)
         {

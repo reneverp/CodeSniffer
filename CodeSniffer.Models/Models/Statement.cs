@@ -13,12 +13,12 @@ namespace CodeSniffer.Models
 
         public string Name => "statement";
 
-        public IList<IMetric> Metrics => null;
+        public IList<IMetric> Metrics { get; set; }
 
-        public IList<ICodeSmell> CodeSmells => null;
+        public IList<ICodeSmell> CodeSmells { get; set; }
 
 
-        public IList<ICodeFragment> Children => null;
+        public IList<ICodeFragment> Children { get; set; }
 
         public Statement(string text)
         {

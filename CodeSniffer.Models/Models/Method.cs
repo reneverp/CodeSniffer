@@ -14,15 +14,27 @@ namespace CodeSniffer.Models
 
         public string Content { get; private set; }
 
-        public IList<ICodeFragment> Children => Statements.Cast<ICodeFragment>().ToList();
+        public IList<ICodeFragment> Children
+        {
+            get
+            {
+                return Statements.Cast<ICodeFragment>().ToList();
+            }
+            set
+            {
+                //not impl
+            }
+        }
 
-        public IList<IMetric> Metrics { get; private set; }
+        public IList<IMetric> Metrics { get; set; }
 
-        public IList<ICodeSmell> CodeSmells { get; private set; }
+        public IList<ICodeSmell> CodeSmells { get; set; }
 
         public IList<Statement> Statements { get; private set; }
 
         public IList<string> Parameters { get; private set; }
+
+        private string _filename;
 
         public Method(string name, string text)
         {
@@ -39,6 +51,8 @@ namespace CodeSniffer.Models
             CodeSmells = new List<ICodeSmell>();
             CodeSmells.Add(new FeatureEnvy());
             CodeSmells.Add(new LongMethod());
+
+            _filename = "MethodTrainingSet" + System.DateTime.Now.ToString("_Hmm_ddMMyyyy") + ".csv";
         }
 
         public void AddStatement(Statement statement)
@@ -59,7 +73,7 @@ namespace CodeSniffer.Models
             for (int i = 0; i < Metrics.Count; i++)
             {
                 var metric = Metrics[i];
-                sb.Append(metric.Calculate());
+                sb.Append(metric.Value);
                 headers.Append(metric.Name);
 
                 sb.Append(",");
@@ -79,7 +93,7 @@ namespace CodeSniffer.Models
                 }
             }
 
-            if (!File.Exists("MethodTrainingSet.csv"))
+            if (!File.Exists(_filename))
             {
                 WriteLine(headers.ToString());
             }
@@ -87,9 +101,9 @@ namespace CodeSniffer.Models
             WriteLine(sb.ToString());
         }
 
-        private static void WriteLine(string line)
+        private void WriteLine(string line)
         {
-            using (StreamWriter writer = new StreamWriter(File.Open("MethodTrainingSet.csv", FileMode.Append, FileAccess.Write)))
+            using (StreamWriter writer = new StreamWriter(File.Open(_filename, FileMode.Append, FileAccess.Write)))
             {
                 writer.WriteLine(line);
             }

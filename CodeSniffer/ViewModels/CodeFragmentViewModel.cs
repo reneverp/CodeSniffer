@@ -1,9 +1,9 @@
 ﻿using CodeSniffer.Interfaces;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace CodeSniffer.ViewModels
 {
+    
     //TODO: MOVE TO SEPARATE CLASS
     class CodeFragmentViewModel : ViewModelBase
     {

@@ -8,7 +8,29 @@ namespace CodeSniffer.Models.Metrics
     {
         private IList<string> _members;
 
-        public string Name => "Number Of Members";
+        public string Name
+        {
+            get { return "Number Of Members"; }
+            set { }
+        }
+
+        private double _value = -1;
+        public double Value
+        {
+            get
+            {
+                if (_value == -1)
+                {
+                    _value = Calculate();
+                }
+
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
 
         public NumberOfMembers(IList<string> members)
         {

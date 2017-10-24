@@ -8,7 +8,8 @@ namespace CodeSniffer.Interfaces
 {
     public interface IMetric
     {
-        string Name { get; }
+        string Name { get; set; }
+        double Value { get; set; }
         double Calculate();
     }
 }
