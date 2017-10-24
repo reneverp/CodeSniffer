@@ -22,7 +22,7 @@ namespace CodeSniffer.Models
             }
             set
             {
-                //not impl
+                //not impl. setter is needed for json Serialization / Deserialization :-(
             }
         }
 
