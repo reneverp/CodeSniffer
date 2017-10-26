@@ -12,6 +12,8 @@ namespace CodeSniffer
         [STAThread]
         public static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.UnhandledException += HandleException;
+
             var app = new App();
 
             Parser parser = new Parser();
@@ -27,6 +29,13 @@ namespace CodeSniffer
             window.Show();
 
             app.Run();
+        }
+
+        private static void HandleException(object sender, UnhandledExceptionEventArgs e)
+        {
+            _viewModel.SaveProject();
+            MessageBox.Show("Exception Caught: project saved");
+
         }
 
         private static void OnWindowLoaded(object sender, RoutedEventArgs e)

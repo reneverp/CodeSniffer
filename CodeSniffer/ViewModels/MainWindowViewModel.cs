@@ -127,7 +127,7 @@ namespace CodeSniffer.ViewModels
             SaveProject();
         }
 
-        private void SaveProject()
+        public void SaveProject()
         {
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(CodeFragments, Formatting.Indented, new JsonSerializerSettings
             {
@@ -178,7 +178,7 @@ namespace CodeSniffer.ViewModels
         {
             CurrentCodeFragment.Model.WriteToTrainingSet();
 
-            var nextCodeFragment = _flatList.Find(CurrentCodeFragment).Next.Value;
+            var nextCodeFragment = _flatList.Find(CurrentCodeFragment)?.Next?.Value;
 
             if (nextCodeFragment != null)
             {

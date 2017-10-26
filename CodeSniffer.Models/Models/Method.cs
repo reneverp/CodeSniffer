@@ -10,6 +10,8 @@ namespace CodeSniffer.Models
 {
     public class Method : ICodeFragment
     {
+        private bool _writtenToDataSet;
+
         public string Name { get; private set; }
 
         public string Content { get; private set; }
@@ -53,6 +55,7 @@ namespace CodeSniffer.Models
             CodeSmells.Add(new LongMethod());
 
             _filename = "MethodTrainingSet" + System.DateTime.Now.ToString("_Hmm_ddMMyyyy") + ".csv";
+            _writtenToDataSet = false;
         }
 
         public void AddStatement(Statement statement)
@@ -67,6 +70,11 @@ namespace CodeSniffer.Models
 
         public void WriteToTrainingSet()
         {
+            if(_writtenToDataSet)
+            {
+                return;
+            }
+
             StringBuilder sb = new StringBuilder();
             StringBuilder headers = new StringBuilder();
 
@@ -99,6 +107,8 @@ namespace CodeSniffer.Models
             }
 
             WriteLine(sb.ToString());
+
+            _writtenToDataSet = true;
         }
 
         private void WriteLine(string line)
