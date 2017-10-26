@@ -2,6 +2,7 @@
 using CodeSniffer.ViewModels;
 using System;
 using System.Windows;
+using System.ComponentModel;
 
 namespace CodeSniffer
 {
@@ -26,9 +27,15 @@ namespace CodeSniffer
             var window = new MainWindow { DataContext = _viewModel };
 
             window.Loaded += OnWindowLoaded;
+            window.Closing += OnClosing;
             window.Show();
 
             app.Run();
+        }
+
+        private static void OnClosing(object sender, CancelEventArgs e)
+        {
+            _viewModel.ClosingCommand.Execute(null);
         }
 
         private static void HandleException(object sender, UnhandledExceptionEventArgs e)

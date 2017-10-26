@@ -122,9 +122,13 @@ namespace CodeSniffer.ViewModels
             _filename = "CodeSnifferSavedProject" + System.DateTime.Now.ToString("_Hmm_ddMMyyyy") + ".json";
         }
 
-        private void Closing()
+        public void Closing()
         {
             SaveProject();
+            foreach(var fragment in _flatList)
+            {
+                fragment.Model.WriteToTrainingSet();
+            }
         }
 
         public void SaveProject()
@@ -176,8 +180,6 @@ namespace CodeSniffer.ViewModels
 
         private void SelectNextFragment()
         {
-            CurrentCodeFragment.Model.WriteToTrainingSet();
-
             var nextCodeFragment = _flatList.Find(CurrentCodeFragment)?.Next?.Value;
 
             if (nextCodeFragment != null)

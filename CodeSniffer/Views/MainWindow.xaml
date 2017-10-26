@@ -16,7 +16,7 @@
     <Window.Resources>
         <converters:StringToHtmlCodeBlockConverter x:Key="StringToHtmlCodeBlockConverter" />
     </Window.Resources>
-    
+
     <Grid Name="MainLayoutGrid" Background="#FFF0F0F0">
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
@@ -59,7 +59,7 @@
                         <TextBlock Text="{Binding Name}" />
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
-                
+
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedItemChanged">
                         <i:InvokeCommandAction Command="{Binding ShowCodeFragmentCommand}" CommandParameter="{Binding SelectedItem, ElementName=treeView}"/>
@@ -67,11 +67,11 @@
                 </i:Interaction.Triggers>
 
             </TreeView>
-            
+
             <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch"/>
-            
+
             <WebBrowser VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" ap:HtmlAttachedProperty.Html="{Binding CurrentCodeFragment.Content, Converter={StaticResource StringToHtmlCodeBlockConverter}}"/>
-            
+
             <GridSplitter Grid.Column="3" Width="4" HorizontalAlignment="Stretch"/>
 
             <Border Grid.Column="4" BorderBrush="Black" BorderThickness="0.6">
@@ -127,13 +127,6 @@
         <TextBox Name="tb" Grid.Row="4" Text="{Binding ParseInfoLines}" VerticalScrollBarVisibility="Auto" />
 
     </Grid>
-
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding ClosingCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-
 </Window>
 
 
