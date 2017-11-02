@@ -1,12 +1,13 @@
 ﻿using CodeSniffer.Interfaces;
 using System.Collections.Generic;
 using System;
+using System.Text.RegularExpressions;
 
 namespace CodeSniffer.Models.Metrics
 {
     class CyclometicComplexity : IMetric
     {
-        private IList<Statement> _statements;
+        private string _block;
 
         public string Name
         {
@@ -32,38 +33,47 @@ namespace CodeSniffer.Models.Metrics
             }
         }
 
-        public CyclometicComplexity(IList<Statement> statements)
+        public CyclometicComplexity(string block)
         {
-            _statements = statements;
+            _block = block;
         }
 
         public double Calculate()
         {
-            //measure the complexity: https://www.leepoint.net/principles_and_practices/complexity/complexity-java-method.html
+            //measure the complexity: http://metrics.sourceforge.net/
             //Cyclometic complexity starts with 1;
             //for every conditional, 1 is added.
             int complexity = 1;
 
-            foreach (var statement in _statements)
-            {
-                var text = statement.Content;
+            complexity += CountOccurrences(_block, @"if\s*?\(");
+            complexity += CountOccurrences(_block, @"else(\s|\n)*?{");
+            complexity += CountOccurrences(_block, @"for\s*?\(");
+            complexity += CountOccurrences(_block, @"foreach\s*?\(");
+            complexity += CountOccurrences(_block, @"while\s*?\(");
+            complexity += CountOccurrences(_block, @"do(\s|\n)*?{");
+            complexity += CountOccurrences(_block, @"try(\s|\n)*?{");
+            complexity += CountOccurrences(_block, @"finally(\s|\n)*?{");
+            complexity += CountOccurrences(_block, @"catch\s*?\(?");
+            complexity += CountOccurrences(_block, @"default.*?:");
+            complexity += CountOccurrences(_block, @"case.*?:");
+            complexity += CountOccurrences(_block, @"continue\s*?;");
+            complexity += CountOccurrences(_block, @"&&\s*?");
+            complexity += CountOccurrences(_block, @"\|\|\s*?");
+            complexity += CountOccurrences(_block, @"\?\s*?");
+            complexity += CountOccurrences(_block, @"\?.*?:\s*?");
 
-                if (text.StartsWith("if") ||
-                    text.StartsWith("else") ||
-                    text.StartsWith("for") ||
-                    text.StartsWith("foreach") ||
-                    text.StartsWith("while") ||
-                    text.StartsWith("do") ||
-                    text.StartsWith("catch") ||
-                    text.StartsWith("switch") ||
-                    text.StartsWith("case"))
-                {
-                    complexity++;
-                }
+            var returnCount = CountOccurrences(_block, @"return.*?;"); //only multiple return statements count
+            if(returnCount > 0)
+            {
+                complexity += returnCount - 1;
             }
 
-
             return complexity;
+        }
+
+        private static int CountOccurrences(string line, string keyword)
+        {
+            return Regex.Matches(line, keyword).Count;
         }
     }
 }

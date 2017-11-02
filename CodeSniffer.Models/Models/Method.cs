@@ -47,7 +47,7 @@ namespace CodeSniffer.Models
 
             Metrics = new List<IMetric>();
             Metrics.Add(new LinesOfCode(Content));
-            Metrics.Add(new CyclometicComplexity(Statements));
+            Metrics.Add(new CyclometicComplexity(Content));
             Metrics.Add(new NumberOfParameters(Parameters));
 
             CodeSmells = new List<ICodeSmell>();
