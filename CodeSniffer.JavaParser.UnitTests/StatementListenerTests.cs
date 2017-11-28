@@ -22,17 +22,18 @@ namespace CodeSniffer.Parser.Java.UnitTests
         [Test]
         public void GivenAnActiveMethod_WhenAStatmentIsFound_ThenTheStatmentIsAddedToTheClassModel()
         {
-            Method method = new Method("", "");
+            Method method = new Method(null, "", "");
 
             _statementListener.setCurrentMethod(method);
 
             Mocks.StatementContextMock statementContext = new Mocks.StatementContextMock(null, 1);
             _statementListener.EnterStatement(statementContext);
+            method.ExtractInnerAndOuterMethodInvocations();
 
             _statementListener.resetCurrentMethod();
 
-            Assert.AreEqual(method.Statements.Count, 1);
-            Assert.AreEqual("test", method.Statements[0].Content);
+            Assert.AreEqual(1, method.OuterMethodInvocations.Count);
+            Assert.AreEqual("testInvoke", method.OuterMethodInvocations[0].Content);
         }
 
         [Test]

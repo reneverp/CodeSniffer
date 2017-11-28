@@ -42,8 +42,6 @@ namespace CodeSniffer.Parser.Java.UnitTests
         [Test]
         public void GivenNoActiveCompilationUnit_WhenAClassIsFound_ThenTheClassIsIgnored()
         {
-            Method method = new Method("", "");
-
             Mocks.ClassContextMock classContext = new Mocks.ClassContextMock(null, 1);
 
             Assert.DoesNotThrow(() => _classListener.EnterClassDeclaration(classContext) );

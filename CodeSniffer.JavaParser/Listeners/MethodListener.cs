@@ -37,7 +37,7 @@ namespace CodeSniffer.Listeners
 
             var parameters = context.formalParameters()?.formalParameterList()?.formalParameter();
 
-            Method methodModel = new Method(context.Identifier()?.GetText(), inputStream.GetText(interval));
+            Method methodModel = new Method(_currentClass, context.Identifier()?.GetText(), inputStream.GetText(interval));
 
             if (parameters != null)
             {

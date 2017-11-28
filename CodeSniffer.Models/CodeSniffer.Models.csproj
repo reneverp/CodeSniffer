@@ -45,15 +45,19 @@
     <Compile Include="CodeSmells\FeatureEnvy.cs" />
     <Compile Include="CodeSmells\LargeClass.cs" />
     <Compile Include="CodeSmells\LongMethod.cs" />
+    <Compile Include="Metrics\ATFD.cs" />
     <Compile Include="Metrics\CyclometicComplexity.cs" />
     <Compile Include="Metrics\LinesOfCode.cs" />
+    <Compile Include="Metrics\NumberOfInnerMethodInvocations.cs" />
     <Compile Include="Metrics\NumberOfMembers.cs" />
+    <Compile Include="Metrics\NumberOfOuterMethodInvocations.cs" />
     <Compile Include="Metrics\NumberOfParameters.cs" />
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\CompilationUnit.cs" />
+    <Compile Include="Models\FieldAccessor.cs" />
     <Compile Include="Models\Method.cs" />
     <Compile Include="Models\Project.cs" />
-    <Compile Include="Models\Statement.cs" />
+    <Compile Include="Models\MethodInvocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

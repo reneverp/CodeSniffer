@@ -38,8 +38,6 @@ namespace CodeSniffer.Parser.Java.UnitTests
         [Test]
         public void GivenNoActiveClass_WhenAMethodIsFound_ThenTheMethodIsIgnored()
         {
-            Method method = new Method("", "");
-
             Mocks.MethodContextMock methodcontext = new Mocks.MethodContextMock(null, 1);
 
             Assert.DoesNotThrow(() => _methodListener.EnterMethodDeclaration(methodcontext) );

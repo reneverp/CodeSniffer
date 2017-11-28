@@ -2,6 +2,7 @@
 using CodeSniffer.Models;
 using NLog;
 using System;
+using System.Text.RegularExpressions;
 
 namespace CodeSniffer.Listeners
 {
@@ -33,11 +34,20 @@ namespace CodeSniffer.Listeners
 
                 var text = context.GetText();
 
-                Statement statement = new Statement(text);
+                //find method invocation using Regex: not conditional, name followed by ( and )
+                var methodInvocationMatches = Regex.Matches(text, @"(?!\bif\b|\bfor\b|\bwhile\b|\bswitch\b|\btry\b|\bcatch\b)(\b[\w]+\b)[\s\n\r]*(?=\(.*\))");
 
-                _currentMethod.AddStatement(statement);
+                if (methodInvocationMatches.Count > 0)
+                {
+                    foreach (Match methodInvocationMatch in methodInvocationMatches)
+                    {
+                        MethodInvocation methodInvocation = new MethodInvocation(methodInvocationMatch.Value);
 
-                InvokeParseInfoUpdate("Parsing statement: " + statement.Content);
+                        _currentMethod.AddMethodInvocation(methodInvocation);
+
+                        InvokeParseInfoUpdate("Parsing method invocation: " + methodInvocation.Content);
+                    }
+                }                
             }
         }
 

@@ -29,8 +29,15 @@ namespace CodeSniffer.Listeners
 
             var interval = new Interval(context.Start.StartIndex, context.Stop.StopIndex);
 
+            var text = inputStream.GetText(interval);
+
+            if(text.Contains("{")) //this is a method decl, strip until the open curly brace
+            {
+                text = text.Substring(0, text.IndexOf('{'));
+            }
+
             if (_currentClass != null)
-                _currentClass.AddMemberDecleration(inputStream.GetText(interval));
+                _currentClass.AddMemberDecleration(text);
         }
     }
 }

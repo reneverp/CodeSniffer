@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CodeSniffer.Models
 {
@@ -20,7 +21,8 @@ namespace CodeSniffer.Models
         {
             get
             {
-                return Statements.Cast<ICodeFragment>().ToList();
+                return null;
+                //return MethodInvocations.Cast<ICodeFragment>().ToList();
             }
             set
             {
@@ -32,23 +34,36 @@ namespace CodeSniffer.Models
 
         public IList<ICodeSmell> CodeSmells { get; set; }
 
-        public IList<Statement> Statements { get; private set; }
+        public IList<MethodInvocation> MethodInvocations      { get; private set; }
+        public IList<MethodInvocation> OuterMethodInvocations { get; private set; }
+        public IList<MethodInvocation> InnerMethodInvocations { get; private set; }
+        public List<MethodInvocation> ForeignDataAccessInvocations { get; private set; }
+
 
         public IList<string> Parameters { get; private set; }
 
+        private Class ParentClass { get; set; }
+
         private string _filename;
 
-        public Method(string name, string text)
+        public Method(Class parent, string name, string text)
         {
             Name = name;
             Content = text;
-            Statements = new List<Statement>();
+            MethodInvocations      = new List<MethodInvocation>();
+            InnerMethodInvocations = new List<MethodInvocation>();
+            OuterMethodInvocations = new List<MethodInvocation>();
+            ForeignDataAccessInvocations = new List<MethodInvocation>();
+
             Parameters = new List<string>();
 
             Metrics = new List<IMetric>();
             Metrics.Add(new LinesOfCode(Content));
             Metrics.Add(new CyclometicComplexity(Content));
             Metrics.Add(new NumberOfParameters(Parameters));
+            Metrics.Add(new NumberOfInnerMethodInvocations(InnerMethodInvocations));
+            Metrics.Add(new NumberOfOuterMethodInvocations(OuterMethodInvocations));
+            Metrics.Add(new ATFD(ForeignDataAccessInvocations));
 
             CodeSmells = new List<ICodeSmell>();
             CodeSmells.Add(new FeatureEnvy());
@@ -56,11 +71,31 @@ namespace CodeSniffer.Models
 
             _filename = "MethodTrainingSet" + System.DateTime.Now.ToString("_Hmm_ddMMyyyy") + ".csv";
             _writtenToDataSet = false;
+
+            ParentClass = parent;
         }
 
-        public void AddStatement(Statement statement)
+        public void AddMethodInvocation(MethodInvocation invocation)
         {
-            Statements.Add(statement);
+            MethodInvocations.Add(invocation);
+        }
+
+        public void ExtractInnerAndOuterMethodInvocations()
+        {
+            //Note: call this after the class has been fully parsed to avoid missing inner invocations.
+            foreach (var invocation in MethodInvocations)
+            {
+                if (ParentClass != null && ParentClass.Methods.Any(x => x.Name.Equals(invocation.Content)))
+                {                    
+                    InnerMethodInvocations.Add(invocation);
+                }
+                else
+                {
+                    OuterMethodInvocations.Add(invocation);
+                }
+            }
+
+            ForeignDataAccessInvocations.AddRange(OuterMethodInvocations.Where(x => !string.IsNullOrEmpty(x.AccessedField)).ToList());
         }
 
         public void AddParameter(string param)

@@ -13,6 +13,7 @@ namespace CodeSniffer.Listeners
         private CompilationUnit _currentComilationUnit;
         private MethodListener _methodListener;
         private MemberDeclarationListener _memberListener;
+        private Class _currentClassModel;
 
         public ClassListener(MethodListener methodListener, MemberDeclarationListener memberListener)
         {
@@ -38,20 +39,31 @@ namespace CodeSniffer.Listeners
 
             var interval = new Interval(context.Start.StartIndex, context.Stop.StopIndex);
 
-            Class classModel = new Class(context.Identifier()?.GetText(), inputStream.GetText(interval));
+            _currentClassModel = new Class(context.Identifier()?.GetText(), inputStream.GetText(interval));
             if (_currentComilationUnit != null)
-                _currentComilationUnit.AddClass(classModel);
+                _currentComilationUnit.AddClass(_currentClassModel);
 
-            _methodListener.setCurrentClass(classModel);
-            _memberListener.setCurrentClass(classModel);
+            _methodListener.setCurrentClass(_currentClassModel);
+            _memberListener.setCurrentClass(_currentClassModel);
 
-            InvokeParseInfoUpdate("Finished parsing class: " + classModel.Name);
+            InvokeParseInfoUpdate("Finished parsing class: " + _currentClassModel.Name);
+
         }
 
         public override void ExitClassDeclaration([NotNull] JavaParser.ClassDeclarationContext context)
         {
+            if (_currentClassModel != null)
+            {
+                foreach (var method in _currentClassModel.Methods)
+                {
+                    method.ExtractInnerAndOuterMethodInvocations();
+                }
+            }
+
             _methodListener.resetCurrentClass();
             _memberListener.resetCurrentClass();
+
+            _currentClassModel = null;
         }
     }
 }

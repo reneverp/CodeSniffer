@@ -32,7 +32,7 @@ namespace CodeSniffer.Parser.Java.UnitTests.Mocks
 
         public override string GetText()
         {
-            return "test";
+            return "testInvoke(arg1, arg2)";
         }
     }
 
