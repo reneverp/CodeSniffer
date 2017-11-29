@@ -55,6 +55,7 @@
     <Compile Include="Metrics\NumberOfMembers.cs" />
     <Compile Include="Metrics\NumberOfOuterMethodInvocations.cs" />
     <Compile Include="Metrics\NumberOfParameters.cs" />
+    <Compile Include="Metrics\TCC.cs" />
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\CompilationUnit.cs" />
     <Compile Include="Models\Method.cs" />

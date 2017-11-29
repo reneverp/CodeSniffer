@@ -40,6 +40,8 @@ namespace CodeSniffer.Models
         public IList<MethodInvocation> InnerMethodInvocations { get; private set; }
         public List<MethodInvocation> DataAccessInvocations { get; private set; }
         public List<MethodInvocation> ForeignDataAccessInvocations { get; private set; }
+        public List<MethodInvocation> InnerDataAccessInvocations { get; private set; }
+
 
 
         public IList<string> Parameters { get; private set; }
@@ -57,6 +59,8 @@ namespace CodeSniffer.Models
             OuterMethodInvocations = new List<MethodInvocation>();
             DataAccessInvocations  = new List<MethodInvocation>();
             ForeignDataAccessInvocations = new List<MethodInvocation>();
+            InnerDataAccessInvocations = new List<MethodInvocation>();
+
 
             Parameters = new List<string>();
 
@@ -109,9 +113,12 @@ namespace CodeSniffer.Models
             }
 
             ForeignDataAccessInvocations.AddRange(OuterMethodInvocations.Where(x => !string.IsNullOrEmpty(x.AccessedField)).ToList());
+            InnerDataAccessInvocations  .AddRange(InnerMethodInvocations.Where(x => !string.IsNullOrEmpty(x.AccessedField)).ToList());
 
-            DataAccessInvocations.AddRange(InnerMethodInvocations.Where(x => !string.IsNullOrEmpty(x.AccessedField)).ToList());
+
             DataAccessInvocations.AddRange(ForeignDataAccessInvocations);
+            DataAccessInvocations.AddRange(InnerDataAccessInvocations);
+
         }
 
         public void AddParameter(string param)
