@@ -25,5 +25,14 @@ namespace CodeSniffer.Models
                 Classes.Add(classToAdd);
             }
         }
+
+        public static void FindClassRelations(IList<ICompilationUnit> compilationUnits)
+        {
+            List<Class> totalClassOverView = new List<Class>();
+
+            compilationUnits.ToList().ForEach(x => totalClassOverView.AddRange(x.Classes.Cast<Class>()));
+
+            totalClassOverView.ForEach(x => x.FindClassRelations(totalClassOverView));
+        }
     }
 }

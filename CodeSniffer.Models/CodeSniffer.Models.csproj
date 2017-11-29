@@ -47,6 +47,7 @@
     <Compile Include="CodeSmells\LongMethod.cs" />
     <Compile Include="Metrics\ATFD.cs" />
     <Compile Include="Metrics\CyclometicComplexity.cs" />
+    <Compile Include="Metrics\FDP.cs" />
     <Compile Include="Metrics\LinesOfCode.cs" />
     <Compile Include="Metrics\NumberOfInnerMethodInvocations.cs" />
     <Compile Include="Metrics\NumberOfMembers.cs" />

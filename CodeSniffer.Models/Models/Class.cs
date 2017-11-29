@@ -95,6 +95,12 @@ namespace CodeSniffer.Models
             }
         }
 
+        public void FindClassRelations(List<Class> totalClassOverView)
+        {
+            Methods.ToList().ForEach(x => x.FindRelatedClassForOutboundInvocation(totalClassOverView));
+        }
+
+
         public void WriteToTrainingSet()
         {
             if(_writtenToDataSet)

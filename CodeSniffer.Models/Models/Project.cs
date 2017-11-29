@@ -1,6 +1,8 @@
 ﻿using CodeSniffer.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace CodeSniffer.Models
 {
     public class Project : IProject
@@ -37,6 +39,11 @@ namespace CodeSniffer.Models
         public int GetCompilationUnitsCount()
         {
             return CompilationUnits.Count;
+        }
+
+        public void FindClassRelations()
+        {
+            CompilationUnit.FindClassRelations(CompilationUnits);
         }
     }
 }

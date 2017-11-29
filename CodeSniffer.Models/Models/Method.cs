@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System;
 
 namespace CodeSniffer.Models
 {
@@ -64,6 +65,8 @@ namespace CodeSniffer.Models
             Metrics.Add(new NumberOfInnerMethodInvocations(InnerMethodInvocations));
             Metrics.Add(new NumberOfOuterMethodInvocations(OuterMethodInvocations));
             Metrics.Add(new ATFD(ForeignDataAccessInvocations));
+            Metrics.Add(new FDP(ForeignDataAccessInvocations));
+
 
             CodeSmells = new List<ICodeSmell>();
             CodeSmells.Add(new FeatureEnvy());
@@ -73,6 +76,13 @@ namespace CodeSniffer.Models
             _writtenToDataSet = false;
 
             ParentClass = parent;
+        }
+
+        public void FindRelatedClassForOutboundInvocation(List<Class> totalClassOverView)
+        {
+            OuterMethodInvocations.ToList().ForEach(x => x.DeclaredClass = (
+                                                           totalClassOverView.FirstOrDefault(y => y.Methods.Any(z => z.Name == x.Content))?.Name
+                                                           ));
         }
 
         public void AddMethodInvocation(MethodInvocation invocation)

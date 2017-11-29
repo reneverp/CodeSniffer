@@ -30,5 +30,6 @@ namespace CodeSniffer
 
             walker.Walk(genericListener, startingPonit);
         }
+
     }
 }

@@ -58,6 +58,10 @@ namespace CodeSniffer.Utilities
             {
                 project = null;
             }
+            else
+            {
+                project.FindClassRelations();
+            }
 
             return project;
         }

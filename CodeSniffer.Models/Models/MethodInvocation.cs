@@ -20,6 +20,7 @@ namespace CodeSniffer.Models
         public IList<ICodeFragment> Children { get; set; }
 
         public string AccessedField { get; set; }
+        public string DeclaredClass { get; set; }
 
         public MethodInvocation(string text)
         {

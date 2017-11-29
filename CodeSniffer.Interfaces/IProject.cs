@@ -9,5 +9,7 @@ namespace CodeSniffer.Interfaces
         void AddComilationUnit(ICompilationUnit compilationUnitToAdd);
         int GetClassCount();
         int GetCompilationUnitsCount();
+        void FindClassRelations();
+
     }
 }
