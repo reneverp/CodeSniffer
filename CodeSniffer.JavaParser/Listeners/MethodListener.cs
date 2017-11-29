@@ -58,6 +58,7 @@ namespace CodeSniffer.Listeners
         public override void ExitMethodDeclaration([NotNull] JavaParser.MethodDeclarationContext context)
         {
             _statementListener.resetCurrentMethod();
+
         }
     }
 }

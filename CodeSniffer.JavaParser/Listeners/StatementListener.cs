@@ -50,6 +50,5 @@ namespace CodeSniffer.Listeners
                 }                
             }
         }
-
     }
 }
