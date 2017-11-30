@@ -39,5 +39,30 @@ namespace CodeSniffer.Listeners
             if (_currentClass != null)
                 _currentClass.AddMemberDecleration(text);
         }
+
+        public override void EnterFieldDeclaration([NotNull] JavaParser.FieldDeclarationContext context)
+        {
+            Logger.Debug("parsing field declaration");
+
+            var inputStream = context.Start.InputStream;
+
+            var interval = new Interval(context.Start.StartIndex, context.Stop.StopIndex);
+
+            var variableDeclarators = context.variableDeclarators()?.variableDeclarator();
+
+            if (variableDeclarators != null)
+            {
+                foreach (var variableDecl in variableDeclarators)
+                {
+                    var id = variableDecl.variableDeclaratorId()?.Identifier();
+
+                    if (_currentClass != null && id != null)
+                    {
+                        _currentClass.AddInstanceVariable(id.GetText());
+                    }
+                }
+            }
+        
+        }
     }
 }

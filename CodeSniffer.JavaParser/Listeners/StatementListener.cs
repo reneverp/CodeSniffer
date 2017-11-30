@@ -50,5 +50,21 @@ namespace CodeSniffer.Listeners
                 }                
             }
         }
+
+        public override void EnterLocalVariableDeclaration([NotNull] JavaParser.LocalVariableDeclarationContext context)
+        {
+            Logger.Debug("parsing local variable declaration");
+
+            if (_currentMethod != null)
+            {
+                var inputStream = context.Start.InputStream;
+
+                var interval = new Interval(context.Start.StartIndex, context.Stop.StopIndex);
+
+                var text = context.GetText();
+
+                _currentMethod.AddLocalField(text);
+            }
+        }
     }
 }

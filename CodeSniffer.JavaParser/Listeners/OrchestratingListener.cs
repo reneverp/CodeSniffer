@@ -71,5 +71,25 @@ namespace CodeSniffer.Listeners
         {
             _statementListener.ExitStatement(context);
         }
+
+        public override void EnterFieldDeclaration([NotNull] JavaParser.FieldDeclarationContext context)
+        {
+            _memberListener.EnterFieldDeclaration(context);
+        }
+
+        public override void ExitFieldDeclaration([NotNull] JavaParser.FieldDeclarationContext context)
+        {
+            _memberListener.ExitFieldDeclaration(context);
+        }
+
+        public override void EnterLocalVariableDeclaration([NotNull] JavaParser.LocalVariableDeclarationContext context)
+        {
+            _statementListener.EnterLocalVariableDeclaration(context);
+        }
+
+        public override void ExitLocalVariableDeclaration([NotNull] JavaParser.LocalVariableDeclarationContext context)
+        {
+            _statementListener.ExitLocalVariableDeclaration(context);
+        }
     }
 }

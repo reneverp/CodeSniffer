@@ -37,6 +37,7 @@ namespace CodeSniffer.Models
         public IList<ICodeSmell> CodeSmells { get; set; }
 
         public IList<string> MemberDeclarartions { get; private set; }
+        public IList<string> InstanceVariables { get; private set; }
 
 
         private Object lockObj = new Object();
@@ -50,6 +51,11 @@ namespace CodeSniffer.Models
             }
         }
 
+        public void AddInstanceVariable(string text)
+        {
+            InstanceVariables.Add(text);
+        }
+
         private string _filename;
 
         public Class(string name, string text)
@@ -59,6 +65,7 @@ namespace CodeSniffer.Models
             Methods = new List<Method>();
             Classes = new List<Class>();
             MemberDeclarartions = new List<string>();
+            InstanceVariables = new List<string>();
 
             Metrics = new List<IMetric>();
             Metrics.Add(new LinesOfCode(Content));

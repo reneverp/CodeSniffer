@@ -51,6 +51,7 @@
     <Compile Include="Metrics\LAA.cs" />
     <Compile Include="Metrics\LinesOfCode.cs" />
     <Compile Include="Metrics\MAXNESTING.cs" />
+    <Compile Include="Metrics\NOAV.cs" />
     <Compile Include="Metrics\NumberOfInnerMethodInvocations.cs" />
     <Compile Include="Metrics\NumberOfMembers.cs" />
     <Compile Include="Metrics\NumberOfOuterMethodInvocations.cs" />

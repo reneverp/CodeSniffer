@@ -45,6 +45,8 @@ namespace CodeSniffer.Models
 
 
         public IList<string> Parameters { get; private set; }
+        public IList<string> LocalFields { get; private set; }
+
 
         private Class ParentClass { get; set; }
 
@@ -63,6 +65,7 @@ namespace CodeSniffer.Models
 
 
             Parameters = new List<string>();
+            LocalFields = new List<string>();
 
             Metrics = new List<IMetric>();
             Metrics.Add(new LinesOfCode(Content));
@@ -74,6 +77,7 @@ namespace CodeSniffer.Models
             Metrics.Add(new FDP(ForeignDataAccessInvocations));
             Metrics.Add(new LAA(parent, DataAccessInvocations));
             Metrics.Add(new MAXNESTING(Content));
+            Metrics.Add(new NOAV(parent, Parameters, LocalFields, DataAccessInvocations, Content));
 
             CodeSmells = new List<ICodeSmell>();
             CodeSmells.Add(new FeatureEnvy());
@@ -95,6 +99,11 @@ namespace CodeSniffer.Models
         public void AddMethodInvocation(MethodInvocation invocation)
         {
             MethodInvocations.Add(invocation);
+        }
+
+        public void AddLocalField(string localFieldName)
+        {
+            LocalFields.Add(localFieldName);
         }
 
         public void ExtractInnerAndOuterMethodInvocations()

@@ -46,6 +46,7 @@ namespace CodeSniffer.Models.Metrics
 
         public double Calculate()
         {
+            //TODO: USE INSTANCE VARIABLES TOO?
 
             float localFieldCount = (_parentClass.MemberDeclarartions.Count - _parentClass.NumberOfMethods) * 1.0f;
 
