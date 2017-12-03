@@ -57,7 +57,7 @@ namespace CodeSniffer.Models.Metrics
                 _methods.ToList().ForEach(x => _outerFieldAccessInvocations.AddRange(x.ForeignDataAccessInvocations));
             }
 
-            return _outerFieldAccessInvocations.Count;
+            return _outerFieldAccessInvocations.Count; 
         }
     }
 }
