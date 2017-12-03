@@ -10,7 +10,8 @@ namespace CodeSniffer.Models.Metrics
     //Access to Foreign Data
     class ATFD : IMetric
     {
-        private IList<MethodInvocation> _outerFieldAccessInvocations;
+        private List<MethodInvocation> _outerFieldAccessInvocations;
+        private IList<Method> _methods;
 
         public string Name
         {
@@ -36,13 +37,26 @@ namespace CodeSniffer.Models.Metrics
             }
         }
 
-        public ATFD(IList<MethodInvocation> outerFieldAccessInvocations)
+        public ATFD(IList<Method> methods)
         {
+            _methods = methods;
+            _outerFieldAccessInvocations = new List<MethodInvocation>();
+        }
+
+        public ATFD(List<MethodInvocation> outerFieldAccessInvocations)
+        {
+            _methods = new List<Method>();
             _outerFieldAccessInvocations = outerFieldAccessInvocations;
         }
 
         public double Calculate()
         {
+            if(_methods.Count > 0)
+            {
+                _outerFieldAccessInvocations.Clear();
+                _methods.ToList().ForEach(x => _outerFieldAccessInvocations.AddRange(x.ForeignDataAccessInvocations));
+            }
+
             return _outerFieldAccessInvocations.Count;
         }
     }

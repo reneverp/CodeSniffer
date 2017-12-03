@@ -72,6 +72,7 @@ namespace CodeSniffer.Models
             Metrics.Add(new NumberOfMembers(MemberDeclarartions));
             Metrics.Add(new TCC(Methods));
             Metrics.Add(new WMC(Methods));
+            Metrics.Add(new ATFD(Methods));
 
             CodeSmells = new List<ICodeSmell>();
             CodeSmells.Add(new LargeClass());
