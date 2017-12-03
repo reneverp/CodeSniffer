@@ -14,7 +14,7 @@ namespace CodeSniffer.BBN.Discretization
     {
         public static LOC Discretize(double value)
         {
-            if (value <= 100 && value > 0  ) return LOC.LOW;    else
+            if (value <= 100 && value >= 0  ) return LOC.LOW;    else
             if (value <= 200 && value > 100) return LOC.MEDIUM; else
             if (value <= 300 && value > 200) return LOC.HIGH;   else
 

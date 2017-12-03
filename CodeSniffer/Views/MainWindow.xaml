@@ -9,7 +9,7 @@
         xmlns:ap="clr-namespace:CodeSniffer.AttachedProperties"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1024"
+        Title="MainWindow" Height="800" Width="1024"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=False}"
 
 >
@@ -105,9 +105,15 @@
                                     <Grid Margin="20,5,20,5">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="40"/>
+                                            <ColumnDefinition Width="60"/>
                                         </Grid.ColumnDefinitions>
-                                        <CheckBox Grid.Column="0" IsChecked="{Binding IsDetected}" Content="{Binding Name}" HorizontalAlignment="left"/>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding IsDetected}" Content="{Binding Name}" HorizontalAlignment="left"/>
+                                        <ProgressBar Grid.Row="0" Grid.Column="1" Value="{Binding Value}" HorizontalAlignment="Stretch" />
+                                        <TextBlock Grid.Row="0" Grid.Column="1" FontSize="10" HorizontalAlignment="Center" Text="{Binding Value}"/>
+
                                     </Grid>
                                 </StackPanel>
                             </DataTemplate>

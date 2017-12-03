@@ -75,7 +75,7 @@ namespace CodeSniffer.Models
             Metrics.Add(new ATFD(Methods));
 
             CodeSmells = new List<ICodeSmell>();
-            CodeSmells.Add(new LargeClass());
+            CodeSmells.Add(new LargeClass(Metrics[2], Metrics[3], Metrics[4], Metrics[0])); //TODO: REFACTOR THIS TEMP SOLUTION
 
             _filename = "ClassTrainingSet" + System.DateTime.Now.ToString("_Hmm_ddMMyyyy") + ".csv";
             _writtenToDataSet = false;
