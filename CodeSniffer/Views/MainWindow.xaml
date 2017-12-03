@@ -79,7 +79,7 @@
                     <StackPanel Orientation="Vertical" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}">
                         <TextBlock Margin="10" Text="{Binding CurrentCodeFragment.Name}"/>
                     </StackPanel>
-                    <ItemsControl ItemsSource="{Binding Metrics}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinHeight="120">
+                    <ItemsControl ItemsSource="{Binding Metrics}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinHeight="265">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical">
