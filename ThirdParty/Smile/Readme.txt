@@ -1,0 +1,1 @@
+Make sure VS c++ runtime 2013 is installed in order to successully use the smile engine
