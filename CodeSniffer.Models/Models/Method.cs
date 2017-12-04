@@ -80,8 +80,8 @@ namespace CodeSniffer.Models
             Metrics.Add(new NOAV(parent, Parameters, LocalFields, DataAccessInvocations, Content));
 
             CodeSmells = new List<ICodeSmell>();
-            CodeSmells.Add(new FeatureEnvy());
-            CodeSmells.Add(new LongMethod());
+            CodeSmells.Add(new FeatureEnvy(Metrics[5], Metrics[7], Metrics[6]));
+            CodeSmells.Add(new LongMethod(Metrics[0], Metrics[1], Metrics[8], Metrics[9]));
 
             _filename = "MethodTrainingSet" + System.DateTime.Now.ToString("_Hmm_ddMMyyyy") + ".csv";
             _writtenToDataSet = false;

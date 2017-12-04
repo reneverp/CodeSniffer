@@ -10,7 +10,7 @@ namespace CodeSniffer.BBN.Discretization
         VERY_HIGH
     }
 
-    public class LinesOfCode
+    public class LinesOfCodeclass
     {
         public static LOC Discretize(double value)
         {

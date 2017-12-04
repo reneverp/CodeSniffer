@@ -25,7 +25,7 @@ namespace CodeSniffer.BBN
 
         public void SetEvidenceForLoc(double value)
         {
-            LOC loc = LinesOfCode.Discretize(value);
+            LOC loc = LinesOfCodeclass.Discretize(value);
             _network.SetEvidence("LOC", (int)loc);
         }
 

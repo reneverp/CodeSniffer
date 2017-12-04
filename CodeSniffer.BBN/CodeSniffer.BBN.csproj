@@ -51,9 +51,18 @@
     </Compile>
     <Compile Include="BayesianNetwork.cs" />
     <Compile Include="Discretization\AccessToForeignDataClass.cs" />
+    <Compile Include="Discretization\AccessToForeignDataMethod.cs" />
+    <Compile Include="Discretization\CyclometicComplexity.cs" />
+    <Compile Include="Discretization\ForeignDataProviders.cs" />
+    <Compile Include="Discretization\LinesOfCodeMethod.cs" />
+    <Compile Include="Discretization\LocalityOfAttributeAccesses.cs" />
+    <Compile Include="Discretization\MaximumNesting.cs" />
+    <Compile Include="Discretization\NumberOfAccessedVariables.cs" />
     <Compile Include="Discretization\WeightedMethodCount.cs" />
     <Compile Include="Discretization\TightClassCohesion.cs" />
-    <Compile Include="Discretization\LinesOfCode.cs" />
+    <Compile Include="Discretization\LinesOfCodeclass.cs" />
+    <Compile Include="LongMethod.cs" />
+    <Compile Include="FeatureEnvy.cs" />
     <Compile Include="LargeClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
