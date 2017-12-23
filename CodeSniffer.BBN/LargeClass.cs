@@ -19,7 +19,7 @@ namespace CodeSniffer.BBN
 
         public LargeClass()
         {
-            _network = new BayesianNetwork(@"Networks\LargeClass_Network.xdsl");
+            _network = new BayesianNetwork(@"Networks\LargeClass_Network_naive.xdsl");
 
         }
 

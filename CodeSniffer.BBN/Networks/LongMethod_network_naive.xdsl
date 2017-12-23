@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- This network was created in GeNIe Academic, which can be used for educational and research purposes only -->
+<smile version="1.0" id="Network2" numsamples="1000" discsamples="10000">
+	<nodes>
+		<cpt id="long_method">
+			<state id="True" />
+			<state id="False" />
+			<probabilities>0.02672064777330934 0.9732793522266907</probabilities>
+		</cpt>
+		<cpt id="loc">
+			<state id="low" />
+			<state id="mid" />
+			<state id="high" />
+			<state id="very_high" />
+			<parents>long_method</parents>
+			<probabilities>0.02930345572343007 0.6205993520518541 0.2100593952484159 0.1400377969762999 0.9553328745347597 0.04438711458823778 0.000278962707942759 1.048169059897541e-06</probabilities>
+		</cpt>
+		<cpt id="cyclo">
+			<state id="low" />
+			<state id="mid" />
+			<state id="high" />
+			<state id="very_high" />
+			<parents>long_method</parents>
+			<probabilities>0.2090172786177106 0.3507640388768898 0.310183585313175 0.1300350971922246 0.9209378058407575 0.06879545310252053 0.01026576775688228 9.732998398397684e-07</probabilities>
+		</cpt>
+		<cpt id="maxnesting">
+			<state id="low" />
+			<state id="mid" />
+			<state id="high" />
+			<state id="very_high" />
+			<parents>long_method</parents>
+			<probabilities>0.01673596112315501 0.08162796976240203 0.5011042116630489 0.4005318574513941 0.6918118680289284 0.1650479192945758 0.09958691657412783 0.04355329610236812</probabilities>
+		</cpt>
+		<cpt id="noav">
+			<state id="low" />
+			<state id="mid" />
+			<state id="high" />
+			<state id="very_high" />
+			<parents>long_method</parents>
+			<probabilities>0.06754319648551503 0.1716198704109402 0.3506614471164701 0.4101754859870747 0.7733650359535639 0.1617199076653061 0.0582546158379498 0.006660440543180106</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 2.1.1104.0 ACADEMIC" name="Network2" faultnameformat="nodestate">
+			<node id="long_method">
+				<name>Long method</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>454 183 574 213</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="loc">
+				<name>LOC</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>103 440 246 470</position>
+				<barchart active="true" width="128" height="90" />
+			</node>
+			<node id="cyclo">
+				<name>cyclo</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>311 445 454 475</position>
+				<barchart active="true" width="128" height="90" />
+			</node>
+			<node id="maxnesting">
+				<name>maxnesting</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>521 450 664 480</position>
+				<barchart active="true" width="128" height="90" />
+			</node>
+			<node id="noav">
+				<name>noav</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>723 454 866 484</position>
+				<barchart active="true" width="128" height="90" />
+			</node>
+		</genie>
+	</extensions>
+</smile>

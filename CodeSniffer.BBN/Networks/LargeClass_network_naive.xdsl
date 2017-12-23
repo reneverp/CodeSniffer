@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- This network was created in GeNIe Academic, which can be used for educational and research purposes only -->
+<smile version="1.0" id="Network4" numsamples="1000" discsamples="10000">
+	<nodes>
+		<cpt id="Large_Class">
+			<state id="True" />
+			<state id="False" />
+			<probabilities>0.08223684174119594 0.9177631582588039</probabilities>
+		</cpt>
+		<cpt id="TCC">
+			<state id="low" />
+			<state id="medium" />
+			<state id="high" />
+			<parents>Large_Class</parents>
+			<probabilities>0.9799999895717424 0.01999996082570375 4.960255399957697e-08 0.9784946236566128 0.01433691756539508 0.007168458777992183</probabilities>
+		</cpt>
+		<cpt id="WMC">
+			<state id="low" />
+			<state id="medium" />
+			<state id="high" />
+			<state id="very_high" />
+			<parents>Large_Class</parents>
+			<probabilities>0.6800007632702928 0.1999994842049187 0.0400002440154993 0.07999950850928932 0.7903225805932139 0.1254480287089356 0.07526881718769947 0.008960573510151081</probabilities>
+		</cpt>
+		<cpt id="ATFD">
+			<state id="low" />
+			<state id="medium" />
+			<state id="high" />
+			<state id="very_high" />
+			<parents>Large_Class</parents>
+			<probabilities>0.7999991766988955 9.42324875314392e-07 0.06000046521226542 0.1399994157639637 0.6810035842854067 0.1362007167817576 0.1272401433375213 0.05555555559531439</probabilities>
+		</cpt>
+		<cpt id="LOC">
+			<state id="low" />
+			<state id="medium" />
+			<state id="high" />
+			<state id="very_high" />
+			<parents>Large_Class</parents>
+			<probabilities>0.009803921568627451 0.06862745098039216 0.2352941176470588 0.6862745098039216 0.8112701252236136 0.1475849731663685 0.03935599284436494 0.001788908765652952</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 2.1.1104.0 ACADEMIC" name="Network4" faultnameformat="nodestate">
+			<node id="Large_Class">
+				<name>Large Class</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>467 181 599 225</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="TCC">
+				<name>TCC</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>278 402 319 427</position>
+				<barchart active="true" width="128" height="72" />
+			</node>
+			<node id="WMC">
+				<name>WMC</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>534 403 577 429</position>
+				<barchart active="true" width="128" height="90" />
+			</node>
+			<node id="ATFD">
+				<name>ATFD</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>833 436 874 461</position>
+				<barchart active="true" width="128" height="90" />
+			</node>
+			<node id="LOC">
+				<name>LOC</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>101 400 142 425</position>
+				<barchart active="true" />
+			</node>
+		</genie>
+	</extensions>
+</smile>

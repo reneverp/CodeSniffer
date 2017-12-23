@@ -14,7 +14,7 @@ namespace CodeSniffer.BBN
 
         public FeatureEnvy()
         {
-            _network = new BayesianNetwork(@"Networks\FeatureEnvy_Network.xdsl");
+            _network = new BayesianNetwork(@"Networks\FeatureEnvy_Network_naive.xdsl");
 
         }
 

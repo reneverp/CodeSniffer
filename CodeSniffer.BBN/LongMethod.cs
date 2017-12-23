@@ -14,7 +14,7 @@ namespace CodeSniffer.BBN
 
         public LongMethod()
         {
-            _network = new BayesianNetwork(@"Networks\LongMethod_Network.xdsl");
+            _network = new BayesianNetwork(@"Networks\LongMethod_Network_naive.xdsl");
 
         }
 
@@ -45,7 +45,7 @@ namespace CodeSniffer.BBN
         public double IsLongMethod()
         {
             //TODO: USE DESCRIPTIVE NAMING
-            return _network.GetOutcomeValue("Node1", (int)Long_Method.TRUE);
+            return _network.GetOutcomeValue("long_method", (int)Long_Method.TRUE);
         }
     }
 }
