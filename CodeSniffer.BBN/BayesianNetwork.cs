@@ -1,4 +1,6 @@
 ﻿using Smile;
+using Smile.Learning;
+using System.Threading;
 
 namespace CodeSniffer.BBN
 {
@@ -30,8 +32,26 @@ namespace CodeSniffer.BBN
 
         private void LoadNetworkFromFile(string networkFile)
         {
-            _network = new Network();
-            _network.ReadFile(networkFile);
+            try
+            {
+                _network = new Network();
+                _network.ReadFile(networkFile);
+            }
+            catch(SmileException)
+            {
+                Thread.Sleep(1000);
+                LoadNetworkFromFile(networkFile);
+            }
+        }
+
+        private void Learn()
+        {
+            Smile.Learning.EM a = new Smile.Learning.EM();
+            ///a.Learn(data, _network, match);
+            ///
+
+             
+            
         }
     }
 }

@@ -145,6 +145,9 @@ namespace CodeSniffer.Models
             StringBuilder sb = new StringBuilder();
             StringBuilder headers = new StringBuilder();
 
+            headers.Append("Name,");
+            sb.Append(Name + ",");
+
             for (int i = 0; i < Metrics.Count; i++)
             {
                 var metric = Metrics[i];

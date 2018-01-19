@@ -53,6 +53,8 @@
     <Compile Include="Discretization\AccessToForeignDataClass.cs" />
     <Compile Include="Discretization\AccessToForeignDataMethod.cs" />
     <Compile Include="Discretization\CyclometicComplexity.cs" />
+    <Compile Include="Discretization\EF.cs" />
+    <Compile Include="Discretization\EFDataSet.cs" />
     <Compile Include="Discretization\ForeignDataProviders.cs" />
     <Compile Include="Discretization\LinesOfCodeMethod.cs" />
     <Compile Include="Discretization\LocalityOfAttributeAccesses.cs" />

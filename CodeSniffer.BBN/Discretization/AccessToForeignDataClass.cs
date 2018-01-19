@@ -14,7 +14,7 @@ namespace CodeSniffer.BBN.Discretization
     {
         public static ATFD Discretize(double value)
         {
-            if (value <= 10 && value >= 0 ) return ATFD.LOW;    else
+            if (value <= 10 && value >= 0 ) return ATFD.LOW;   else
             if (value <= 20 && value > 10) return ATFD.MEDIUM; else
             if (value <= 50 && value > 20) return ATFD.HIGH;   else
 
