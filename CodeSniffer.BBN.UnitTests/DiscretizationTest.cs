@@ -15,17 +15,17 @@ namespace CodeSniffer.BBN.UnitTests
         [Test]
         public void Test()
         {
-            Discretization.EFDataSet a = new Discretization.EFDataSet();
+            //Discretization.EFDataSet a = new Discretization.EFDataSet();
 
-            a.Load(@"C:\Temp\ClassTrainingSet_1356_03122017_withoutOutlier.csv");
+            //a.Load(@"C:\Temp\ClassTrainingSet_1356_03122017_withoutOutlier.csv");
 
-            var loc = a.Discretize<int>(0, 8);
-            var tcc = a.Discretize<double>(2, 8);
-            var wmc = a.Discretize<int>(3, 8);
-            var atfd = a.Discretize<int>(4, 8);
+            //var loc = a.Discretize<int>(0, 8);
+            //var tcc = a.Discretize<double>(2, 8);
+            //var wmc = a.Discretize<int>(3, 8);
+            //var atfd = a.Discretize<int>(4, 8);
 
 
-            a.WriteToCsv(@"C:\Temp\out_test.csv");
+            //a.WriteToCsv(@"C:\Temp\out_test.csv");
 
         }
     }
