@@ -27,16 +27,6 @@ namespace CodeSniffer.BBN.UnitTests
 
             a.WriteToCsv(@"C:\Temp\out_test.csv");
 
-            //using (StreamWriter sw = new StreamWriter(@"C:\temp\out.csv"))
-            //{
-            //    sw.AutoFlush = true;
-
-            //    foreach(var col in b)
-            //    {
-
-            //    }
-            //}
-
         }
     }
 }

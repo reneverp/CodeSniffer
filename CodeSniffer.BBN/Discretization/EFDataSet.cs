@@ -26,6 +26,19 @@ namespace CodeSniffer.BBN.Discretization
         public double LowerBoundary { get; private set; }
         public double UpperBoundary { get; private set; }
 
+        public override string ToString()
+        {
+            string upperBoundaryStr = UpperBoundary.ToString().Replace('.', '_');
+            string lowerBoundaryStr = LowerBoundary.ToString().Replace('.', '_');
+
+            if (UpperBoundary == double.MaxValue)
+            {
+                upperBoundaryStr = "andUp";
+            }
+
+            return "bin_" + lowerBoundaryStr + "_" + upperBoundaryStr;
+        }
+
         public Bin(double lower, double upper)
         {
             LowerBoundary = lower;
@@ -70,11 +83,11 @@ namespace CodeSniffer.BBN.Discretization
             conn.Close();
         }
 
-        public IDictionary<DataRow, DiscreteValue[]> Discretize<T>(int rowIndex, int amountOfBins)
+        public IList<Bin> Discretize<T>(int rowIndex, int amountOfBins)
         {
             var rows = _dataset.Tables[0].Select().OrderBy(x => x.Field<T>(rowIndex));
 
-            double min = Convert.ToDouble(rows.First().Field<T>(rowIndex));
+            double min = 0;//Convert.ToDouble(rows.First().Field<T>(rowIndex));
             double max = Convert.ToDouble(rows.Last().Field<T>(rowIndex));
             double binsize = (max - min) / amountOfBins;
 
@@ -106,7 +119,7 @@ namespace CodeSniffer.BBN.Discretization
                 }
             }
 
-            return _discreteVals;
+            return _bins[rowIndex];
         }
 
         public void WriteToCsv(string filename)
@@ -128,7 +141,7 @@ namespace CodeSniffer.BBN.Discretization
 
                         if (values[i] != null)
                         {
-                            tmp = "b_" + values[i].DiscreteBin.LowerBoundary.ToString() + "_" + values[i].DiscreteBin.UpperBoundary.ToString();
+                            tmp = values[i].DiscreteBin.ToString();
                         }
                         else
                         {
@@ -145,7 +158,7 @@ namespace CodeSniffer.BBN.Discretization
                         }
                     }
 
-                    sw.WriteLine(rowToWrite.Replace('.', '_'));
+                    sw.WriteLine(rowToWrite);
                 }
             }
 
@@ -158,12 +171,13 @@ namespace CodeSniffer.BBN.Discretization
             {
                 for(int i = 0; i < 8; i++)
                 {
-                    string toWrite  = "b_" + _bins[0][i].LowerBoundary.ToString() + "_" + _bins[0][i].UpperBoundary.ToString() + ",";
-                           toWrite += "b_" + _bins[2][i].LowerBoundary.ToString() + "_" + _bins[2][i].UpperBoundary.ToString() + ",";
-                           toWrite += "b_" + _bins[3][i].LowerBoundary.ToString() + "_" + _bins[3][i].UpperBoundary.ToString();
-                           toWrite += "b_" + _bins[4][i].LowerBoundary.ToString() + "_" + _bins[3][i].UpperBoundary.ToString();
+                    string toWrite  = _bins[0][i].ToString() + ",";
+                           toWrite += _bins[2][i].ToString() + ",";
+                           toWrite += _bins[3][i].ToString() + ",";
+                           toWrite += _bins[4][i].ToString();
 
-                    sw.WriteLine(toWrite.Replace('.', '_'));
+                    sw.WriteLine(toWrite);
+
                 }
             }
         }
