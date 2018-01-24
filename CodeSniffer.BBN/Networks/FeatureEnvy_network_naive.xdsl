@@ -5,34 +5,43 @@
 		<cpt id="Feature_Envy">
 			<state id="True" />
 			<state id="False" />
-			<probabilities>0.004048813387077214 0.9959511866129228</probabilities>
+			<probabilities>0.004063572000437711 0.9959364279995623</probabilities>
 		</cpt>
 		<cpt id="ATFD">
-			<state id="low" />
-			<state id="medium" />
-			<state id="high" />
-			<state id="very_high" />
-			<state id="mega_high" />
-			<state id="ultra_high" />
+			<state id="bin_0_22" />
+			<state id="bin_22_44" />
+			<state id="bin_44_66" />
+			<state id="bin_66_88" />
+			<state id="bin_88_110" />
+			<state id="bin_110_132" />
+			<state id="bin_132_154" />
+			<state id="bin_154_andUp" />
 			<parents>Feature_Envy</parents>
-			<probabilities>0.3057674136064294 0.1282734881215004 0.127429805615503 0.188343682505383 0.1876349892008613 0.06255062095032297 0.8948217557229549 0.05204671431163795 0.03849292056635449 0.01274078561519949 0.001355598869163626 0.0005422249146897475</probabilities>
+			<probabilities>0.53 0.1375 0.0675 0 0.0025 0.1925 0.0025 0.0675 0.9806917300859346 0.0149571157182359 0.00217561417003022 0.0008158831178479547 0.0008158831178479547 0 0.0002718868950516585 0.0002718868950516585</probabilities>
 		</cpt>
 		<cpt id="LAA">
-			<state id="low" />
-			<state id="medium" />
-			<state id="high" />
-			<state id="very_high" />
-			<state id="mega_high" />
+			<state id="bin_0_3_0625" />
+			<state id="bin_3_0625_6_125" />
+			<state id="bin_6_125_9_1875" />
+			<state id="bin_9_1875_12_25" />
+			<state id="bin_12_25_15_3125" />
+			<state id="bin_15_3125_18_375" />
+			<state id="bin_18_375_21_4375" />
+			<state id="bin_21_4375_andUp" />
 			<parents>Feature_Envy</parents>
-			<probabilities>0.8560340163837395 0.003948436114161663 0.06916509130711135 0.06938444874253527 0.001468007452452371 0.6958527220222601 0.06343175473653836 0.1068039678755864 0.1103279542492901 0.02358360111632499</probabilities>
+			<probabilities>0.9350000000000001 0.065 0 0 0 0 0 0 0.8874081297369821 0.06173515591716191 0.02964375328180902 0.0127824654232086 0.005166963169446408 0.002175688314261212 2.965769239723572e-07 0.001087547580206634</probabilities>
 		</cpt>
 		<cpt id="FDP">
-			<state id="low" />
-			<state id="medium" />
-			<state id="high" />
-			<state id="very_high" />
+			<state id="bin_0_1_875" />
+			<state id="bin_1_875_3_75" />
+			<state id="bin_3_75_5_625" />
+			<state id="bin_5_625_7_5" />
+			<state id="bin_7_5_9_375" />
+			<state id="bin_9_375_11_25" />
+			<state id="bin_11_25_13_125" />
+			<state id="bin_13_125_andUp" />
 			<parents>Feature_Envy</parents>
-			<probabilities>0.1721069500674764 0.32485661268556 0.2522267206477733 0.2508097165991903 0.7563018187536801 0.1970725489980946 0.03469800204074915 0.01192763020747616</probabilities>
+			<probabilities>0.325 0.26 0.13 0.1475 0.0075 0.065 0.0025 0.0625 0.9059022218505124 0.07016594813492411 0.01985315586763357 0.003263013461774867 0.0008156606851549755 0 0 0</probabilities>
 		</cpt>
 	</nodes>
 	<extensions>
@@ -50,8 +59,8 @@
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>331 398 376 426</position>
-				<barchart active="true" width="128" height="126" />
+				<position>280 393 325 421</position>
+				<barchart active="true" width="128" height="162" />
 			</node>
 			<node id="LAA">
 				<name>LAA</name>

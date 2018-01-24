@@ -1,4 +1,6 @@
 ﻿using CodeSniffer.BBN.Discretization;
+using System.IO;
+using System.Reflection;
 
 namespace CodeSniffer.BBN
 {
@@ -14,26 +16,27 @@ namespace CodeSniffer.BBN
 
         public FeatureEnvy()
         {
-            _network = new BayesianNetwork(@"Networks\FeatureEnvy_Network_naive.xdsl");
+            string p = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
+            _network = new BayesianNetwork(p + @"\Networks\FeatureEnvy_network_naive.xdsl");
         }
 
         public void SetEvidenceForAtfd(double value)
         {
-            ATFD_METHOD atfd = AccessToForeignDataMethod.Discretize(value);
-            _network.SetEvidence("ATFD", (int)atfd);
+            var atfd = Discretizer.ATFD.Discretize(value);
+            _network.SetEvidence("ATFD", atfd.ToString());
         }
 
         public void SetEvidenceForFdp(double value)
         {
-            FDP fdp = ForeignDataProviders.Discretize(value);
-            _network.SetEvidence("FDP", (int)fdp);
+            var fdp = Discretizer.FDP.Discretize(value);
+            _network.SetEvidence("FDP", fdp.ToString());
         }
 
         public void SetEvidenceForLaa(double value)
         {
-            LAA laa = LocalityOfAttributeAccesses.Discretize(value);
-            _network.SetEvidence("LAA", (int)laa);
+            var laa = Discretizer.LAA.Discretize(value);
+            _network.SetEvidence("LAA", laa.ToString());
         }
 
         public double IsFeatureEnvy()

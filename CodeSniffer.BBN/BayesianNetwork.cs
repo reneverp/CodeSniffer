@@ -14,10 +14,10 @@ namespace CodeSniffer.BBN
             LoadNetworkFromFile(networkFile);
         }
 
-        public void SetEvidence(string nodeId, int outcomeIndex)
+        public void SetEvidence(string nodeId, string outcomeId)
         {
             int handle = _network.GetNode(nodeId);
-            _network.SetEvidence(handle, outcomeIndex);
+            _network.SetEvidence(handle, outcomeId);
         }
 
         public double GetOutcomeValue(string nodeId, int outcomeIndex)
@@ -30,17 +30,24 @@ namespace CodeSniffer.BBN
             return results[outcomeIndex];
         }
 
-        private void LoadNetworkFromFile(string networkFile)
+        private void LoadNetworkFromFile(string networkFile, bool retry = false)
         {
             try
             {
                 _network = new Network();
                 _network.ReadFile(networkFile);
             }
-            catch(SmileException)
+            catch(SmileException e)
             {
                 Thread.Sleep(1000);
-                LoadNetworkFromFile(networkFile);
+                if (!retry)
+                {
+                    LoadNetworkFromFile(networkFile, true);
+                }
+                else
+                {
+                    throw e;
+                }
             }
         }
 

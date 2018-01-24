@@ -6,8 +6,11 @@ namespace CodeSniffer.BBN.UnitTests
     public class LargeClassBayesianNetworkTests
     {
         [Test]
-        public void Test()
-        { 
+        public void TestBayesian()
+        {
+            var lm = new LongMethod();
+            var fe = new FeatureEnvy();
+
             var nw = new LargeClass();
 
             //above 350 lines should end up in > 85% score according to initial learning

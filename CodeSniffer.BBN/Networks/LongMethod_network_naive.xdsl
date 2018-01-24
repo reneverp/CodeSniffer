@@ -5,39 +5,55 @@
 		<cpt id="long_method">
 			<state id="True" />
 			<state id="False" />
-			<probabilities>0.0267278598239604 0.9732721401760396</probabilities>
+			<probabilities>0.02654387865655471 0.9734561213434453</probabilities>
 		</cpt>
 		<cpt id="loc">
-			<state id="low" />
-			<state id="mid" />
-			<state id="high" />
-			<state id="very_high" />
+			<state id="bin_0_18" />
+			<state id="bin_18_36" />
+			<state id="bin_36_54" />
+			<state id="bin_54_72" />
+			<state id="bin_72_90" />
+			<state id="bin_90_108" />
+			<state id="bin_108_126" />
+			<state id="bin_126_andUp" />
 			<parents>long_method</parents>
-			<probabilities>0.0202930345572343 0.6262059935205185 0.2121005939524842 0.141400377969763 0.9553398039030879 0.04438280286039607 0.0002773929458424689 2.906736161668167e-10</probabilities>
+			<probabilities>0.01020408163265306 0.336837765409194 0.336631622345908 0.1327561327561328 0.09183673469387757 0.03050917336631622 0.03061224489795919 0.03061224489795919 0.9437969943724782 0.05286418486072057 0.003338820766801104 0 0 0 0 0</probabilities>
 		</cpt>
 		<cpt id="maxnesting">
-			<state id="low" />
-			<state id="mid" />
-			<state id="high" />
-			<state id="very_high" />
+			<state id="bin_0_1_375" />
+			<state id="bin_1_375_2_75" />
+			<state id="bin_2_75_4_125" />
+			<state id="bin_4_125_5_5" />
+			<state id="bin_5_5_6_875" />
+			<state id="bin_6_875_8_25" />
+			<state id="bin_8_25_9_625" />
+			<state id="bin_9_625_andUp" />
 			<parents>long_method</parents>
-			<probabilities>0.01016735961123155 0.08081627969762402 0.5050110421166305 0.4040053185745139 0.6918169195418826 0.165048543516166 0.09958391206782423 0.04355062487412712</probabilities>
+			<probabilities>0.01020408163265306 0.08163265306122448 0.7346938775510206 0.08163265306122448 0.07142857142857144 0.01020408163265306 0.01020408163265306 0 0.6911519198664442 0.1652754590984975 0.1304952698942682 0.0114079020589872 0.0008347245409015026 0.0005564830272676684 0 0.0002782415136338342</probabilities>
 		</cpt>
 		<cpt id="cyclo">
-			<state id="low" />
-			<state id="mid" />
-			<state id="high" />
-			<state id="very_high" />
+			<state id="bin_0_4_75" />
+			<state id="bin_4_75_9_5" />
+			<state id="bin_9_5_14_25" />
+			<state id="bin_14_25_19" />
+			<state id="bin_19_23_75" />
+			<state id="bin_23_75_28_5" />
+			<state id="bin_28_5_33_25" />
+			<state id="bin_33_25_andUp" />
 			<parents>long_method maxnesting</parents>
-			<probabilities>0.6045086393088553 0.1753820194384449 0.1550917926565875 0.06501754859611231 0.3565574754019678 0.3723071154307656 0.2566870650347972 0.0144483441324694 0.2590003387964257 0.3402110595858214 0.2413761487316309 0.1594124528861221 0.07826871411262709 0.3744088789969973 0.4221995996417848 0.1251228072485908 0.9983651053330024 0.001630779740722453 4.114536175103118e-06 3.901001362083239e-10 0.823692848667518 0.1477664353239975 0.02854071437543101 1.633053422549947e-09 0.7275581605717799 0.241857765147507 0.03058407157710245 2.703610666221578e-09 0.5058287202901314 0.4371442750196362 0.05702699853010685 6.160125568606127e-09</probabilities>
+			<probabilities>1 0 0 0 0 0 0 0 0.375 0.375 0.25 0 0 0 0 0 0.2094748858447488 0.3327625570776256 0.1660958904109589 0.125 0.0702054794520548 0.05517503805175038 0.02758751902587519 0.0136986301369863 0.04166666666666666 0.5972222222222222 0.1111111111111111 0.25 0 0 0 0 0.1428571428571428 0.1785714285714285 0.6785714285714286 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0.2959183673469388 0.326530612244898 0.1428571428571429 0.1122448979591837 0.09183673469387756 0 0.02040816326530612 0.01020408163265306 0.9983901800497023 0.001609819950297599 0 0 0 0 0 0 0.8233256939139293 0.148074583368701 0.02523271935036641 0.003367003367003367 0 0 0 0 0.6867486276822574 0.2749126706891076 0.03620650546658804 0.002132196162046908 0 0 0 0 0.3943089430894309 0.556910569105691 0.02439024390243903 0.02439024390243903 0 0 0 0 0.4166666666666666 0.5833333333333334 0 0 0 0 0 0 0.5 0.5 0 0 0 0 0 0 0.9440734557595993 0.05008347245409015 0.004730105731775181 0.001112966054535337 0 0 0 0 0 1 0 0 0 0 0 0</probabilities>
 		</cpt>
 		<cpt id="noav">
-			<state id="low" />
-			<state id="mid" />
-			<state id="high" />
-			<state id="very_high" />
+			<state id="bin_0_7_875" />
+			<state id="bin_7_875_15_75" />
+			<state id="bin_15_75_23_625" />
+			<state id="bin_23_625_31_5" />
+			<state id="bin_31_5_39_375" />
+			<state id="bin_39_375_47_25" />
+			<state id="bin_47_25_55_125" />
+			<state id="bin_55_125_andUp" />
 			<parents>long_method</parents>
-			<probabilities>0.06067543196485515 0.1717161987041094 0.3535066144711647 0.4141017548598708 0.7733703175363156 0.1617198335850431 0.05825242779141374 0.006657421087227726</probabilities>
+			<probabilities>0.1326530612244898 0.3469387755102041 0.2857142857142858 0.1224489795918367 0.03061224489795919 0.01020408163265306 0.05102040816326531 0.02040816326530612 0.8925987757373401 0.09293266555370061 0.01112966054535337 0.002504173622704507 0.0005564830272676684 0 0.0002782415136338342 0</probabilities>
 		</cpt>
 	</nodes>
 	<extensions>
@@ -47,7 +63,7 @@
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>454 183 574 213</position>
+				<position>827 233 947 263</position>
 				<barchart active="true" width="128" height="64" />
 			</node>
 			<node id="loc">
@@ -55,31 +71,31 @@
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>103 440 246 470</position>
-				<barchart active="true" width="128" height="90" />
+				<position>341 485 484 515</position>
+				<barchart active="true" width="221" height="162" />
 			</node>
 			<node id="cyclo">
 				<name>cyclo</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>311 445 454 475</position>
-				<barchart active="true" width="128" height="90" />
+				<position>639 495 782 525</position>
+				<barchart active="true" width="218" height="162" />
 			</node>
 			<node id="maxnesting">
 				<name>maxnesting</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>521 450 664 480</position>
-				<barchart active="true" width="128" height="90" />
+				<position>897 500 1040 530</position>
+				<barchart active="true" width="191" height="162" />
 			</node>
 			<node id="noav">
 				<name>noav</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>723 454 866 484</position>
+				<position>1096 504 1239 534</position>
 				<barchart active="true" width="128" height="90" />
 			</node>
 		</genie>

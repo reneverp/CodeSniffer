@@ -1,4 +1,6 @@
 ﻿using CodeSniffer.BBN.Discretization;
+using System.IO;
+using System.Reflection;
 
 namespace CodeSniffer.BBN
 {
@@ -14,32 +16,32 @@ namespace CodeSniffer.BBN
 
         public LongMethod()
         {
-            _network = new BayesianNetwork(@"Networks\LongMethod_Network_naive.xdsl");
-
+            string p = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            _network = new BayesianNetwork(p + @"\Networks\LongMethod_network_naive.xdsl");
         }
 
         public void SetEvidenceForLoc(double value)
         {
-            LOC_METHOD loc = LinesOfCodeMethod.Discretize(value);
-            _network.SetEvidence("loc", (int)loc);
+            var loc = Discretizer.LOC.Discretize(value);
+            _network.SetEvidence("loc", loc.ToString());
         }
 
         public void SetEvidenceForCyclo(double value)
         {
-            CYCLO cyclo = CyclometicComplexity.Discretize(value);
-            _network.SetEvidence("cyclo", (int)cyclo);
+            var cyclo = Discretizer.CYCLO.Discretize(value);
+            _network.SetEvidence("cyclo", cyclo.ToString());
         }
 
         public void SetEvidenceForMaxNesting(double value)
         {
-            MAXNESTING maxnesting = MaximumNesting.Discretize(value);
-            _network.SetEvidence("maxnesting", (int)maxnesting);
+            var maxnesting = Discretizer.MAXNESTING.Discretize(value);
+            _network.SetEvidence("maxnesting", maxnesting.ToString());
         }
 
         public void SetEvidenceForNoav(double value)
         {
-            NOAV noav = NumberOfAccessedVariables.Discretize(value);
-            _network.SetEvidence("noav", (int)noav);
+            var noav = Discretizer.NOAV.Discretize(value);
+            _network.SetEvidence("noav", noav.ToString());
         }
 
         public double IsLongMethod()

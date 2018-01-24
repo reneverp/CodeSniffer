@@ -5,38 +5,55 @@
 		<cpt id="Large_Class">
 			<state id="True" />
 			<state id="False" />
-			<probabilities>0.08223684174119594 0.9177631582588039</probabilities>
+			<probabilities>0.0825078036931486 0.9174921963068514</probabilities>
 		</cpt>
 		<cpt id="TCC">
-			<state id="low" />
-			<state id="medium" />
-			<state id="high" />
+			<state id="bin_0_0_05" />
+			<state id="bin_0_05_0_1" />
+			<state id="bin_0_1_0_15" />
+			<state id="bin_0_15_0_2" />
+			<state id="bin_0_2_0_25" />
+			<state id="bin_0_25_0_3" />
+			<state id="bin_0_3_0_35" />
+			<state id="bin_0_35_andUp" />
 			<parents>Large_Class</parents>
-			<probabilities>0.9799999895717424 0.01999996082570375 4.960255399957697e-08 0.9784946236566128 0.01433691756539508 0.007168458777992183</probabilities>
+			<probabilities>0.9211764703837597 0.03960784236913144 0.0392156872471089 0 0 0 0 0 0.9496920908862776 0.02695572157552135 0.008989530446639126 0.003590664272890485 0.003590664272890485 0.001795332136445242 0.001795332136445242 0.003590664272890485</probabilities>
 		</cpt>
 		<cpt id="WMC">
-			<state id="low" />
-			<state id="medium" />
-			<state id="high" />
-			<state id="very_high" />
+			<state id="bin_0_2_25" />
+			<state id="bin_2_25_4_5" />
+			<state id="bin_4_5_6_75" />
+			<state id="bin_6_75_9" />
+			<state id="bin_9_11_25" />
+			<state id="bin_11_25_13_5" />
+			<state id="bin_13_5_15_75" />
+			<state id="bin_15_75_andUp" />
 			<parents>Large_Class</parents>
-			<probabilities>0.6800007632702928 0.1999994842049187 0.0400002440154993 0.07999950850928932 0.7903225805932139 0.1254480287089356 0.07526881718769947 0.008960573510151081</probabilities>
+			<probabilities>0.6800000149660842 0.1999999898863709 0.02039216164736273 0.02117646095116254 0.0392156862745098 0.0392156862745098 0 0 0.7895696994265587 0.1258984704285618 0.05040443234683609 0.01976474070648142 0.008976660682226212 0 0.001795332136445242 0.003590664272890485</probabilities>
 		</cpt>
 		<cpt id="ATFD">
-			<state id="low" />
-			<state id="medium" />
-			<state id="high" />
-			<state id="very_high" />
+			<state id="bin_0_24_25" />
+			<state id="bin_24_25_48_5" />
+			<state id="bin_48_5_72_75" />
+			<state id="bin_72_75_97" />
+			<state id="bin_97_121_25" />
+			<state id="bin_121_25_145_5" />
+			<state id="bin_145_5_169_75" />
+			<state id="bin_169_75_andUp" />
 			<parents>Large_Class</parents>
-			<probabilities>0.7999991766988955 9.42324875314392e-07 0.06000046521226542 0.1399994157639637 0.6810035842854067 0.1362007167817576 0.1272401433375213 0.05555555559531439</probabilities>
+			<probabilities>0.7999999838568411 0.03921570475146815 0.06000000912180912 0.04196077285811693 0 0.0392156862745098 0 0.0196078431372549 0.8558007245678374 0.08821580020966205 0.02715842036505839 0.00907640135654455 0.00718132854578097 0.003590664272890485 0.003590664272890485 0.005385996409335727</probabilities>
 		</cpt>
 		<cpt id="LOC">
-			<state id="low" />
-			<state id="medium" />
-			<state id="high" />
-			<state id="very_high" />
+			<state id="bin_0_151_125" />
+			<state id="bin_151_125_302_25" />
+			<state id="bin_302_25_453_375" />
+			<state id="bin_453_375_604_5" />
+			<state id="bin_604_5_755_625" />
+			<state id="bin_755_625_906_75" />
+			<state id="bin_906_75_1057_875" />
+			<state id="bin_1057_875_andUp" />
 			<parents>Large_Class</parents>
-			<probabilities>0.009803921568627451 0.06862745098039216 0.2352941176470588 0.6862745098039216 0.8112701252236136 0.1475849731663685 0.03935599284436494 0.001788908765652952</probabilities>
+			<probabilities>0.0001922337562475971 0.2954632833525567 0.3379469434832756 0.1311034217608612 0.09803921568627451 0.0392156862745098 0.0392156862745098 0.05882352941176471 0.9170758889142255 0.08105491018521789 0.00186598921516044 3.211685396145336e-06 0 0 0 0</probabilities>
 		</cpt>
 	</nodes>
 	<extensions>
@@ -54,8 +71,8 @@
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>278 402 319 427</position>
-				<barchart active="true" width="128" height="72" />
+				<position>343 388 384 413</position>
+				<barchart active="true" width="128" height="162" />
 			</node>
 			<node id="WMC">
 				<name>WMC</name>
@@ -70,16 +87,16 @@
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>833 436 874 461</position>
-				<barchart active="true" width="128" height="90" />
+				<position>736 409 777 434</position>
+				<barchart active="true" width="128" height="162" />
 			</node>
 			<node id="LOC">
 				<name>LOC</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>101 400 142 425</position>
-				<barchart active="true" />
+				<position>117 400 158 425</position>
+				<barchart active="true" width="230" height="162" />
 			</node>
 		</genie>
 	</extensions>

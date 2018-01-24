@@ -61,7 +61,7 @@ namespace CodeSniffer.BBN.Discretization
 
         public void Load(string csvFile)
         {
-            _dataset.Clear();
+            _dataset = new DataSet();
             _bins.Clear();
             _discreteVals.Clear();
 
@@ -128,7 +128,15 @@ namespace CodeSniffer.BBN.Discretization
             {
                 var rows = _dataset.Tables[0].Select();
 
-                foreach(var row in rows)
+                string toWrite = "";
+                foreach (DataColumn col in _dataset.Tables[0].Columns)
+                {
+                    toWrite += col.ColumnName + ",";
+                }
+
+                sw.WriteLine(toWrite.Substring(0, toWrite.LastIndexOf(',')));
+
+                foreach (var row in rows)
                 {
                     string rowToWrite = "";
                     var values = _discreteVals[row];
@@ -169,14 +177,30 @@ namespace CodeSniffer.BBN.Discretization
         {
             using (StreamWriter sw = new StreamWriter(filename.Substring(0, filename.LastIndexOf('.')) + "_bins.csv"))
             {
-                for(int i = 0; i < 8; i++)
+                string toWrite = "";
+                foreach (DataColumn col in _dataset.Tables[0].Columns)
                 {
-                    string toWrite  = _bins[0][i].ToString() + ",";
-                           toWrite += _bins[2][i].ToString() + ",";
-                           toWrite += _bins[3][i].ToString() + ",";
-                           toWrite += _bins[4][i].ToString();
+                    toWrite += col.ColumnName + ",";
+                }
 
-                    sw.WriteLine(toWrite);
+                sw.WriteLine(toWrite.Substring(0, toWrite.LastIndexOf(',')));
+
+                for (int i = 0; i < 8; i++)
+                {
+                    toWrite = "";
+                    foreach (int key in _bins.Keys)
+                    {
+                        if (_bins[key].Count > 0)
+                        {
+                            toWrite += _bins[key][i].ToString() + ",";
+                        }
+                        else
+                        {
+                            toWrite += "0,";
+                        }
+                    }
+
+                    sw.WriteLine(toWrite.Substring(0, toWrite.LastIndexOf(',')));
 
                 }
             }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CodeSniffer.BBN.Discretization;
+﻿using CodeSniffer.BBN.Discretization;
+using System.IO;
+using System.Reflection;
 
 namespace CodeSniffer.BBN
 {
@@ -19,32 +16,32 @@ namespace CodeSniffer.BBN
 
         public LargeClass()
         {
-            _network = new BayesianNetwork(@"Networks\LargeClass_Network_naive.xdsl");
-
+            string p = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            _network = new BayesianNetwork(p + @"\Networks\LargeClass_network_naive.xdsl");
         }
 
         public void SetEvidenceForLoc(double value)
         {
-            LOC loc = LinesOfCodeclass.Discretize(value);
-            _network.SetEvidence("LOC", (int)loc);
+            var loc = Discretizer.LOCClass.Discretize(value);
+            _network.SetEvidence("LOC", loc.ToString());
         }
 
         public void SetEvidenceForAtfd(double value)
         {
-            ATFD atfd = AccessToForeignDataClass.Discretize(value);
-            _network.SetEvidence("ATFD", (int)atfd);
+            var atfd = Discretizer.ATFDClass.Discretize(value);
+            _network.SetEvidence("ATFD", atfd.ToString());
         }
 
         public void SetEvidenceForTcc(double value)
         {
-            TCC tcc = TightClassCohesion.Discretize(value);
-            _network.SetEvidence("TCC", (int)tcc);
+            var tcc = Discretizer.TCC.Discretize(value);
+            _network.SetEvidence("TCC", tcc.ToString());
         }
 
         public void SetEvidenceForWmc(double value)
         {
-            WMC wmc = WeightedMethodCount.Discretize(value);
-            _network.SetEvidence("WMC", (int)wmc);
+            var wmc = Discretizer.WMC.Discretize(value);
+            _network.SetEvidence("WMC", wmc.ToString());
         }
 
         public double IsLargeClass()
