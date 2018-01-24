@@ -1,82 +1,102 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!-- This network was created in GeNIe Academic, which can be used for educational and research purposes only -->
-<smile version="1.0" id="Network3" numsamples="1000" discsamples="10000">
+<smile version="1.0" id="Network4" numsamples="1000" discsamples="10000">
 	<nodes>
-		<cpt id="Feature_Envy">
+		<cpt id="Large_Class">
 			<state id="True" />
 			<state id="False" />
-			<probabilities>0.004063572000437711 0.9959364279995623</probabilities>
+			<probabilities>0.08250825082508251 0.9174917491749175</probabilities>
+		</cpt>
+		<cpt id="TCC">
+			<state id="bin_0_0_05" />
+			<state id="bin_0_05_0_1" />
+			<state id="bin_0_1_0_15" />
+			<state id="bin_0_15_0_2" />
+			<state id="bin_0_2_0_25" />
+			<state id="bin_0_25_0_3" />
+			<state id="bin_0_3_0_35" />
+			<state id="bin_0_35_andUp" />
+			<parents>Large_Class</parents>
+			<probabilities>0.92 0.04 0.04 0 0 0 0 0 0.9496402877697843 0.02697841726618705 0.008992805755395683 0.003597122302158274 0.003597122302158274 0.001798561151079137 0.001798561151079137 0.003597122302158274</probabilities>
+		</cpt>
+		<cpt id="WMC">
+			<state id="bin_0_2_25" />
+			<state id="bin_2_25_4_5" />
+			<state id="bin_4_5_6_75" />
+			<state id="bin_6_75_9" />
+			<state id="bin_9_11_25" />
+			<state id="bin_11_25_13_5" />
+			<state id="bin_13_5_15_75" />
+			<state id="bin_15_75_andUp" />
+			<parents>Large_Class</parents>
+			<probabilities>0.68 0.2 0.02 0.02 0.04 0.04 0 0 0.7895683453237411 0.1258992805755396 0.05035971223021583 0.01978417266187051 0.008992805755395683 0 0.001798561151079137 0.003597122302158274</probabilities>
 		</cpt>
 		<cpt id="ATFD">
-			<state id="bin_0_22" />
-			<state id="bin_22_44" />
-			<state id="bin_44_66" />
-			<state id="bin_66_88" />
-			<state id="bin_88_110" />
-			<state id="bin_110_132" />
-			<state id="bin_132_154" />
-			<state id="bin_154_andUp" />
-			<parents>Feature_Envy</parents>
-			<probabilities>0.53 0.1375 0.0675 0 0.0025 0.1925 0.0025 0.0675 0.9806917300859346 0.0149571157182359 0.00217561417003022 0.0008158831178479547 0.0008158831178479547 0 0.0002718868950516585 0.0002718868950516585</probabilities>
+			<state id="bin_0_24_25" />
+			<state id="bin_24_25_48_5" />
+			<state id="bin_48_5_72_75" />
+			<state id="bin_72_75_97" />
+			<state id="bin_97_121_25" />
+			<state id="bin_121_25_145_5" />
+			<state id="bin_145_5_169_75" />
+			<state id="bin_169_75_andUp" />
+			<parents>Large_Class</parents>
+			<probabilities>0.8 0.04 0.06 0.04 0 0.04 0 0.02 0.8561151079136691 0.08812949640287771 0.02697841726618705 0.008992805755395683 0.007194244604316547 0.003597122302158274 0.003597122302158274 0.00539568345323741</probabilities>
 		</cpt>
-		<cpt id="LAA">
-			<state id="bin_0_3_0625" />
-			<state id="bin_3_0625_6_125" />
-			<state id="bin_6_125_9_1875" />
-			<state id="bin_9_1875_12_25" />
-			<state id="bin_12_25_15_3125" />
-			<state id="bin_15_3125_18_375" />
-			<state id="bin_18_375_21_4375" />
-			<state id="bin_21_4375_andUp" />
-			<parents>Feature_Envy</parents>
-			<probabilities>0.9350000000000001 0.065 0 0 0 0 0 0 0.8874081297369821 0.06173515591716191 0.02964375328180902 0.0127824654232086 0.005166963169446408 0.002175688314261212 2.965769239723572e-07 0.001087547580206634</probabilities>
-		</cpt>
-		<cpt id="FDP">
-			<state id="bin_0_1_875" />
-			<state id="bin_1_875_3_75" />
-			<state id="bin_3_75_5_625" />
-			<state id="bin_5_625_7_5" />
-			<state id="bin_7_5_9_375" />
-			<state id="bin_9_375_11_25" />
-			<state id="bin_11_25_13_125" />
-			<state id="bin_13_125_andUp" />
-			<parents>Feature_Envy</parents>
-			<probabilities>0.325 0.26 0.13 0.1475 0.0075 0.065 0.0025 0.0625 0.9059022218505124 0.07016594813492411 0.01985315586763357 0.003263013461774867 0.0008156606851549755 0 0 0</probabilities>
+		<cpt id="LOC">
+			<state id="bin_0_151_125" />
+			<state id="bin_151_125_302_25" />
+			<state id="bin_302_25_453_375" />
+			<state id="bin_453_375_604_5" />
+			<state id="bin_604_5_755_625" />
+			<state id="bin_755_625_906_75" />
+			<state id="bin_906_75_1057_875" />
+			<state id="bin_1057_875_andUp" />
+			<parents>Large_Class</parents>
+			<probabilities>0 0.3 0.34 0.12 0.1 0.04 0.04 0.06 0.9172661870503598 0.08093525179856116 0.001798561151079137 0 0 0 0 0</probabilities>
 		</cpt>
 	</nodes>
 	<extensions>
-		<genie version="1.0" app="GeNIe 2.1.1104.0 ACADEMIC" name="Network3" faultnameformat="nodestate">
-			<node id="Feature_Envy">
-				<name>Feature Envy</name>
+		<genie version="1.0" app="GeNIe 2.1.1104.0 ACADEMIC" name="Network4" faultnameformat="nodestate">
+			<node id="Large_Class">
+				<name>Large Class</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>504 157 580 204</position>
+				<position>467 181 599 225</position>
 				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="TCC">
+				<name>TCC</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>343 388 384 413</position>
+				<barchart active="true" width="128" height="162" />
+			</node>
+			<node id="WMC">
+				<name>WMC</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>534 403 577 429</position>
+				<barchart active="true" width="128" height="90" />
 			</node>
 			<node id="ATFD">
 				<name>ATFD</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>280 393 325 421</position>
+				<position>736 409 777 434</position>
 				<barchart active="true" width="128" height="162" />
 			</node>
-			<node id="LAA">
-				<name>LAA</name>
+			<node id="LOC">
+				<name>LOC</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>519 401 561 427</position>
-				<barchart active="true" width="128" height="108" />
-			</node>
-			<node id="FDP">
-				<name>FDP</name>
-				<interior color="e5f6f7" />
-				<outline color="000080" />
-				<font color="000000" name="Arial" size="8" />
-				<position>713 406 753 431</position>
-				<barchart active="true" width="128" height="90" />
+				<position>117 400 158 425</position>
+				<barchart active="true" width="230" height="162" />
 			</node>
 		</genie>
 	</extensions>

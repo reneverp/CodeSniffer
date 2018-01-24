@@ -12,7 +12,7 @@ namespace CodeSniffer.BBN
 
     public class LargeClass
     {
-        private BayesianNetwork _network;
+        public BayesianNetwork _network;
 
         public LargeClass()
         {

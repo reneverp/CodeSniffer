@@ -47,17 +47,22 @@ namespace CodeSniffer.BBN.UnitTests
             var countTrueOnly = rows.Where(x => x.Field<string>("Large Class") == "True").Count();
             var countFalseOnly = rows.Where(x => x.Field<string>("Large Class") == "False").Count();
 
+            int countTrue = countTrueOnly + 1;
+            int countFalse = countFalseOnly + 1;
+
+            double probFalse = (double)(countFalse) / ((double)(rows.Count()) + (1 * 2));
+            double probTrue = (double)(countTrue) / ((double)(rows.Count()) + (1 * 2));
 
             foreach (var bin in LOCClass)
             {
                 var rowsTrue = rows.Where(x => x.Field<string>("Lines of Code") == bin.ToString() && x.Field<string>("Large Class") == "True");
                 var rowsFalse = rows.Where(x => x.Field<string>("Lines of Code") == bin.ToString() && x.Field<string>("Large Class") == "False");
 
-                int countTrue = rowsTrue.Count() + 1;
-                int countFalse = rowsFalse.Count() + 1;
+                countTrue = rowsTrue.Count() + 1;
+                countFalse = rowsFalse.Count() + 1;
 
-                double probFalse = (double)(countFalse) / ((double)(countFalseOnly) + (1 * LOCClass.Count));
-                double probTrue = (double)(countTrue) / ((double)(countTrueOnly) + (1 * LOCClass.Count));
+                probFalse = (double)(countFalse) / ((double)(countFalseOnly) + (1 * LOCClass.Count));
+                probTrue = (double)(countTrue) / ((double)(countTrueOnly) + (1 * LOCClass.Count));
 
                 Debug.WriteLine(probFalse + "         ,            " + probTrue);
             }

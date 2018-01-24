@@ -5,16 +5,16 @@ namespace CodeSniffer.BBN.Discretization
 {
     public class DiscretizedData
     {
-        private IList<Bin> _bins;
+        public IList<Bin> Bins { get; private set; }
 
         public DiscretizedData(IList<Bin> bins)
         {
-            _bins = bins;
+            Bins = bins;
         }
 
         public Bin Discretize(double value)
         {
-            foreach(var bin in _bins)
+            foreach(var bin in Bins)
             {
                 if (value >= bin.LowerBoundary && value <= bin.UpperBoundary)
                 {

@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace CodeSniffer.BBN
 {
-    class BayesianNetwork
+    public class BayesianNetwork
     {
         private Network _network;
 
@@ -12,6 +12,18 @@ namespace CodeSniffer.BBN
         {
             SmileLicense.ActivateLicense();
             LoadNetworkFromFile(networkFile);
+        }
+
+        public double[] GetProbabilities(string nodeId)
+        {
+            int handle = _network.GetNode(nodeId);
+            return _network.GetNodeDefinition(handle);
+        }
+
+        public void SetProbabilities(string nodeId, double[] definition)
+        {
+            int handle = _network.GetNode(nodeId);
+            _network.SetNodeDefinition(handle, definition);
         }
 
         public void SetEvidence(string nodeId, string outcomeId)
@@ -49,16 +61,6 @@ namespace CodeSniffer.BBN
                     throw e;
                 }
             }
-        }
-
-        private void Learn()
-        {
-            Smile.Learning.EM a = new Smile.Learning.EM();
-            ///a.Learn(data, _network, match);
-            ///
-
-             
-            
         }
     }
 }

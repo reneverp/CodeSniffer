@@ -13,6 +13,8 @@ namespace CodeSniffer.BBN.UnitTests
 
             var nw = new LargeClass();
 
+            //nw._network.SetProbabilities("LOC", new double[16] {1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0});
+
             //above 350 lines should end up in > 85% score according to initial learning
             nw.SetEvidenceForLoc(350);
 
