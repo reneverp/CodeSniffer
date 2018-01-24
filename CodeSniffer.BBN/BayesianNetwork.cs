@@ -30,7 +30,7 @@ namespace CodeSniffer.BBN
             return results[outcomeIndex];
         }
 
-        private void LoadNetworkFromFile(string networkFile, bool retry = false)
+        private void LoadNetworkFromFile(string networkFile, int retryCount = 0)
         {
             try
             {
@@ -40,9 +40,9 @@ namespace CodeSniffer.BBN
             catch(SmileException e)
             {
                 Thread.Sleep(1000);
-                if (!retry)
+                if (retryCount < 5)
                 {
-                    LoadNetworkFromFile(networkFile, true);
+                    LoadNetworkFromFile(networkFile, ++retryCount);
                 }
                 else
                 {

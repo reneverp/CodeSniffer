@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -24,6 +25,9 @@ namespace CodeSniffer.BBN.Discretization
         public static DiscretizedData LAA { get; private set; }
         public static DiscretizedData MAXNESTING { get; private set; }
         public static DiscretizedData NOAV { get; private set; }
+
+        public static DataSet ClassDataset { get; private set; }
+        public static DataSet MethodDataset { get; private set; }
 
 
         static Discretizer()
@@ -71,3 +75,4 @@ namespace CodeSniffer.BBN.Discretization
 
     }
 }
+

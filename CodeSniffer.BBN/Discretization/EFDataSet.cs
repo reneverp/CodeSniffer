@@ -26,6 +26,9 @@ namespace CodeSniffer.BBN.Discretization
         public double LowerBoundary { get; private set; }
         public double UpperBoundary { get; private set; }
 
+        //The rows needed for parameter estimation
+        public IList<DataRow> Rows { get; private set; }
+
         public override string ToString()
         {
             string upperBoundaryStr = UpperBoundary.ToString().Replace('.', '_');
@@ -43,11 +46,15 @@ namespace CodeSniffer.BBN.Discretization
         {
             LowerBoundary = lower;
             UpperBoundary = upper;
+
+            Rows = new List<DataRow>();
         }
     }
 
     public class EFDataSet
     {
+        public DataSet DiscreteDataset { get; private set; }
+
         private DataSet _dataset;
         private IDictionary<DataRow, DiscreteValue[]> _discreteVals;
         private IDictionary<int, IList<Bin>> _bins;
@@ -116,10 +123,45 @@ namespace CodeSniffer.BBN.Discretization
                     }
 
                     _discreteVals[row][rowIndex] = new DiscreteValue(Convert.ToDouble(row.Field<T>(rowIndex)), currentBin);
+                    currentBin.Rows.Add(row);
                 }
             }
 
             return _bins[rowIndex];
+        }
+
+        public void WriteToDiscreteDataSet()
+        {
+            DiscreteDataset = new DataSet();
+            DiscreteDataset.Tables.Add();
+
+            var rows = _dataset.Tables[0].Select();
+
+            foreach (DataColumn col in _dataset.Tables[0].Columns)
+            {
+                DiscreteDataset.Tables[0].Columns.Add(col.ColumnName, typeof(string));
+            }
+
+            foreach (var row in rows)
+            {
+                var currentRow = DiscreteDataset.Tables[0].Rows.Add();
+
+                var values = _discreteVals[row];
+
+                int fieldCount = values.Count();
+
+                for (int i = 0; i < fieldCount; i++)
+                {
+                    if (values[i] != null)
+                    {
+                        currentRow[i] = values[i].DiscreteBin.ToString();
+                    }
+                    else
+                    {
+                        currentRow[i] = row.ItemArray[i].ToString();
+                    }
+                }
+            }
         }
 
         public void WriteToCsv(string filename)
