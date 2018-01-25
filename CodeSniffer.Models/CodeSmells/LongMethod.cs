@@ -5,7 +5,6 @@ namespace CodeSniffer.Models.CodeSmells
 {
     class LongMethod : ICodeSmell
     {
-        private static BBN.LongMethod _bbn;
         private bool _isDetected;
         private IMetric _loc;
         private IMetric _cyclo;
@@ -14,8 +13,6 @@ namespace CodeSniffer.Models.CodeSmells
 
         public LongMethod(IMetric loc, IMetric cyclo, IMetric maxnesting, IMetric noav)
         {
-            _bbn = new BBN.LongMethod();
-
             _loc = loc;
             _cyclo = cyclo;
             _maxnesting = maxnesting;
@@ -28,12 +25,12 @@ namespace CodeSniffer.Models.CodeSmells
         {
             get
             {
-                _bbn.SetEvidenceForLoc(_loc.Value);
-                _bbn.SetEvidenceForCyclo(_cyclo.Value);
-                _bbn.SetEvidenceForMaxNesting(_maxnesting.Value);
-                _bbn.SetEvidenceForNoav(_noav.Value);
+                BBN.LongMethod.Instance.SetEvidenceForLoc(_loc.Value);
+                BBN.LongMethod.Instance.SetEvidenceForCyclo(_cyclo.Value);
+                BBN.LongMethod.Instance.SetEvidenceForMaxNesting(_maxnesting.Value);
+                BBN.LongMethod.Instance.SetEvidenceForNoav(_noav.Value);
 
-                return Math.Round(_bbn.IsLongMethod() * 100, 2);
+                return Math.Round(BBN.LongMethod.Instance.IsLongMethod() * 100, 2);
             }
             set
             {

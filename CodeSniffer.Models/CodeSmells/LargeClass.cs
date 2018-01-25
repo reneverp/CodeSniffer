@@ -11,7 +11,6 @@ namespace CodeSniffer.Models.CodeSmells
     class LargeClass : ICodeSmell
     {
 
-        private static BBN.LargeClass _bbn;
         private bool _isDetected;
         private IMetric _tcc;
         private IMetric _wmc;
@@ -20,8 +19,6 @@ namespace CodeSniffer.Models.CodeSmells
 
         public LargeClass(IMetric tcc, IMetric wmc, IMetric atfd, IMetric loc )
         {
-            _bbn = new BBN.LargeClass();
-
             _tcc = tcc;
             _wmc = wmc;
             _atfd = atfd;
@@ -34,12 +31,12 @@ namespace CodeSniffer.Models.CodeSmells
         {
             get
             {
-                _bbn.SetEvidenceForAtfd(_atfd.Value);
-                _bbn.SetEvidenceForLoc(_loc.Value);
-                _bbn.SetEvidenceForTcc(_tcc.Value);
-                _bbn.SetEvidenceForWmc(_wmc.Value);
+                BBN.LargeClass.Instance.SetEvidenceForAtfd(_atfd.Value);
+                BBN.LargeClass.Instance.SetEvidenceForLoc(_loc.Value);
+                BBN.LargeClass.Instance.SetEvidenceForTcc(_tcc.Value);
+                BBN.LargeClass.Instance.SetEvidenceForWmc(_wmc.Value);
 
-                return Math.Round(_bbn.IsLargeClass() * 100, 2);
+                return Math.Round(BBN.LargeClass.Instance.IsLargeClass() * 100, 2);
             }
             set
             {

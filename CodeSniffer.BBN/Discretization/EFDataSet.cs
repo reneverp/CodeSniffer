@@ -53,11 +53,10 @@ namespace CodeSniffer.BBN.Discretization
 
     public class EFDataSet
     {
-        public DataSet DiscreteDataset { get; private set; }
-
         private DataSet _dataset;
         private IDictionary<DataRow, DiscreteValue[]> _discreteVals;
         private IDictionary<int, IList<Bin>> _bins;
+        private DataSet _discreteDataset;
 
         public EFDataSet()
         {
@@ -68,6 +67,7 @@ namespace CodeSniffer.BBN.Discretization
 
         public void Load(string csvFile)
         {
+            _discreteDataset = null;
             _dataset = new DataSet();
             _bins.Clear();
             _discreteVals.Clear();
@@ -130,48 +130,53 @@ namespace CodeSniffer.BBN.Discretization
             return _bins[rowIndex];
         }
 
-        public void WriteToDiscreteDataSet()
+        public DataSet GetDiscreteDataSet()
         {
-            DiscreteDataset = new DataSet();
-            DiscreteDataset.Tables.Add();
-
-            var rows = _dataset.Tables[0].Select();
-
-            foreach (DataColumn col in _dataset.Tables[0].Columns)
+            if (_discreteDataset == null)
             {
-                DiscreteDataset.Tables[0].Columns.Add(col.ColumnName, typeof(string));
-            }
+                _discreteDataset = new DataSet();
+                _discreteDataset.Tables.Add();
 
-            foreach (var row in rows)
-            {
-                var currentRow = DiscreteDataset.Tables[0].Rows.Add();
+                var rows = _dataset.Tables[0].Select();
 
-                var values = _discreteVals[row];
-
-                int fieldCount = values.Count();
-
-                for (int i = 0; i < fieldCount; i++)
+                foreach (DataColumn col in _dataset.Tables[0].Columns)
                 {
-                    if (values[i] != null)
+                    _discreteDataset.Tables[0].Columns.Add(col.ColumnName, typeof(string));
+                }
+
+                foreach (var row in rows)
+                {
+                    var currentRow = _discreteDataset.Tables[0].Rows.Add();
+
+                    var values = _discreteVals[row];
+
+                    int fieldCount = values.Count();
+
+                    for (int i = 0; i < fieldCount; i++)
                     {
-                        currentRow[i] = values[i].DiscreteBin.ToString();
-                    }
-                    else
-                    {
-                        currentRow[i] = row.ItemArray[i].ToString();
+                        if (values[i] != null)
+                        {
+                            currentRow[i] = values[i].DiscreteBin.ToString();
+                        }
+                        else
+                        {
+                            currentRow[i] = row.ItemArray[i].ToString();
+                        }
                     }
                 }
             }
+
+            return _discreteDataset;
         }
 
         public void WriteToCsv(string filename)
         {
             using (StreamWriter sw = new StreamWriter(filename))
             {
-                var rows = _dataset.Tables[0].Select();
+                var rows = _discreteDataset.Tables[0].Select();
 
                 string toWrite = "";
-                foreach (DataColumn col in _dataset.Tables[0].Columns)
+                foreach (DataColumn col in _discreteDataset.Tables[0].Columns)
                 {
                     toWrite += col.ColumnName + ",";
                 }
@@ -180,70 +185,14 @@ namespace CodeSniffer.BBN.Discretization
 
                 foreach (var row in rows)
                 {
-                    string rowToWrite = "";
-                    var values = _discreteVals[row];
-
-                    int fieldCount = values.Count();
-
-                    for(int i = 0; i < fieldCount; i++)
-                    {
-                        string tmp = "";
-
-                        if (values[i] != null)
-                        {
-                            tmp = values[i].DiscreteBin.ToString();
-                        }
-                        else
-                        {
-                            tmp = row.ItemArray[i].ToString();
-                        }
-
-                        if (i != fieldCount - 1)
-                        {
-                            rowToWrite += tmp + ",";
-                        }
-                        else
-                        {
-                            rowToWrite += tmp;
-                        }
-                    }
-
-                    sw.WriteLine(rowToWrite);
-                }
-            }
-
-            WriteBins(filename);
-        }
-
-        private void WriteBins(string filename)
-        {
-            using (StreamWriter sw = new StreamWriter(filename.Substring(0, filename.LastIndexOf('.')) + "_bins.csv"))
-            {
-                string toWrite = "";
-                foreach (DataColumn col in _dataset.Tables[0].Columns)
-                {
-                    toWrite += col.ColumnName + ",";
-                }
-
-                sw.WriteLine(toWrite.Substring(0, toWrite.LastIndexOf(',')));
-
-                for (int i = 0; i < 8; i++)
-                {
                     toWrite = "";
-                    foreach (int key in _bins.Keys)
+
+                    for (int i = 0; i < row.ItemArray.Count(); i++)
                     {
-                        if (_bins[key].Count > 0)
-                        {
-                            toWrite += _bins[key][i].ToString() + ",";
-                        }
-                        else
-                        {
-                            toWrite += "0,";
-                        }
+                        toWrite += row.ItemArray[i].ToString() + ",";
                     }
 
                     sw.WriteLine(toWrite.Substring(0, toWrite.LastIndexOf(',')));
-
                 }
             }
         }

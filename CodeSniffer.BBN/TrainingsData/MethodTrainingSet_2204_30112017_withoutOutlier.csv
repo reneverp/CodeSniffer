@@ -1,4 +1,4 @@
-Lines of Code,Cyclometic Complexity,Number Of Parameters,# Inner Invocations,# Outer Invocations,ATFD,FDP,LAA,MAXNESTING,NOAV,Feature Envy,Long Method
+LOC,CYCLO,Number Of Parameters,# Inner Invocations,# Outer Invocations,ATFD,FDP,LAA,MAXNESTING,NOAV,Feature_Envy,Long_Method
 86,24,3,5,236,119,15,0,3,47,True,True
 64,29,0,117,168,110,11,0.22,3,63,True,True
 72,23,2,18,656,159,9,0.01,4,22,False,True

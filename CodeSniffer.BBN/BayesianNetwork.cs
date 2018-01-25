@@ -1,4 +1,5 @@
-﻿using Smile;
+﻿using CodeSniffer.BBN.Discretization;
+using Smile;
 using Smile.Learning;
 using System.Threading;
 
@@ -7,11 +8,19 @@ namespace CodeSniffer.BBN
     public class BayesianNetwork
     {
         private Network _network;
+        private string _networkFile;
 
         public BayesianNetwork(string networkFile)
         {
             SmileLicense.ActivateLicense();
             LoadNetworkFromFile(networkFile);
+
+            _networkFile = networkFile;
+
+            if (!Discretizer.IsDiscretized)
+            {
+                Discretizer.DiscretizeTrainingSets();
+            }
         }
 
         public double[] GetProbabilities(string nodeId)
@@ -61,6 +70,11 @@ namespace CodeSniffer.BBN
                     throw e;
                 }
             }
+        }
+
+        public void SaveNetwork()
+        {
+            _network.WriteFile(_networkFile);
         }
     }
 }

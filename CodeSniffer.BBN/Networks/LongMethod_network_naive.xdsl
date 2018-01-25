@@ -2,12 +2,12 @@
 <!-- This network was created in GeNIe Academic, which can be used for educational and research purposes only -->
 <smile version="1.0" id="Network2" numsamples="1000" discsamples="10000">
 	<nodes>
-		<cpt id="long_method">
+		<cpt id="Long_Method">
 			<state id="True" />
 			<state id="False" />
 			<probabilities>0.02654387865655471 0.9734561213434453</probabilities>
 		</cpt>
-		<cpt id="loc">
+		<cpt id="LOC">
 			<state id="bin_0_18" />
 			<state id="bin_18_36" />
 			<state id="bin_36_54" />
@@ -16,10 +16,10 @@
 			<state id="bin_90_108" />
 			<state id="bin_108_126" />
 			<state id="bin_126_andUp" />
-			<parents>long_method</parents>
+			<parents>Long_Method</parents>
 			<probabilities>0.01020408163265306 0.336734693877551 0.336734693877551 0.1326530612244898 0.09183673469387754 0.03061224489795918 0.03061224489795918 0.03061224489795918 0.9437952142459656 0.05286588759042849 0.00333889816360601 0 0 0 0 0</probabilities>
 		</cpt>
-		<cpt id="maxnesting">
+		<cpt id="MAXNESTING">
 			<state id="bin_0_1_375" />
 			<state id="bin_1_375_2_75" />
 			<state id="bin_2_75_4_125" />
@@ -28,10 +28,10 @@
 			<state id="bin_6_875_8_25" />
 			<state id="bin_8_25_9_625" />
 			<state id="bin_9_625_andUp" />
-			<parents>long_method</parents>
+			<parents>Long_Method</parents>
 			<probabilities>0.01020408163265306 0.08163265306122448 0.7346938775510203 0.08163265306122448 0.07142857142857142 0.01020408163265306 0.01020408163265306 0 0.6911519198664441 0.1652754590984975 0.1304952698942682 0.0114079020589872 0.0008347245409015025 0.0005564830272676684 0 0.0002782415136338342</probabilities>
 		</cpt>
-		<cpt id="cyclo">
+		<cpt id="CYCLO">
 			<state id="bin_0_4_75" />
 			<state id="bin_4_75_9_5" />
 			<state id="bin_9_5_14_25" />
@@ -40,10 +40,10 @@
 			<state id="bin_23_75_28_5" />
 			<state id="bin_28_5_33_25" />
 			<state id="bin_33_25_andUp" />
-			<parents>long_method</parents>
+			<parents>Long_Method</parents>
 			<probabilities>0.2040816326530612 0.3571428571428571 0.2040816326530612 0.1122448979591837 0.0510204081632653 0.04081632653061224 0.02040816326530612 0.01020408163265306 0.9207011686143572 0.06900389538119088 0.009181969949916527 0.001112966054535337 0 0 0 0</probabilities>
 		</cpt>
-		<cpt id="noav">
+		<cpt id="NOAV">
 			<state id="bin_0_7_875" />
 			<state id="bin_7_875_15_75" />
 			<state id="bin_15_75_23_625" />
@@ -52,13 +52,13 @@
 			<state id="bin_39_375_47_25" />
 			<state id="bin_47_25_55_125" />
 			<state id="bin_55_125_andUp" />
-			<parents>long_method</parents>
+			<parents>Long_Method</parents>
 			<probabilities>0.1326530612244898 0.3469387755102041 0.2857142857142857 0.1224489795918367 0.03061224489795918 0.01020408163265306 0.0510204081632653 0.02040816326530612 0.89259877573734 0.09293266555370061 0.01112966054535337 0.002504173622704507 0.0005564830272676684 0 0.0002782415136338342 0</probabilities>
 		</cpt>
 	</nodes>
 	<extensions>
 		<genie version="1.0" app="GeNIe 2.1.1104.0 ACADEMIC" name="Network2" faultnameformat="nodestate">
-			<node id="long_method">
+			<node id="Long_Method">
 				<name>Long method</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
@@ -66,7 +66,7 @@
 				<position>827 233 947 263</position>
 				<barchart active="true" width="128" height="64" />
 			</node>
-			<node id="loc">
+			<node id="LOC">
 				<name>LOC</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
@@ -74,24 +74,24 @@
 				<position>341 485 484 515</position>
 				<barchart active="true" width="221" height="162" />
 			</node>
-			<node id="cyclo">
-				<name>cyclo</name>
+			<node id="CYCLO">
+				<name>CYCLO</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
 				<position>639 495 782 525</position>
 				<barchart active="true" width="218" height="162" />
 			</node>
-			<node id="maxnesting">
-				<name>maxnesting</name>
+			<node id="MAXNESTING">
+				<name>MAXNESTING</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
 				<position>897 500 1040 530</position>
 				<barchart active="true" width="191" height="162" />
 			</node>
-			<node id="noav">
-				<name>noav</name>
+			<node id="NOAV">
+				<name>NOAV</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />

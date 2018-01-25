@@ -29,13 +29,25 @@ namespace CodeSniffer.BBN.Discretization
         public static DataSet ClassDataset { get; private set; }
         public static DataSet MethodDataset { get; private set; }
 
+        public static bool IsDiscretized { get; private set; }
+
+        private static object _lockObj;
 
         static Discretizer()
         {
             _ef = new Discretization.EFDataSet();
+            _lockObj = new object();
+        }
 
-            DiscretizeClassTrainingSet();
-            DiscretizeMethodTrainingSet();
+        public static void DiscretizeTrainingSets()
+        {
+            lock (_lockObj)
+            {
+                DiscretizeClassTrainingSet();
+                DiscretizeMethodTrainingSet();
+
+                IsDiscretized = true;
+            }
         }
 
         private static void DiscretizeClassTrainingSet()
@@ -47,7 +59,9 @@ namespace CodeSniffer.BBN.Discretization
             WMC = new DiscretizedData(_ef.Discretize<int>(3, 8));
             ATFDClass = new DiscretizedData(_ef.Discretize<int>(4, 8));
 
-            //_ef.WriteToCsv(@"C:\Temp\outClass_test.csv");
+            ClassDataset = _ef.GetDiscreteDataSet();
+
+            _ef.WriteToCsv(GetFullPath("ClassTrainingSet_1356_03122017_withoutOutlier_discretized.csv"));
         }
 
         private static void DiscretizeMethodTrainingSet()
@@ -62,7 +76,10 @@ namespace CodeSniffer.BBN.Discretization
             MAXNESTING = new DiscretizedData(_ef.Discretize<int>(8, 8));
             NOAV = new DiscretizedData(_ef.Discretize<int>(9, 8));
 
-            //_ef.WriteToCsv(@"C:\Temp\outMethod_test.csv");
+            MethodDataset = _ef.GetDiscreteDataSet();
+
+
+            _ef.WriteToCsv(GetFullPath("MethodTrainingSet_2204_30112017_withoutOutlier_discretized.csv"));
         }
 
         private static string GetFullPath(string file)

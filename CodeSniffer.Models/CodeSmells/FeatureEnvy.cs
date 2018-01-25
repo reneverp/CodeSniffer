@@ -9,7 +9,6 @@ namespace CodeSniffer.Models.CodeSmells
 {
     class FeatureEnvy : ICodeSmell
     {
-        private static BBN.FeatureEnvy _bbn;
         private bool _isDetected;
         private IMetric _atfd;
         private IMetric _laa;
@@ -17,8 +16,6 @@ namespace CodeSniffer.Models.CodeSmells
 
         public FeatureEnvy(IMetric atfd, IMetric laa, IMetric fdp)
         {
-            _bbn = new BBN.FeatureEnvy();
-
             _atfd = atfd;
             _laa = laa;
             _fdp = fdp;
@@ -30,11 +27,11 @@ namespace CodeSniffer.Models.CodeSmells
         {
             get
             {
-                _bbn.SetEvidenceForAtfd(_atfd.Value);
-                _bbn.SetEvidenceForLaa(_laa.Value);
-                _bbn.SetEvidenceForFdp(_fdp.Value);
+                BBN.FeatureEnvy.Instance.SetEvidenceForAtfd(_atfd.Value);
+                BBN.FeatureEnvy.Instance.SetEvidenceForLaa(_laa.Value);
+                BBN.FeatureEnvy.Instance.SetEvidenceForFdp(_fdp.Value);
 
-                return Math.Round(_bbn.IsFeatureEnvy() * 100, 2);
+                return Math.Round(BBN.FeatureEnvy.Instance.IsFeatureEnvy() * 100, 2);
             }
             set
             {

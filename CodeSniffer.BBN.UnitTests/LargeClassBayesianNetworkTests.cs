@@ -8,10 +8,10 @@ namespace CodeSniffer.BBN.UnitTests
         [Test]
         public void TestBayesian()
         {
-            var lm = new LongMethod();
-            var fe = new FeatureEnvy();
+            var lm = BBN.LongMethod.Instance;
+            var fe = BBN.FeatureEnvy.Instance;
 
-            var nw = new LargeClass();
+            var nw = BBN.LargeClass.Instance;
 
             //nw._network.SetProbabilities("LOC", new double[16] {1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0});
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace CodeSniffer.BBN.ParameterEstimation
 {
     class LaplaceEstimator
     {
-        public static void LaplaceEstimation(DataSet discretizedDataSet, BayesianNetwork network, IDictionary<string, DiscretizedData> discretizedDataMap, string classificationNodeName)
+        public static void LaplaceEstimation(DataSet discretizedDataSet, BayesianNetwork network, IDictionary<string, DiscretizedData> discretizedDataMap, string classificationNodeName, int laplaceSmoothing)
         {
             if(discretizedDataSet.Tables == null || discretizedDataSet.Tables.Count == 0)
             {
@@ -23,29 +24,44 @@ namespace CodeSniffer.BBN.ParameterEstimation
             var countTrueOnly = rows.Where(x => x.Field<string>(classificationNodeName) == "True").Count();
             var countFalseOnly = rows.Where(x => x.Field<string>(classificationNodeName) == "False").Count();
 
-            int countTrue = countTrueOnly + 1;
-            int countFalse = countTrueOnly + 1;
+            int countTrue = countTrueOnly + laplaceSmoothing;
+            int countFalse = countFalseOnly + laplaceSmoothing;
 
-            double probFalse = (double)(countFalse) / ((double)(countFalseOnly) + (1 * 2));
-            double probTrue = (double)(countTrue) / ((double)(countTrueOnly) + (1 * 2));
+            double probFalse = (double)(countFalse) / ((double)(rows.Count()) + (laplaceSmoothing * 2));
+            double probTrue = (double)(countTrue) / ((double)(rows.Count()) + (laplaceSmoothing * 2));
 
             network.SetProbabilities(classificationNodeName, new double[] { probTrue, probFalse });
 
-            //network.SetEvidence()
+            foreach (var kvp in discretizedDataMap)
+            {
+                Debug.WriteLine(kvp.Key);
 
-            //foreach (var bin in LOCClass)
-            //{
-            //    var rowsTrue = rows.Where(x => x.Field<string>("Lines of Code") == bin.ToString() && x.Field<string>("Large Class") == "True");
-            //    var rowsFalse = rows.Where(x => x.Field<string>("Lines of Code") == bin.ToString() && x.Field<string>("Large Class") == "False");
+                List<double> falseProbs = new List<double>();
+                List<double> trueProbs = new List<double>();
 
-            //    countTrue = rowsTrue.Count() + 1;
-            //    countFalse = rowsFalse.Count() + 1;
+                foreach (var bin in kvp.Value.Bins)
+                {
+                    Debug.WriteLine("|- " + bin.ToString() + " -|");
 
-            //    double probFalse = (double)(countFalse) / ((double)(countFalseOnly) + (1 * LOCClass.Count));
-            //    double probTrue = (double)(countTrue) / ((double)(countTrueOnly) + (1 * LOCClass.Count));
+                    var rowsTrue = rows.Where(x => x.Field<string>(kvp.Key) == bin.ToString() && x.Field<string>(classificationNodeName) == "True");
+                    var rowsFalse = rows.Where(x => x.Field<string>(kvp.Key) == bin.ToString() && x.Field<string>(classificationNodeName) == "False");
 
-            //    Debug.WriteLine(probFalse + "         ,            " + probTrue);
-            //}
+                    countTrue = rowsTrue.Count() + laplaceSmoothing;
+                    countFalse = rowsFalse.Count() + laplaceSmoothing;
+
+                    probFalse = (double)(countFalse) / ((double)(countFalseOnly) + (laplaceSmoothing * kvp.Value.Bins.Count));
+                    probTrue = (double)(countTrue) / ((double)(countTrueOnly) + (laplaceSmoothing * kvp.Value.Bins.Count));
+
+                    Debug.WriteLine(probFalse + "         ,            " + probTrue);
+
+                    falseProbs.Add(probFalse);
+                    trueProbs.Add(probTrue);
+                }
+
+                trueProbs.AddRange(falseProbs);
+
+                network.SetProbabilities(kvp.Key, trueProbs.ToArray());
+            }
 
         }
     }

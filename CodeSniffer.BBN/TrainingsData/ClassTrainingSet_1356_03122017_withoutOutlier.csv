@@ -1,4 +1,4 @@
-Lines of Code,Number Of Members,TCC,WMC,ATFD,Large Class
+LOC,Number Of Members,TCC,WMC,ATFD,Large_Class
 65,4,0,4,194,False
 570,85,0.03,1,194,True
 64,6,0,1,184,False
