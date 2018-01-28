@@ -13,8 +13,6 @@ namespace CodeSniffer.BBN.ParameterEstimation
     {
         public static void Adapt(IList<DataRow> additionalCases, DataSet discretizedDataSet, BayesianNetwork network, IDictionary<string, DiscretizedData> discretizedDataMap, string classificationNodeName, int laplaceSmoothing, double fadingFactor)
         {
-            //TODO: fading....!!
-
             if (discretizedDataSet.Tables == null || discretizedDataSet.Tables.Count == 0)
             {
                 throw new Exception("Discretized dataset empty");
@@ -31,17 +29,17 @@ namespace CodeSniffer.BBN.ParameterEstimation
             var countFalseOnly = rows.Where(x => x.Field<string>(classificationNodeName) == "False").Count();
 
             var rowsAdapt = discretizedDataSet.Tables[0].Select().OrderBy(x => x.Field<string>(0));
-            var adaptCountTrueOnly = rowsAdapt.Where(x => x.Field<string>(classificationNodeName) == "True").Count();
-            var adaptCountFalseOnly = rowsAdapt.Where(x => x.Field<string>(classificationNodeName) == "False").Count();
+            var adaptCountTrueOnly = additionalCases.Where(x => x.Field<string>(classificationNodeName) == "True").Count();
+            var adaptCountFalseOnly = additionalCases.Where(x => x.Field<string>(classificationNodeName) == "False").Count();
 
-            var adaptedCountTrueOnly = (countTrueOnly - adaptCountTrueOnly) * -1;
-            var adaptedCountFalseOnly = (countFalseOnly - adaptCountFalseOnly) * -1;
+            var adaptedCountTrueOnly = (countTrueOnly + adaptCountTrueOnly);
+            var adaptedCountFalseOnly = (countFalseOnly + adaptCountFalseOnly);
 
-            double countTrue = (countTrueOnly * fadingFactor + adaptedCountTrueOnly + laplaceSmoothing);
-            double countFalse = (countFalseOnly * fadingFactor + adaptedCountFalseOnly + laplaceSmoothing);
+            double countTrue = (countTrueOnly * fadingFactor + adaptCountTrueOnly + laplaceSmoothing);
+            double countFalse = (countFalseOnly * fadingFactor + adaptCountFalseOnly + laplaceSmoothing);
 
-            double probFalse = (double)(countFalse) / (((double)(rows.Count() * fadingFactor) + adaptedCountTrueOnly + adaptedCountFalseOnly + (laplaceSmoothing * 2)));
-            double probTrue = (double)(countTrue) / (((double)(rows.Count() * fadingFactor) + adaptedCountTrueOnly + adaptedCountFalseOnly + (laplaceSmoothing * 2)) );
+            double probFalse = (double)(countFalse) / (((double)(rows.Count() * fadingFactor) + adaptCountTrueOnly + adaptCountFalseOnly + (laplaceSmoothing * 2)));
+            double probTrue = (double)(countTrue) / (((double)(rows.Count() * fadingFactor) + adaptCountTrueOnly + adaptCountFalseOnly + (laplaceSmoothing * 2)) );
 
             network.SetProbabilities(classificationNodeName, new double[] { probTrue, probFalse });
 
@@ -52,19 +50,17 @@ namespace CodeSniffer.BBN.ParameterEstimation
 
                 foreach (var bin in kvp.Value.Bins)
                 {
-                    //Debug.WriteLine("|- " + bin.ToString() + " -|");
-
                     var rowsTrue = rows.Where(x => x.Field<string>(kvp.Key) == bin.ToString() && x.Field<string>(classificationNodeName) == "True");
                     var rowsFalse = rows.Where(x => x.Field<string>(kvp.Key) == bin.ToString() && x.Field<string>(classificationNodeName) == "False");
 
-                    var adaptRowsTrue = (rowsTrue.Count() - rowsAdapt.Where(x => x.Field<string>(kvp.Key) == bin.ToString() && x.Field<string>(classificationNodeName) == "True").Count()) * -1;
-                    var adaptRowsFalse = (rowsFalse.Count() - rowsAdapt.Where(x => x.Field<string>(kvp.Key) == bin.ToString() && x.Field<string>(classificationNodeName) == "False").Count()) * -1;
+                    var adaptRowsTrue = (additionalCases.Where(x => x.Field<string>(kvp.Key) == bin.ToString() && x.Field<string>(classificationNodeName) == "True").Count());
+                    var adaptRowsFalse = (additionalCases.Where(x => x.Field<string>(kvp.Key) == bin.ToString() && x.Field<string>(classificationNodeName) == "False").Count());
 
                     countTrue = (rowsTrue.Count() * fadingFactor + adaptRowsTrue + laplaceSmoothing);
                     countFalse = (rowsFalse.Count() * fadingFactor + adaptRowsFalse + laplaceSmoothing);
 
-                    probFalse = (double)(countFalse) / ((double)(countFalseOnly * fadingFactor) + adaptedCountFalseOnly + ((laplaceSmoothing * kvp.Value.Bins.Count)) );
-                    probTrue = (double)(countTrue) / ((double)(countTrueOnly * fadingFactor) + adaptedCountTrueOnly + ((laplaceSmoothing * kvp.Value.Bins.Count)) );
+                    probFalse = (double)(countFalse) / ((double)(countFalseOnly * fadingFactor) + adaptCountFalseOnly + ((laplaceSmoothing * kvp.Value.Bins.Count)) );
+                    probTrue = (double)(countTrue) / ((double)(countTrueOnly * fadingFactor) + adaptCountTrueOnly + ((laplaceSmoothing * kvp.Value.Bins.Count)) );
 
                     falseProbs.Add(probFalse);
                     trueProbs.Add(probTrue);
