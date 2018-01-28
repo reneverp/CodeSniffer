@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -78,8 +79,83 @@ namespace CodeSniffer.BBN.Discretization
 
             MethodDataset = _ef.GetDiscreteDataSet();
 
-
             _ef.WriteToCsv(GetFullPath("MethodTrainingSet_2204_30112017_withoutOutlier_discretized.csv"));
+        }
+
+        public static IList<DataRow> ProcessAdditionalMethodCases()
+        {
+            IList<DataRow> rowsToReturn = new List<DataRow>();
+
+            if (File.Exists(GetFullPath("AdditionalMethodData.csv")))
+            {
+                //TODO:: MOVE TO OTHER CLASS
+                var dataset = DataSetHelper.GetDataSetForCSV(GetFullPath("AdditionalMethodData.csv"));
+
+                foreach (var row in dataset.Tables[0].Select())
+                {
+                    Bin loc = LOC.Discretize(row.Field<int>("LOC"));
+                    Bin cyclo = CYCLO.Discretize(row.Field<int>("CYCLO"));
+                    Bin atfd = ATFD.Discretize(row.Field<int>("ATFD"));
+                    Bin fdp = FDP.Discretize(row.Field<int>("FDP"));
+                    Bin laa = LAA.Discretize(row.Field<int>("LAA"));
+                    Bin maxnesting = MAXNESTING.Discretize(row.Field<int>("MAXNESTING"));
+                    Bin noav = NOAV.Discretize(row.Field<int>("NOAV"));
+
+                    string featureEnvy = row.Field<string>("Feature_Envy");
+                    string longMethod = row.Field<string>("Long_Method");
+
+                    DataRow newRow = MethodDataset.Tables[0].NewRow();
+
+                    newRow.SetField<string>("LOC", loc.ToString());
+                    newRow.SetField<string>("CYCLO", cyclo.ToString());
+                    newRow.SetField<string>("ATFD", atfd.ToString());
+                    newRow.SetField<string>("FDP", fdp.ToString());
+                    newRow.SetField<string>("LAA", laa.ToString());
+                    newRow.SetField<string>("MAXNESTING", maxnesting.ToString());
+                    newRow.SetField<string>("NOAV", noav.ToString());
+
+                    newRow.SetField<string>("Feature_Envy", featureEnvy);
+                    newRow.SetField<string>("Long_Method", longMethod);
+
+                    rowsToReturn.Add(newRow);
+                }
+            }
+
+            return rowsToReturn;
+        }
+
+        public static IList<DataRow> ProcessAdditionalClassCases()
+        {
+            IList<DataRow> rowsToReturn = new List<DataRow>();
+
+            if (File.Exists(GetFullPath("AdditionalClassData.csv")))
+            {
+                //TODO:: MOVE TO OTHER CLASS
+                var dataset = DataSetHelper.GetDataSetForCSV(GetFullPath("AdditionalClassData.csv"));
+
+                foreach (var row in dataset.Tables[0].Select())
+                {
+                    Bin loc = LOCClass.Discretize(row.Field<int>("LOC"));
+                    Bin tcc = TCC.Discretize(row.Field<int>("TCC"));
+                    Bin wmc = WMC.Discretize(row.Field<int>("WMC"));
+                    Bin atfd = ATFDClass.Discretize(row.Field<int>("ATFD"));
+
+                    string largeClass = row.Field<string>("Large_Class");
+
+                    DataRow newRow = ClassDataset.Tables[0].NewRow();
+
+                    newRow.SetField<string>("LOC", loc.ToString());
+                    newRow.SetField<string>("TCC", tcc.ToString());
+                    newRow.SetField<string>("WMC", wmc.ToString());
+                    newRow.SetField<string>("ATFD", atfd.ToString());
+
+                    newRow.SetField<string>("Large_Class", largeClass);
+
+                    rowsToReturn.Add(newRow);
+                }
+            }
+
+            return rowsToReturn;
         }
 
         private static string GetFullPath(string file)

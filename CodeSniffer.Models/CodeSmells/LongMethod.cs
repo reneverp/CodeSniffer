@@ -10,6 +10,9 @@ namespace CodeSniffer.Models.CodeSmells
         private IMetric _cyclo;
         private IMetric _maxnesting;
         private IMetric _noav;
+        private bool _overridden;
+
+        public event Action Updated;
 
         public LongMethod(IMetric loc, IMetric cyclo, IMetric maxnesting, IMetric noav)
         {
@@ -19,7 +22,7 @@ namespace CodeSniffer.Models.CodeSmells
             _noav = noav;
         }
 
-        public string Name => "Long Method";
+        public string Name => "Long_Method";
 
         public double Confidence
         {
@@ -41,17 +44,38 @@ namespace CodeSniffer.Models.CodeSmells
         {
             get
             {
-                if (Confidence > 50)
+                if(!_overridden)
                 {
-                    _isDetected = true;
+                    _isDetected = DetectOnConfidence();
                 }
 
                 return _isDetected;
             }
             set
             {
-                _isDetected = value;
+                if (value != IsDetected)
+                {
+                    _isDetected = value;
+                    _overridden = true;
+                    Updated?.Invoke();
+                }
             }
+        }
+
+        private bool DetectOnConfidence()
+        {
+            bool detected = false;
+
+            if (Confidence > 50)
+            {
+                detected = true;
+            }
+            else
+            {
+                detected = false;
+            }
+
+            return detected;
         }
     }
 }

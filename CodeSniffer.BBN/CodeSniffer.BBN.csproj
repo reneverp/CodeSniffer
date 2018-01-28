@@ -50,6 +50,7 @@
       <Link>License.cs</Link>
     </Compile>
     <Compile Include="BayesianNetwork.cs" />
+    <Compile Include="Discretization\DataSetHelper.cs" />
     <Compile Include="Discretization\DiscretizedData.cs" />
     <Compile Include="Discretization\Discretizer.cs" />
     <Compile Include="Discretization\EFDataSet.cs" />

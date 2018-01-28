@@ -44,7 +44,10 @@ namespace CodeSniffer.BBN
         {
             IDictionary<string, DiscretizedData> map = GenerateBinMap();
 
+            //learn from original data
             LaplaceEstimator.LaplaceEstimation(Discretizer.MethodDataset, _network, map, "Feature_Envy", 1);
+
+            LaplaceEstimator.Adapt(Discretizer.ProcessAdditionalMethodCases(), Discretizer.MethodDataset, _network, map, "Feature_Envy", 1, 1);
         }
 
         private IDictionary<string, DiscretizedData> GenerateBinMap()

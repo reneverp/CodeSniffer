@@ -23,6 +23,12 @@ namespace CodeSniffer.BBN
             }
         }
 
+        ~BayesianNetwork()
+        {
+            _network.Dispose();
+            _network = null;
+        }
+
         public double[] GetProbabilities(string nodeId)
         {
             int handle = _network.GetNode(nodeId);
@@ -53,23 +59,8 @@ namespace CodeSniffer.BBN
 
         private void LoadNetworkFromFile(string networkFile, int retryCount = 0)
         {
-            try
-            {
-                _network = new Network();
-                _network.ReadFile(networkFile);
-            }
-            catch(SmileException e)
-            {
-                Thread.Sleep(1000);
-                if (retryCount < 5)
-                {
-                    LoadNetworkFromFile(networkFile, ++retryCount);
-                }
-                else
-                {
-                    throw e;
-                }
-            }
+            _network = new Network();
+            _network.ReadFile(networkFile);
         }
 
         public void SaveNetwork()

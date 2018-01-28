@@ -100,9 +100,9 @@ namespace CodeSniffer.ViewModels
         public MainWindowViewModel(AsyncParserWrapper asyncParser, ApplicationInterfaces.IOService ioService)
         {
             //TODO: remove hardcoded path
-            _sourcePath = @"D:\svn\ganttproject-ganttproject-2.8.5\ganttproject-ganttproject-2.8.5\ganttproject\src\net\sourceforge\ganttproject";
+            //_sourcePath = @"D:\svn\ganttproject-ganttproject-2.8.5\ganttproject-ganttproject-2.8.5\ganttproject\src\net\sourceforge\ganttproject";
 
-            //_sourcePath = @"D:\svn\test\junit-4.12\junit4\src\main";
+            _sourcePath = @"D:\svn\test\junit-4.12\junit4\src\main";
 
 
             _project = new Project();

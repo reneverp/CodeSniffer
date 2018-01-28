@@ -13,6 +13,9 @@ namespace CodeSniffer.Models.CodeSmells
         private IMetric _atfd;
         private IMetric _laa;
         private IMetric _fdp;
+        private bool _overridden;
+
+        public event Action Updated;
 
         public FeatureEnvy(IMetric atfd, IMetric laa, IMetric fdp)
         {
@@ -21,7 +24,7 @@ namespace CodeSniffer.Models.CodeSmells
             _fdp = fdp;
         }
 
-        public string Name => "Feature Envy";
+        public string Name => "Feature_Envy";
 
         public double Confidence
         {
@@ -42,17 +45,38 @@ namespace CodeSniffer.Models.CodeSmells
         {
             get
             {
-                if (Confidence > 50)
+                if(!_overridden)
                 {
-                    _isDetected = true;
+                    _isDetected = DetectOnConfidence();
                 }
 
                 return _isDetected;
             }
             set
             {
-                _isDetected = value;
+                if (value != IsDetected)
+                {
+                    _isDetected = value;
+                    _overridden = true;
+                    Updated?.Invoke();
+                }
             }
+        }
+
+        private bool DetectOnConfidence()
+        {
+            bool detected = false;
+
+            if (Confidence > 50)
+            {
+                detected = true;
+            }
+            else
+            {
+                detected = false;
+            }
+
+            return detected;
         }
     }
 }
