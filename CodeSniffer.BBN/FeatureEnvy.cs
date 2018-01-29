@@ -47,6 +47,7 @@ namespace CodeSniffer.BBN
             //learn from original data
             LaplaceEstimator.LaplaceEstimation(Discretizer.MethodDataset, _network, map, "Feature_Envy", 1);
 
+            //Adapt to additional data
             LaplaceEstimator.Adapt(Discretizer.ProcessAdditionalMethodCases(), Discretizer.MethodDataset, _network, map, "Feature_Envy", 1, 1);
 
         }
