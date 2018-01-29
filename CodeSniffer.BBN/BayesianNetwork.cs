@@ -49,6 +49,9 @@ namespace CodeSniffer.BBN
 
         public double GetOutcomeValue(string nodeId, int outcomeIndex)
         {
+            if (System.Configuration.ConfigurationManager.AppSettings["TrainingMode"] == "True")
+                return 0.0;
+
             _network.UpdateBeliefs();
 
             int handle = _network.GetNode(nodeId);

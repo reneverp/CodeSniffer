@@ -84,12 +84,17 @@ namespace CodeSniffer.BBN.Discretization
 
         public static IList<DataRow> ProcessAdditionalMethodCases()
         {
+            return ProcessAdditionalMethodCases(GetFullPath("AdditionalMethodData.csv"));
+        }
+
+        public static IList<DataRow> ProcessAdditionalMethodCases(string filename)
+        {
             IList<DataRow> rowsToReturn = new List<DataRow>();
 
-            if (File.Exists(GetFullPath("AdditionalMethodData.csv")))
+            if (File.Exists(filename))
             {
                 //TODO:: MOVE TO OTHER CLASS
-                var dataset = DataSetHelper.GetDataSetForCSV(GetFullPath("AdditionalMethodData.csv"));
+                var dataset = DataSetHelper.GetDataSetForCSV(filename);
 
                 foreach (var row in dataset.Tables[0].Select())
                 {
@@ -97,7 +102,16 @@ namespace CodeSniffer.BBN.Discretization
                     Bin cyclo = CYCLO.Discretize(row.Field<int>("CYCLO"));
                     Bin atfd = ATFD.Discretize(row.Field<int>("ATFD"));
                     Bin fdp = FDP.Discretize(row.Field<int>("FDP"));
-                    Bin laa = LAA.Discretize(row.Field<int>("LAA"));
+
+                    Bin laa = null;
+                    try
+                    {
+                        laa = LAA.Discretize(row.Field<double>("LAA"));
+                    }
+                    catch
+                    {
+                        laa = LAA.Discretize(row.Field<int>("LAA"));
+                    }
                     Bin maxnesting = MAXNESTING.Discretize(row.Field<int>("MAXNESTING"));
                     Bin noav = NOAV.Discretize(row.Field<int>("NOAV"));
 
@@ -126,17 +140,22 @@ namespace CodeSniffer.BBN.Discretization
 
         public static IList<DataRow> ProcessAdditionalClassCases()
         {
+            return ProcessAdditionalClassCases(GetFullPath("AdditionalClassData.csv"));
+        }
+
+        public static IList<DataRow> ProcessAdditionalClassCases(string filename)
+        {
             IList<DataRow> rowsToReturn = new List<DataRow>();
 
-            if (File.Exists(GetFullPath("AdditionalClassData.csv")))
+            if (File.Exists(filename))
             {
                 //TODO:: MOVE TO OTHER CLASS
-                var dataset = DataSetHelper.GetDataSetForCSV(GetFullPath("AdditionalClassData.csv"));
+                var dataset = DataSetHelper.GetDataSetForCSV(filename);
 
                 foreach (var row in dataset.Tables[0].Select())
                 {
                     Bin loc = LOCClass.Discretize(row.Field<int>("LOC"));
-                    Bin tcc = TCC.Discretize(row.Field<int>("TCC"));
+                    Bin tcc = TCC.Discretize(row.Field<double>("TCC"));
                     Bin wmc = WMC.Discretize(row.Field<int>("WMC"));
                     Bin atfd = ATFDClass.Discretize(row.Field<int>("ATFD"));
 
