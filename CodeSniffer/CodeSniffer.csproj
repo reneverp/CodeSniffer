@@ -152,8 +152,8 @@
     </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>$(SolutionDir)build\7za.exe x $(SolutionDir)ThirdParty\CodeProjects\ganttproject-2.8.5.7z -o$(TargetDir)CodeProjects\ganttproject-2.8.5 -y
+    <PreBuildEvent>"$(SolutionDir)build\7za.exe" x "$(SolutionDir)ThirdParty\CodeProjects\ganttproject-2.8.5.7z" -o"$(TargetDir)CodeProjects\ganttproject-2.8.5" -y
 
-$(SolutionDir)build\7za.exe x $(SolutionDir)ThirdParty\CodeProjects\junit-4.12.7z -o$(TargetDir)CodeProjects\junit-4.12 -y</PreBuildEvent>
+"$(SolutionDir)build\7za.exe" x "$(SolutionDir)ThirdParty\CodeProjects\junit-4.12.7z" -o$(TargetDir)CodeProjects\junit-4.12" -y</PreBuildEvent>
   </PropertyGroup>
 </Project>
