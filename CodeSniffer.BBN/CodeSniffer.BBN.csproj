@@ -54,7 +54,7 @@
     <Compile Include="Discretization\DataSetHelper.cs" />
     <Compile Include="Discretization\DiscretizedData.cs" />
     <Compile Include="Discretization\Discretizer.cs" />
-    <Compile Include="Discretization\EFDataSet.cs" />
+    <Compile Include="Discretization\EWDataSet.cs" />
     <Compile Include="LongMethod.cs" />
     <Compile Include="FeatureEnvy.cs" />
     <Compile Include="LargeClass.cs" />
