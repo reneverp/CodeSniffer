@@ -12,7 +12,7 @@ namespace CodeSniffer.BBN.Discretization
 {
     public static class Discretizer
     {
-        private static EFDataSet _ef;
+        private static EWDataSet _ew;
 
         public static DiscretizedData LOCClass { get; private set; }
         public static DiscretizedData TCC { get; private set; }
@@ -36,7 +36,7 @@ namespace CodeSniffer.BBN.Discretization
 
         static Discretizer()
         {
-            _ef = new Discretization.EFDataSet();
+            _ew = new Discretization.EWDataSet();
             _lockObj = new object();
         }
 
@@ -53,33 +53,33 @@ namespace CodeSniffer.BBN.Discretization
 
         private static void DiscretizeClassTrainingSet()
         {
-            _ef.Load(GetFullPath("ClassTrainingSet_1356_03122017_withoutOutlier.csv"));
+            _ew.Load(GetFullPath("ClassTrainingSet_1356_03122017_withoutOutlier.csv"));
 
-            LOCClass = new DiscretizedData(_ef.Discretize<int>(0, 8));
-            TCC = new DiscretizedData(_ef.Discretize<double>(2, 8));
-            WMC = new DiscretizedData(_ef.Discretize<int>(3, 8));
-            ATFDClass = new DiscretizedData(_ef.Discretize<int>(4, 8));
+            LOCClass = new DiscretizedData(_ew.Discretize<int>(0, 8));
+            TCC = new DiscretizedData(_ew.Discretize<double>(2, 8));
+            WMC = new DiscretizedData(_ew.Discretize<int>(3, 8));
+            ATFDClass = new DiscretizedData(_ew.Discretize<int>(4, 8));
 
-            ClassDataset = _ef.GetDiscreteDataSet();
+            ClassDataset = _ew.GetDiscreteDataSet();
 
-            _ef.WriteToCsv(GetFullPath("ClassTrainingSet_1356_03122017_withoutOutlier_discretized.csv"));
+            _ew.WriteToCsv(GetFullPath("ClassTrainingSet_1356_03122017_withoutOutlier_discretized.csv"));
         }
 
         private static void DiscretizeMethodTrainingSet()
         {
-            _ef.Load(GetFullPath("MethodTrainingSet_2204_30112017_withoutOutlier.csv"));
+            _ew.Load(GetFullPath("MethodTrainingSet_2204_30112017_withoutOutlier.csv"));
 
-            LOC = new DiscretizedData(_ef.Discretize<int>(0, 8));
-            CYCLO = new DiscretizedData(_ef.Discretize<int>(1, 8));
-            ATFD = new DiscretizedData(_ef.Discretize<int>(5, 8));
-            FDP = new DiscretizedData(_ef.Discretize<int>(6, 8));
-            LAA = new DiscretizedData(_ef.Discretize<double>(7, 8));
-            MAXNESTING = new DiscretizedData(_ef.Discretize<int>(8, 8));
-            NOAV = new DiscretizedData(_ef.Discretize<int>(9, 8));
+            LOC = new DiscretizedData(_ew.Discretize<int>(0, 8));
+            CYCLO = new DiscretizedData(_ew.Discretize<int>(1, 8));
+            ATFD = new DiscretizedData(_ew.Discretize<int>(5, 8));
+            FDP = new DiscretizedData(_ew.Discretize<int>(6, 8));
+            LAA = new DiscretizedData(_ew.Discretize<double>(7, 8));
+            MAXNESTING = new DiscretizedData(_ew.Discretize<int>(8, 8));
+            NOAV = new DiscretizedData(_ew.Discretize<int>(9, 8));
 
-            MethodDataset = _ef.GetDiscreteDataSet();
+            MethodDataset = _ew.GetDiscreteDataSet();
 
-            _ef.WriteToCsv(GetFullPath("MethodTrainingSet_2204_30112017_withoutOutlier_discretized.csv"));
+            _ew.WriteToCsv(GetFullPath("MethodTrainingSet_2204_30112017_withoutOutlier_discretized.csv"));
         }
 
         public static IList<DataRow> ProcessAdditionalMethodCases()

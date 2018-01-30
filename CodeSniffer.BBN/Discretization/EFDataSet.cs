@@ -51,14 +51,14 @@ namespace CodeSniffer.BBN.Discretization
         }
     }
 
-    public class EFDataSet
+    public class EWDataSet
     {
         private DataSet _dataset;
         private IDictionary<DataRow, DiscreteValue[]> _discreteVals;
         private IDictionary<int, IList<Bin>> _bins;
         private DataSet _discreteDataset;
 
-        public EFDataSet()
+        public EWDataSet()
         {
             _dataset = new DataSet();
             _discreteVals = new Dictionary<DataRow, DiscreteValue[]>();
