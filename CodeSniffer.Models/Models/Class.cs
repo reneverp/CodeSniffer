@@ -11,8 +11,6 @@ namespace CodeSniffer.Models
 {
     public class Class : ICodeFragment
     {
-        private bool _writtenToDataSet;
-
         public IList<Method> Methods { get; private set; }
         public IList<Class> Classes { get; private set; }
 
@@ -57,6 +55,7 @@ namespace CodeSniffer.Models
         }
 
         private string _filename;
+        private string _additionalCasesFilename;
 
         public Class(string name, string text)
         {
@@ -75,10 +74,21 @@ namespace CodeSniffer.Models
             Metrics.Add(new ATFD(Methods));
 
             CodeSmells = new List<ICodeSmell>();
-            CodeSmells.Add(new LargeClass());
+            CodeSmells.Add(new LargeClass(Metrics[2], Metrics[3], Metrics[4], Metrics[0])); //TODO: REFACTOR THIS TEMP SOLUTION
 
             _filename = "ClassTrainingSet" + System.DateTime.Now.ToString("_Hmm_ddMMyyyy") + ".csv";
-            _writtenToDataSet = false;
+            _additionalCasesFilename = "AdditionalClassData.csv";
+
+
+            foreach (var codesmell in CodeSmells)
+            {
+                codesmell.Updated += OnCodeSmellUpdated;
+            }
+        }
+
+        private void OnCodeSmellUpdated()
+        {
+            WriteToTrainingSet(_additionalCasesFilename);
         }
 
         public void AddMethod(Method method)
@@ -113,13 +123,16 @@ namespace CodeSniffer.Models
 
         public void WriteToTrainingSet()
         {
-            if(_writtenToDataSet)
-            {
-                return;
-            }
+            WriteToTrainingSet(_filename);
+        }
 
+        public void WriteToTrainingSet(string filename)
+        {
             StringBuilder sb = new StringBuilder();
             StringBuilder headers = new StringBuilder();
+
+            headers.Append("Name,");
+            sb.Append(Name + ",");
 
             for (int i = 0; i < Metrics.Count; i++)
             {
@@ -144,19 +157,17 @@ namespace CodeSniffer.Models
                 }
             }
 
-            if (!File.Exists(_filename))
+            if (!File.Exists(filename))
             {
-                WriteLine(headers.ToString());
+                WriteLine(headers.ToString(), filename);
             }
 
-            WriteLine(sb.ToString());
-
-            _writtenToDataSet = true;
+            WriteLine(sb.ToString(), filename);
         }
 
-        private void WriteLine(string line)
+        private void WriteLine(string line, string filename)
         {
-            using (StreamWriter writer = new StreamWriter(File.Open(_filename, FileMode.Append, FileAccess.Write)))
+            using (StreamWriter writer = new StreamWriter(File.Open(filename, FileMode.Append, FileAccess.Write)))
             {
                 writer.WriteLine(line);
             }

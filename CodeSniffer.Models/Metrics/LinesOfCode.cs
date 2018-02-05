@@ -10,7 +10,7 @@ namespace CodeSniffer.Models.Metrics
 
         public string Name
         {
-            get { return "Lines of Code"; }
+            get { return "LOC"; }
             set { }
         }
 

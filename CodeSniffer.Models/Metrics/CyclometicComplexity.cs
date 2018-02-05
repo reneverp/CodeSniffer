@@ -11,7 +11,7 @@ namespace CodeSniffer.Models.Metrics
 
         public string Name
         {
-            get { return "Cyclometic Complexity"; }
+            get { return "CYCLO"; }
             set { }
         }
 

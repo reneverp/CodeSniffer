@@ -8,6 +8,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.IO;
+using System.Reflection;
 
 namespace CodeSniffer.ViewModels
 {
@@ -100,7 +102,10 @@ namespace CodeSniffer.ViewModels
         public MainWindowViewModel(AsyncParserWrapper asyncParser, ApplicationInterfaces.IOService ioService)
         {
             //TODO: remove hardcoded path
-            _sourcePath = @"D:\svn\ganttproject-ganttproject-2.8.5\ganttproject-ganttproject-2.8.5\ganttproject\src\net\sourceforge\ganttproject";
+            //_sourcePath =Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\ganttproject-2.8.5\ganttproject\ganttproject\src\net\sourceforge\ganttproject";
+
+            _sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\junit-4.12\junit4\src\main";
+
 
             _project = new Project();
             _parser = asyncParser;
@@ -124,7 +129,7 @@ namespace CodeSniffer.ViewModels
 
         public void Closing()
         {
-            SaveProject();
+            //SaveProject();
             foreach(var fragment in _flatList)
             {
                 fragment.Model.WriteToTrainingSet();

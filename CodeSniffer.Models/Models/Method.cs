@@ -12,8 +12,6 @@ namespace CodeSniffer.Models
 {
     public class Method : ICodeFragment
     {
-        private bool _writtenToDataSet;
-
         public string Name { get; private set; }
 
         public string Content { get; private set; }
@@ -42,15 +40,13 @@ namespace CodeSniffer.Models
         public List<MethodInvocation> ForeignDataAccessInvocations { get; private set; }
         public List<MethodInvocation> InnerDataAccessInvocations { get; private set; }
 
-
-
         public IList<string> Parameters { get; private set; }
         public IList<string> LocalFields { get; private set; }
-
 
         private Class ParentClass { get; set; }
 
         private string _filename;
+        private string _additionalCasesFilename;
 
         public Method(Class parent, string name, string text)
         {
@@ -80,13 +76,24 @@ namespace CodeSniffer.Models
             Metrics.Add(new NOAV(parent, Parameters, LocalFields, DataAccessInvocations, Content));
 
             CodeSmells = new List<ICodeSmell>();
-            CodeSmells.Add(new FeatureEnvy());
-            CodeSmells.Add(new LongMethod());
+            CodeSmells.Add(new FeatureEnvy(Metrics[5], Metrics[7], Metrics[6]));
+            CodeSmells.Add(new LongMethod(Metrics[0], Metrics[1], Metrics[8], Metrics[9]));
 
             _filename = "MethodTrainingSet" + System.DateTime.Now.ToString("_Hmm_ddMMyyyy") + ".csv";
-            _writtenToDataSet = false;
+            _additionalCasesFilename = "AdditionalMethodData.csv";
 
             ParentClass = parent;
+
+            foreach(var codesmell in CodeSmells)
+            {
+                codesmell.Updated += OnCodeSmellUpdated;
+            }
+
+        }
+
+        private void OnCodeSmellUpdated()
+        {
+            WriteToTrainingSet(_additionalCasesFilename);
         }
 
         public void FindRelatedClassForOutboundInvocation(List<Class> totalClassOverView)
@@ -137,13 +144,16 @@ namespace CodeSniffer.Models
 
         public void WriteToTrainingSet()
         {
-            if(_writtenToDataSet)
-            {
-                return;
-            }
+            WriteToTrainingSet(_filename);
+        }
 
+        public void WriteToTrainingSet(string file)
+        {
             StringBuilder sb = new StringBuilder();
             StringBuilder headers = new StringBuilder();
+
+            headers.Append("Name,");
+            sb.Append(Name + ",");
 
             for (int i = 0; i < Metrics.Count; i++)
             {
@@ -159,7 +169,9 @@ namespace CodeSniffer.Models
             {
                 var codeSmell = CodeSmells[i];
                 sb.Append(codeSmell.IsDetected.ToString());
+                sb.Append("," + codeSmell.Confidence.ToString());
                 headers.Append(codeSmell.Name);
+                headers.Append("," + codeSmell.Name + "Score");
 
                 if (i < CodeSmells.Count - 1)
                 {
@@ -168,19 +180,17 @@ namespace CodeSniffer.Models
                 }
             }
 
-            if (!File.Exists(_filename))
+            if (!File.Exists(file))
             {
-                WriteLine(headers.ToString());
+                WriteLine(headers.ToString(), file);
             }
 
-            WriteLine(sb.ToString());
-
-            _writtenToDataSet = true;
+            WriteLine(sb.ToString(), file);
         }
 
-        private void WriteLine(string line)
+        private void WriteLine(string line, string file)
         {
-            using (StreamWriter writer = new StreamWriter(File.Open(_filename, FileMode.Append, FileAccess.Write)))
+            using (StreamWriter writer = new StreamWriter(File.Open(file, FileMode.Append, FileAccess.Write)))
             {
                 writer.WriteLine(line);
             }

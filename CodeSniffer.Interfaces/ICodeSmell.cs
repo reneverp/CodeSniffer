@@ -13,5 +13,7 @@ namespace CodeSniffer.Interfaces
         double Confidence { get; set; }
 
         bool IsDetected { get; set; }
+
+        event Action Updated;
     }
 }
