@@ -20,10 +20,8 @@ mean = np.mean(data)
 plt.plot(data, norm.pdf(data,mean,std), '-o')
 plt.hist(data,normed=True)
 
-plt.show()
-
 plt.figure()
 plt.boxplot(data)
-plt.show()
 
+plt.show()
 
