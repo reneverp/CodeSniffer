@@ -1,6 +1,7 @@
 ﻿using CodeSniffer.Interfaces;
 using CodeSniffer.Models.CodeSmells;
 using CodeSniffer.Models.Metrics;
+using CodeSniffer.Models.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -60,7 +61,7 @@ namespace CodeSniffer.Models
         public Class(string name, string text)
         {
             Name = name;
-            Content = text;
+            Content = LineEndingConverter.ConvertToCRLF(text);
             Methods = new List<Method>();
             Classes = new List<Class>();
             MemberDeclarartions = new List<string>();

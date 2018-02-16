@@ -42,7 +42,7 @@ namespace CodeSniffer.Converters
                             + "<body>"
                             + "<pre class=\"prettyprint\">";
 
-            output += input.Replace("\n", Environment.NewLine);
+            output += input;
 
             output += "</body></pre></html>";
 

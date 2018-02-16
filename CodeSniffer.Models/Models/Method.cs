@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System;
+using CodeSniffer.Models.Utils;
 
 namespace CodeSniffer.Models
 {
@@ -51,7 +52,7 @@ namespace CodeSniffer.Models
         public Method(Class parent, string name, string text)
         {
             Name = name;
-            Content = text;
+            Content = LineEndingConverter.ConvertToCRLF(text);
             MethodInvocations      = new List<MethodInvocation>();
             InnerMethodInvocations = new List<MethodInvocation>();
             OuterMethodInvocations = new List<MethodInvocation>();

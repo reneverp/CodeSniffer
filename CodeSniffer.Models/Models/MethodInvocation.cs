@@ -1,4 +1,5 @@
 ﻿using CodeSniffer.Interfaces;
+using CodeSniffer.Models.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace CodeSniffer.Models
 
         public MethodInvocation(string text)
         {
-            Content = text;
+            Content = LineEndingConverter.ConvertToCRLF(text);
             AccessedField = getAccessedField(text);
         }
 

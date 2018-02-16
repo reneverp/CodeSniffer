@@ -38,7 +38,7 @@ namespace CodeSniffer.Models.Metrics
 
         public double Calculate()
         {
-            var lines = _code.Split(Environment.NewLine.ToArray());
+            var lines = _code.Split('\n');
 
             return lines.Count();
         }
