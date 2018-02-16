@@ -23,5 +23,5 @@ plt.hist(data,normed=True)
 plt.figure()
 plt.boxplot(data)
 
-plt.show()
+plt.show() 
 
