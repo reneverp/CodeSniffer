@@ -53,33 +53,33 @@ namespace CodeSniffer.BBN.Discretization
 
         private static void DiscretizeClassTrainingSet()
         {
-            _ew.Load(GetFullPath("ClassTrainingSet_1356_03122017_withoutOutlier.csv"));
+            _ew.Load(GetFullPath("ClassTrainingSet_2319_17022018.csv"));
 
-            LOCClass = new DiscretizedData(_ew.Discretize<int>(0, 8));
-            TCC = new DiscretizedData(_ew.Discretize<double>(2, 8));
-            WMC = new DiscretizedData(_ew.Discretize<int>(3, 8));
-            ATFDClass = new DiscretizedData(_ew.Discretize<int>(4, 8));
+            LOCClass = new DiscretizedData(_ew.Discretize<int>(1, 8));
+            TCC = new DiscretizedData(_ew.Discretize<double>(3, 8));
+            WMC = new DiscretizedData(_ew.Discretize<int>(4, 8));
+            ATFDClass = new DiscretizedData(_ew.Discretize<int>(5, 8));
 
             ClassDataset = _ew.GetDiscreteDataSet();
 
-            _ew.WriteToCsv(GetFullPath("ClassTrainingSet_1356_03122017_withoutOutlier_discretized.csv"));
+            _ew.WriteToCsv(GetFullPath("ClassTrainingSet_2319_17022018_discretized.csv"));
         }
 
         private static void DiscretizeMethodTrainingSet()
         {
-            _ew.Load(GetFullPath("MethodTrainingSet_2204_30112017_withoutOutlier.csv"));
+            _ew.Load(GetFullPath("MethodTrainingSet_2319_17022018.csv"));
 
-            LOC = new DiscretizedData(_ew.Discretize<int>(0, 8));
-            CYCLO = new DiscretizedData(_ew.Discretize<int>(1, 8));
-            ATFD = new DiscretizedData(_ew.Discretize<int>(5, 8));
-            FDP = new DiscretizedData(_ew.Discretize<int>(6, 8));
-            LAA = new DiscretizedData(_ew.Discretize<double>(7, 8));
-            MAXNESTING = new DiscretizedData(_ew.Discretize<int>(8, 8));
-            NOAV = new DiscretizedData(_ew.Discretize<int>(9, 8));
+            LOC = new DiscretizedData(_ew.Discretize<int>(1, 8));
+            CYCLO = new DiscretizedData(_ew.Discretize<int>(2, 8));
+            ATFD = new DiscretizedData(_ew.Discretize<int>(6, 8));
+            FDP = new DiscretizedData(_ew.Discretize<int>(7, 8));
+            LAA = new DiscretizedData(_ew.Discretize<double>(8, 8));
+            MAXNESTING = new DiscretizedData(_ew.Discretize<int>(9, 8));
+            NOAV = new DiscretizedData(_ew.Discretize<int>(10, 8));
 
             MethodDataset = _ew.GetDiscreteDataSet();
 
-            _ew.WriteToCsv(GetFullPath("MethodTrainingSet_2204_30112017_withoutOutlier_discretized.csv"));
+            _ew.WriteToCsv(GetFullPath("MethodTrainingSet_2319_17022018_discretized.csv"));
         }
 
         public static IList<DataRow> ProcessAdditionalMethodCases()

@@ -81,10 +81,10 @@
     <None Include="Networks\LongMethod_network_naive.xdsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TrainingsData\ClassTrainingSet_1356_03122017_withoutOutlier.csv">
+    <None Include="TrainingsData\ClassTrainingSet_2319_17022018.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TrainingsData\MethodTrainingSet_2204_30112017_withoutOutlier.csv">
+    <None Include="TrainingsData\MethodTrainingSet_2319_17022018.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
