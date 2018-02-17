@@ -116,6 +116,9 @@ namespace CodeSniffer.Models
 
         public void ExtractInnerAndOuterMethodInvocations()
         {
+            ForeignDataAccessInvocations.Clear();
+            InnerDataAccessInvocations.Clear();
+
             //Note: call this after the class has been fully parsed to avoid missing inner invocations.
             foreach (var invocation in MethodInvocations)
             {

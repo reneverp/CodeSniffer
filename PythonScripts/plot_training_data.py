@@ -27,7 +27,7 @@ def plot_data(filename, columns):
             outlierBorder = x
             distance = x - prevVal
             #if we reach a point with distance greater than 10% above standard deviation we reached the outlier threshold 
-            if(distance > 1.1 * std):
+            if(x > 7 * std):
                 outlierBorder = prevVal
                 break
             prevVal = x
@@ -52,13 +52,13 @@ def plot_data(filename, columns):
 
 def plot_method_data():
     columns = ["LOC", "CYCLO", "ATFD", "FDP", "LAA", "MAXNESTING", "NOAV"]
-    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\TrainingsData\\MethodTrainingSet_049_16022018.csv"
+    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\TrainingsData\\MethodTrainingSet_2319_17022018.csv"
     plot_data(filename, columns)
 
 
 def plot_class_data():
     columns = ["LOC", "TCC", "WMC", "ATFD"]
-    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\TrainingsData\\ClassTrainingSet_042_16022018.csv"
+    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\TrainingsData\\ClassTrainingSet_2319_17022018.csv"
     plot_data(filename, columns)
 
 plot_class_data()

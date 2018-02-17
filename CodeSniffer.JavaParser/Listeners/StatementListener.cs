@@ -11,6 +11,7 @@ namespace CodeSniffer.Listeners
         private static Logger Logger = LogManager.GetCurrentClassLogger();
         
         private Method _currentMethod;
+        private int _lastStopIndex;
 
         public void setCurrentMethod(Method currentMethod)
         {
@@ -20,6 +21,7 @@ namespace CodeSniffer.Listeners
         public void resetCurrentMethod()
         {
             _currentMethod = null;
+            _lastStopIndex = 0;
         }
 
         public override void EnterStatement([NotNull] JavaParser.StatementContext context)
@@ -28,9 +30,14 @@ namespace CodeSniffer.Listeners
 
             if (_currentMethod != null)
             {
+                if (context.Start.StartIndex < _lastStopIndex)
+                    return;
+
                 var inputStream = context.Start.InputStream;
 
                 var interval = new Interval(context.Start.StartIndex, context.Stop.StopIndex);
+
+                _lastStopIndex = context.Stop.StopIndex;
 
                 var text = context.GetText();
 
