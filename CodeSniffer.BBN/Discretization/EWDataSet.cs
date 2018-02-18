@@ -98,8 +98,6 @@ namespace CodeSniffer.BBN.Discretization
             double max = Convert.ToDouble(rows.Last().Field<T>(rowIndex));
             double binsize = (max - min) / amountOfBins;
 
-
-            IList<double> locs = new List<double>();
             for(int i =0; i < amountOfBins; i++)
             {
                 double lower = min + (i * binsize);

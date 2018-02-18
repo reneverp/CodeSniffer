@@ -102,9 +102,9 @@ namespace CodeSniffer.ViewModels
         public MainWindowViewModel(AsyncParserWrapper asyncParser, ApplicationInterfaces.IOService ioService)
         {
             //TODO: remove hardcoded path
-            _sourcePath =Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\ganttproject-2.8.5\ganttproject\ganttproject\src\net\sourceforge\ganttproject";
+            //_sourcePath =Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\ganttproject-2.8.5\ganttproject\ganttproject\src\net\sourceforge\ganttproject";
 
-            //_sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\junit-4.12\junit4\src\main";
+            _sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\junit-4.12\junit4\src\main";
 
 
             _project = new Project();
@@ -129,10 +129,15 @@ namespace CodeSniffer.ViewModels
 
         public void Closing()
         {
-            //SaveProject();
-            foreach(var fragment in _flatList)
+            var result = MessageBox.Show("Generate Dataset?","CodeSniffer is closing...", MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
             {
-                fragment.Model.WriteToTrainingSet();
+                //SaveProject();
+                foreach (var fragment in _flatList)
+                {
+                    fragment.Model.WriteToTrainingSet();
+                }
             }
         }
 

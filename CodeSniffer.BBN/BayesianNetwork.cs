@@ -1,6 +1,7 @@
 ﻿using CodeSniffer.BBN.Discretization;
 using Smile;
 using Smile.Learning;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace CodeSniffer.BBN
@@ -12,6 +13,7 @@ namespace CodeSniffer.BBN
 
         public BayesianNetwork(string networkFile)
         {
+
             SmileLicense.ActivateLicense();
             LoadNetworkFromFile(networkFile);
 
@@ -45,6 +47,14 @@ namespace CodeSniffer.BBN
         {
             int handle = _network.GetNode(nodeId);
             _network.SetEvidence(handle, outcomeId);
+        }
+
+        public void SetOutcomeIds(string nodeId, IList<Bin> descriptions)
+        {
+            for(int i = 0; i < descriptions.Count; i++)
+            {
+                _network.SetOutcomeId(nodeId, i, descriptions[i].ToString());
+            }
         }
 
         public double GetOutcomeValue(string nodeId, int outcomeIndex)

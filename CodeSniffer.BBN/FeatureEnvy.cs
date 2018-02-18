@@ -17,11 +17,13 @@ namespace CodeSniffer.BBN
         private BayesianNetwork _network;
         private static FeatureEnvy _instance;
 
+        private static object _lockObj = new object();
+
         public static FeatureEnvy Instance
         {
             get
             {
-                if(_instance == null)
+                if (_instance == null)
                 {
                     _instance = new FeatureEnvy();
                 }
@@ -44,12 +46,21 @@ namespace CodeSniffer.BBN
         {
             IDictionary<string, DiscretizedData> map = GenerateBinMap();
 
+            SetOutcomeIds();
+
             //learn from original data
             LaplaceEstimator.LaplaceEstimation(Discretizer.MethodDataset, _network, map, "Feature_Envy", 1);
 
             //Adapt to additional data
             LaplaceEstimator.Adapt(Discretizer.ProcessAdditionalMethodCases(), Discretizer.MethodDataset, _network, map, "Feature_Envy", 1, 1);
 
+        }
+
+        private void SetOutcomeIds()
+        {
+            _network.SetOutcomeIds("ATFD", Discretizer.ATFD.Bins);
+            _network.SetOutcomeIds("LAA", Discretizer.LAA.Bins);
+            _network.SetOutcomeIds("FDP", Discretizer.FDP.Bins);
         }
 
         private IDictionary<string, DiscretizedData> GenerateBinMap()

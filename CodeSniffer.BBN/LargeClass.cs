@@ -18,6 +18,7 @@ namespace CodeSniffer.BBN
         private BayesianNetwork _network;
         private static LargeClass _instance;
 
+
         public static LargeClass Instance
         {
             get
@@ -42,13 +43,23 @@ namespace CodeSniffer.BBN
         }
 
         private void Learn()
-        {        
+        {      
             IDictionary<string, DiscretizedData> map = GenerateBinMap();
+
+            SetOutcomeIds();
 
             LaplaceEstimator.LaplaceEstimation(Discretizer.ClassDataset, _network, map, "Large_Class", 1);
 
             LaplaceEstimator.Adapt(Discretizer.ProcessAdditionalClassCases(), Discretizer.ClassDataset, _network, map, "Large_Class", 1, 1);
 
+        }
+
+        private void SetOutcomeIds()
+        {
+            _network.SetOutcomeIds("LOC", Discretizer.LOCClass.Bins);
+            _network.SetOutcomeIds("ATFD", Discretizer.ATFDClass.Bins);
+            _network.SetOutcomeIds("TCC", Discretizer.TCC.Bins);
+            _network.SetOutcomeIds("WMC", Discretizer.WMC.Bins);
         }
 
         private IDictionary<string, DiscretizedData> GenerateBinMap()

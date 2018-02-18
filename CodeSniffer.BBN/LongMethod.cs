@@ -3,6 +3,7 @@ using CodeSniffer.BBN.ParameterEstimation;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System;
 
 namespace CodeSniffer.BBN
 {
@@ -21,6 +22,7 @@ namespace CodeSniffer.BBN
         {
             get
             {
+
                 if (_instance == null)
                 {
                     _instance = new LongMethod();
@@ -44,9 +46,19 @@ namespace CodeSniffer.BBN
         {
             IDictionary<string, DiscretizedData> map = GenerateBinMap();
 
+            SetOutcomeIds();
+
             LaplaceEstimator.LaplaceEstimation(Discretizer.MethodDataset, _network, map, "Long_Method", 1);
 
             LaplaceEstimator.Adapt(Discretizer.ProcessAdditionalMethodCases(), Discretizer.MethodDataset, _network, map, "Long_Method", 1, 1);
+        }
+
+        private void SetOutcomeIds()
+        {
+            _network.SetOutcomeIds("LOC", Discretizer.LOC.Bins);
+            _network.SetOutcomeIds("CYCLO", Discretizer.CYCLO.Bins);
+            _network.SetOutcomeIds("MAXNESTING", Discretizer.MAXNESTING.Bins);
+            _network.SetOutcomeIds("NOAV", Discretizer.NOAV.Bins);
         }
 
         private IDictionary<string, DiscretizedData> GenerateBinMap()
