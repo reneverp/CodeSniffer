@@ -149,7 +149,10 @@ namespace CodeSniffer.Models
             {
                 var codeSmell = CodeSmells[i];
                 sb.Append(codeSmell.IsDetected.ToString());
+                sb.Append("," + codeSmell.Confidence.ToString());
                 headers.Append(codeSmell.Name);
+                headers.Append("," + codeSmell.Name + "Score");
+
 
                 if (i < CodeSmells.Count - 1)
                 {

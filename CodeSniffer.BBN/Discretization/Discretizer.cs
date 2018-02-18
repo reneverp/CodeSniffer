@@ -120,6 +120,7 @@ namespace CodeSniffer.BBN.Discretization
 
                     DataRow newRow = MethodDataset.Tables[0].NewRow();
 
+                    newRow.SetField<string>("Name", row.Field<string>("Name"));
                     newRow.SetField<string>("LOC", loc.ToString());
                     newRow.SetField<string>("CYCLO", cyclo.ToString());
                     newRow.SetField<string>("ATFD", atfd.ToString());
@@ -163,6 +164,7 @@ namespace CodeSniffer.BBN.Discretization
 
                     DataRow newRow = ClassDataset.Tables[0].NewRow();
 
+                    newRow.SetField<string>("Name", row.Field<string>("Name"));
                     newRow.SetField<string>("LOC", loc.ToString());
                     newRow.SetField<string>("TCC", tcc.ToString());
                     newRow.SetField<string>("WMC", wmc.ToString());
