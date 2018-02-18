@@ -61,7 +61,21 @@ def plot_class_data():
     filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\TrainingsData\\ClassTrainingSet_2319_17022018.csv"
     plot_data(filename, columns)
 
+def plot_verification_method_data():
+    columns = ["LOC", "CYCLO", "ATFD", "FDP", "LAA", "MAXNESTING", "NOAV"]
+    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018.csv"
+    plot_data(filename, columns)
+
+def plot_verification_class_data():
+    columns = ["LOC", "TCC", "WMC", "ATFD"]
+    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\VerificationData\\ClassTrainingSet_1357_18022018.csv"
+    plot_data(filename, columns)
+
+
 plot_class_data()
 plot_method_data()
+
+plot_verification_class_data()
+plot_verification_method_data()
  
 
