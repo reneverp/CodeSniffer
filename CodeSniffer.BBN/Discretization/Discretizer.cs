@@ -101,7 +101,7 @@ namespace CodeSniffer.BBN.Discretization
 
         public static IList<DataRow> ProcessAdditionalMethodCases()
         {
-            return ProcessAdditionalMethodCases(GetFullPath("AdditionalMethodData.csv"));
+            return ProcessAdditionalMethodCases(GetFullPath("MethodAdditionalData.csv"));
         }
 
         public static IList<DataRow> ProcessAdditionalMethodCases(string filename)
@@ -158,7 +158,7 @@ namespace CodeSniffer.BBN.Discretization
 
         public static IList<DataRow> ProcessAdditionalClassCases()
         {
-            return ProcessAdditionalClassCases(GetFullPath("AdditionalClassData.csv"));
+            return ProcessAdditionalClassCases(GetFullPath("ClassAdditionalData.csv"));
         }
 
         public static IList<DataRow> ProcessAdditionalClassCases(string filename)

@@ -78,6 +78,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeSniffer.BBN\CodeSniffer.BBN.csproj">
+      <Project>{94e1d26b-f619-480e-a19c-8ca5e122a7d4}</Project>
+      <Name>CodeSniffer.BBN</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CodeSniffer.Interfaces\CodeSniffer.Interfaces.csproj">
       <Project>{1b48ee95-c9cb-49d8-8480-59c5de751c04}</Project>
       <Name>CodeSniffer.Interfaces</Name>

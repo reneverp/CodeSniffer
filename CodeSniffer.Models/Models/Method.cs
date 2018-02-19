@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System;
 using CodeSniffer.Models.Utils;
+using System.Reflection;
 
 namespace CodeSniffer.Models
 {
@@ -47,7 +48,8 @@ namespace CodeSniffer.Models
         private Class ParentClass { get; set; }
 
         private string _filename;
-        private string _additionalCasesFilename;
+        private string _additionalCasesDir;
+        private string _additionalCasesFile;
 
         public Method(Class parent, string name, string text)
         {
@@ -81,7 +83,10 @@ namespace CodeSniffer.Models
             CodeSmells.Add(new LongMethod(Metrics[0], Metrics[1], Metrics[8], Metrics[9]));
 
             _filename = "MethodTrainingSet" + System.DateTime.Now.ToString("_Hmm_ddMMyyyy") + ".csv";
-            _additionalCasesFilename = "AdditionalMethodData.csv";
+
+            var p = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            _additionalCasesDir = p + "\\TrainingsData\\";
+            _additionalCasesFile = "AdditionalData.csv";
 
             ParentClass = parent;
 
@@ -94,7 +99,7 @@ namespace CodeSniffer.Models
 
         private void OnCodeSmellUpdated()
         {
-            WriteToTrainingSet(_additionalCasesFilename);
+            WriteToTrainingSet(_additionalCasesFile, _additionalCasesDir);
         }
 
         public void FindRelatedClassForOutboundInvocation(List<Class> totalClassOverView)
@@ -146,9 +151,9 @@ namespace CodeSniffer.Models
             Parameters.Add(param);
         }
 
-        public void WriteToTrainingSet(string file)
+        public void WriteToTrainingSet(string file, string dir = "")
         {
-            file = "Method" + file;
+            file = dir + "Method" + file;
 
             StringBuilder sb = new StringBuilder();
             StringBuilder headers = new StringBuilder();

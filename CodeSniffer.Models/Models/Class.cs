@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace CodeSniffer.Models
@@ -40,7 +41,8 @@ namespace CodeSniffer.Models
 
 
         private Object lockObj = new Object();
-
+        private string _additionalCasesDir;
+        private string _additionalCasesFile;
 
         public int NumberOfMethods
         {
@@ -54,8 +56,6 @@ namespace CodeSniffer.Models
         {
             InstanceVariables.Add(text);
         }
-
-        private string _additionalCasesFilename;
 
         public Class(string name, string text)
         {
@@ -76,7 +76,9 @@ namespace CodeSniffer.Models
             CodeSmells = new List<ICodeSmell>();
             CodeSmells.Add(new LargeClass(Metrics[2], Metrics[3], Metrics[4], Metrics[0])); //TODO: REFACTOR THIS TEMP SOLUTION
 
-            _additionalCasesFilename = "AdditionalClassData.csv";
+            var p = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            _additionalCasesDir = p + "\\TrainingsData\\";
+            _additionalCasesFile = "AdditionalData.csv";
 
 
             foreach (var codesmell in CodeSmells)
@@ -87,7 +89,7 @@ namespace CodeSniffer.Models
 
         private void OnCodeSmellUpdated()
         {
-            WriteToTrainingSet(_additionalCasesFilename);
+            WriteToTrainingSet(_additionalCasesFile, _additionalCasesDir);
         }
 
         public void AddMethod(Method method)
@@ -119,9 +121,9 @@ namespace CodeSniffer.Models
             Methods.ToList().ForEach(x => x.FindRelatedClassForOutboundInvocation(totalClassOverView));
         }
 
-        public void WriteToTrainingSet(string filename)
+        public void WriteToTrainingSet(string filename, string dir = "")
         {
-            filename = "Class" + filename;
+            filename = dir + "Class" + filename;
 
             StringBuilder sb = new StringBuilder();
             StringBuilder headers = new StringBuilder();
@@ -146,7 +148,6 @@ namespace CodeSniffer.Models
                 sb.Append("," + codeSmell.Confidence.ToString());
                 headers.Append(codeSmell.Name);
                 headers.Append("," + codeSmell.Name + "Score");
-
 
                 if (i < CodeSmells.Count - 1)
                 {
