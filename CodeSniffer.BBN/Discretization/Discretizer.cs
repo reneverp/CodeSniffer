@@ -61,10 +61,13 @@ namespace CodeSniffer.BBN.Discretization
         {
             lock (_lockObj)
             {
-                IsDiscretized = true;
+                if (!IsDiscretized)
+                {
+                    DiscretizeClassTrainingSet();
+                    DiscretizeMethodTrainingSet();
+                }
 
-                DiscretizeClassTrainingSet();
-                DiscretizeMethodTrainingSet();
+                IsDiscretized = true;
             }
         }
 

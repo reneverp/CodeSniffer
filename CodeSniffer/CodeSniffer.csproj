@@ -137,6 +137,10 @@
     <PostBuildEvent>if not exist "$(TargetDir)Networks\*.xdsl" (
     xcopy /Y "$(SolutionDir)\CodeSniffer.BBN\Networks\*.xdsl" "$(TargetDir)Networks\"
 )
+
+if not exist "$(TargetDir)Trainingsdata\*.csv" (
+    xcopy /Y "$(SolutionDir)\CodeSniffer.BBN\Trainingsdata\*.csv" "$(TargetDir)Trainingsdata\"
+)
 </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>

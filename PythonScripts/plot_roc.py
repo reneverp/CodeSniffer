@@ -2,6 +2,7 @@ import os
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button, RadioButtons
 import numpy as np
+import ntpath
 
 from scipy.stats import norm
 from numpy import genfromtxt
@@ -79,34 +80,69 @@ def plot_roc_curve(filename, verificationFilename, column, scorelabel):
     
     auc = np.trapz(fpr_list, tpr_list) + 1
 
-    plt.plot(fpr_list, tpr_list, label="ROC file 1 AUC:{}".format(auc), marker='o')
+    plt.plot(fpr_list, tpr_list, label="{} AUC:{}".format(ntpath.basename(filename), auc), marker='o')
 
     fpr_list.clear()
     tpr_list.clear()
 
 
-def plot_verification_class_data():
+def plot_class_data(inputFilename):
     columns = {"Large_ClassScore": 6} #large class
-    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\\Release\\ClassTrainingSet_1947_18022018.csv"
+    filename = inputFilename
     verificationFilename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\VerificationData\\ClassTrainingSet_1357_18022018_discretized.csv"
 
-    plt.figure()
+
     for scoreLabel, col in columns.items():
         plot_roc_curve(filename, verificationFilename, col, scoreLabel)
-        plt.legend()
-        plt.show()
 
-def plot_verification_method_data():
-    columns = {"Feature_EnvyScore":11, "Long_MethodScore": 13} #large class
-    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\\Release\\MethodTrainingSet_1947_18022018.csv"
+def plot_method_featureEnvy_data(inputfilename):
+    columns = {"Feature_EnvyScore":11} #large class
+    filename = inputfilename
     verificationFilename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018_discretized.csv"
 
-    plt.figure()
     for scoreLabel, col in columns.items():
         plot_roc_curve(filename, verificationFilename, col, scoreLabel)
-        plt.legend()
-        plt.show()
+
+def plot_method_longMethod_data(inputfilename):
+    columns = {"Long_MethodScore": 13} #large class
+    filename = inputfilename
+    verificationFilename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018_discretized.csv"
+
+    for scoreLabel, col in columns.items():
+        plot_roc_curve(filename, verificationFilename, col, scoreLabel)           
     
 
+def plot_verification_class_data():
+    a = 0
+    
+    while(a < 10):
+        filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\\Release\\Classrun_{}.csv".format(a)
+        plot_class_data(filename)
+        a += 1
+    
+    plt.legend()
+    plt.show()
+
+def plot_verification_longmethod_data():
+    a = 0
+    while(a < 10):
+        filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\\Release\\Methodrun_{}.csv".format(a)
+        plot_method_longMethod_data(filename)
+        a += 1
+    
+    plt.legend()
+    plt.show()
+
+def plot_verification_featureenvy_data():
+    a = 0
+    while(a < 10):
+        filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\\Release\\Methodrun_{}.csv".format(a)
+        plot_method_featureEnvy_data(filename)
+        a += 1
+    
+    plt.legend()
+    plt.show()
+
 plot_verification_class_data()
-plot_verification_method_data()
+plot_verification_longmethod_data()
+#plot_verification_featureenvy_data()

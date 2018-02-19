@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.Console", "CodeSniffer.Console\CodeSniffer.Console.csproj", "{1C89DEED-5763-400B-9C68-86BD5052810A}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.Discretizer", "CodeSniffer.Discretizer\CodeSniffer.Discretizer.csproj", "{BAFE1B5E-6491-4676-A5F6-27517D04B6C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.ViewModels", "CodeSniffer.ViewModels\CodeSniffer.ViewModels.csproj", "{252E2F68-E3AA-4743-94E8-2BAEB60518E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.AdaptationTest", "CodeSniffer.AdaptationTest\CodeSniffer.AdaptationTest.csproj", "{68DE55CA-8F55-4B8C-A521-C7643494632D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,10 @@ Global
 		{252E2F68-E3AA-4743-94E8-2BAEB60518E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{252E2F68-E3AA-4743-94E8-2BAEB60518E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{252E2F68-E3AA-4743-94E8-2BAEB60518E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68DE55CA-8F55-4B8C-A521-C7643494632D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68DE55CA-8F55-4B8C-A521-C7643494632D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68DE55CA-8F55-4B8C-A521-C7643494632D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68DE55CA-8F55-4B8C-A521-C7643494632D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,5 +90,6 @@ Global
 		{5D682A2F-7726-4C46-B5C1-C644D885A521} = {8290E73B-4F42-446D-A147-FDCF369C5B48}
 		{BAFE1B5E-6491-4676-A5F6-27517D04B6C1} = {8290E73B-4F42-446D-A147-FDCF369C5B48}
 		{252E2F68-E3AA-4743-94E8-2BAEB60518E7} = {8290E73B-4F42-446D-A147-FDCF369C5B48}
+		{68DE55CA-8F55-4B8C-A521-C7643494632D} = {8290E73B-4F42-446D-A147-FDCF369C5B48}
 	EndGlobalSection
 EndGlobal

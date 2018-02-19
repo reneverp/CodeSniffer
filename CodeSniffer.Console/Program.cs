@@ -1,6 +1,13 @@
 ﻿using CodeSniffer.ViewModels;
 using CodeSniffer.ViewModels.Utilities;
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CodeSniffer.Console
@@ -11,7 +18,10 @@ namespace CodeSniffer.Console
 
         static void Main(string[] args)
         {
-            
+            if (args.Length != 1)
+                return;
+
+            string runId = args[0];
 
             Parser parser = new Parser();
             DirectoryUtil dirUtil = new DirectoryUtil();
@@ -21,41 +31,13 @@ namespace CodeSniffer.Console
 
             _viewModel = new MainWindowViewModel(asyncParser, ioService);
 
-            var classVerificationName = @"C:\playground\git\codesniffer\CodeSniffer\CodeSniffer.BBN\VerificationData\ClassTrainingSet_1357_18022018_discretized.csv";
-            var methodVerificationName = @"C:\playground\git\codesniffer\CodeSniffer\CodeSniffer.BBN\VerificationData\MethodTrainingSet_1357_18022018_discretized.csv";
+            _viewModel.RefreshAsync().Wait();
 
-            var classDataset = BBN.Discretization.DataSetHelper.GetDataSetForCSV(classVerificationName);
-            var methodDataset = BBN.Discretization.DataSetHelper.GetDataSetForCSV(methodVerificationName);
+            var filename = "run_" + runId + ".csv";
 
-            var annotatedLargeClasses = classDataset.Tables[0].Select("Large_Class = True");
-            var annotatedFeatureEnvyMethods = methodDataset.Tables[0].Select("Feature_Envy = True");
-            var annotatedLongMethods = methodDataset.Tables[0].Select("Long_Method = True");
+            System.Console.WriteLine("Writing output to: " + filename);
 
-            Random largeClassRandom = new Random();
-            Random featureEnvyRandom = new Random();
-            Random longMethodRandom = new Random();
-
-            for (int i = 0; i < 10; i++)
-            {
-                int largeClassIndex = largeClassRandom.Next(annotatedLargeClasses.Length);
-                int featureEnvyIndex = featureEnvyRandom.Next(annotatedFeatureEnvyMethods.Length);
-                int longMehodIndex = longMethodRandom.Next(annotatedLongMethods.Length);
-
-                System.Console.WriteLine(largeClassIndex);
-                System.Console.WriteLine(featureEnvyIndex);
-                System.Console.WriteLine(longMehodIndex);
-
-                GenerateDataSet(i);
-            }
-        }
-
-        private static void GenerateDataSet(int runId)
-        {
-            Task.Run(async () => { await _viewModel.RefreshAsync(); }).Wait();
-
-            System.Console.WriteLine("Code Fragments:: " + _viewModel.CodeFragments.Count);
-
-            _viewModel.GenerateDataset("run_" + runId + ".csv");
+            _viewModel.GenerateDataset(filename);
         }
     }
 }

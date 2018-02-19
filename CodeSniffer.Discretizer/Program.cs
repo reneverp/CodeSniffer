@@ -29,9 +29,14 @@ namespace CodeSniffer.Discretizer
             {
                 _isClass = true;
             }
-            if(args[0].ToLower().Trim() == "m")
+            else if(args[0].ToLower().Trim() == "m")
             {
                 _isMethod = true;
+            }
+            else
+            {
+                Console.WriteLine("usage: CodeSniffer.Discretizer.exe <c | m> <input csv file> <output csv file>");
+                Environment.Exit(-1);
             }
 
             _input = args[1].Trim();

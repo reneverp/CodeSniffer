@@ -18,17 +18,21 @@ namespace CodeSniffer.BBN
         private BayesianNetwork _network;
         private static LargeClass _instance;
 
+        private static object _lockObj = new object();
 
         public static LargeClass Instance
         {
             get
             {
-                if (_instance == null)
+                lock (_lockObj)
                 {
-                    _instance = new LargeClass();
-                }
+                    if (_instance == null)
+                    {
+                        _instance = new LargeClass();
+                    }
 
-                return _instance;
+                    return _instance;
+                }
             }
         }
 
@@ -50,7 +54,7 @@ namespace CodeSniffer.BBN
 
             LaplaceEstimator.LaplaceEstimation(Discretizer.ClassDataset, _network, map, "Large_Class", 1);
 
-            LaplaceEstimator.Adapt(Discretizer.ProcessAdditionalClassCases(), Discretizer.ClassDataset, _network, map, "Large_Class", 1, 1);
+            LaplaceEstimator.Adapt(Discretizer.ProcessAdditionalClassCases(), Discretizer.ClassDataset, _network, map, "Large_Class", 1, 0.5);
 
         }
 

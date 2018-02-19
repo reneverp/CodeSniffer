@@ -23,12 +23,15 @@ namespace CodeSniffer.BBN
         {
             get
             {
-                if (_instance == null)
+                lock (_lockObj)
                 {
-                    _instance = new FeatureEnvy();
-                }
+                    if (_instance == null)
+                    {
+                        _instance = new FeatureEnvy();
+                    }
 
-                return _instance;
+                    return _instance;
+                }
             }
         }
 
@@ -52,7 +55,7 @@ namespace CodeSniffer.BBN
             LaplaceEstimator.LaplaceEstimation(Discretizer.MethodDataset, _network, map, "Feature_Envy", 1);
 
             //Adapt to additional data
-            LaplaceEstimator.Adapt(Discretizer.ProcessAdditionalMethodCases(), Discretizer.MethodDataset, _network, map, "Feature_Envy", 1, 1);
+            LaplaceEstimator.Adapt(Discretizer.ProcessAdditionalMethodCases(), Discretizer.MethodDataset, _network, map, "Feature_Envy", 1, 0.1);
 
         }
 

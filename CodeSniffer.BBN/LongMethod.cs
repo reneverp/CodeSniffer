@@ -18,17 +18,21 @@ namespace CodeSniffer.BBN
         private BayesianNetwork _network;
         private static LongMethod _instance;
 
+        private static object _lockObj = new object();
+
         public static LongMethod Instance
         {
             get
             {
-
-                if (_instance == null)
+                lock (_lockObj)
                 {
-                    _instance = new LongMethod();
-                }
+                    if (_instance == null)
+                    {
+                        _instance = new LongMethod();
+                    }
 
-                return _instance;
+                    return _instance;
+                }
             }
         }
 
@@ -50,7 +54,7 @@ namespace CodeSniffer.BBN
 
             LaplaceEstimator.LaplaceEstimation(Discretizer.MethodDataset, _network, map, "Long_Method", 1);
 
-            LaplaceEstimator.Adapt(Discretizer.ProcessAdditionalMethodCases(), Discretizer.MethodDataset, _network, map, "Long_Method", 1, 1);
+            LaplaceEstimator.Adapt(Discretizer.ProcessAdditionalMethodCases(), Discretizer.MethodDataset, _network, map, "Long_Method", 1, 0.5);
         }
 
         private void SetOutcomeIds()

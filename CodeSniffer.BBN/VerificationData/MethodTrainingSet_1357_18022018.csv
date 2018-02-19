@@ -168,9 +168,9 @@ getPreference,3,1,1,0,2,1,0,5,1,2,False,0,False,0
 getPreference,12,5,2,0,1,0,0,0,2,4,False,0,False,0
 getPreferences,9,2,0,1,3,0,0,0,2,5,False,0,False,0
 getPreferencesFile,4,1,0,0,1,0,0,0,1,1,False,0,False,0
-getTest,48,22,1,9,14,5,4,1,2,11,False,0,False,0
+getTest,48,22,1,9,14,5,4,1,2,11,False,0,True,0
 loadSuiteClass,3,2,1,0,1,0,0,0,1,1,False,0,False,0
-processArguments,20,8,1,2,6,0,0,5,4,5,False,0,False,0
+processArguments,20,8,1,2,6,0,0,5,4,5,False,0,True,0
 readPreferences,16,7,0,4,4,0,0,1.25,3,3,False,0,False,0
 runFailed,1,1,1,0,0,0,0,0,0,1,False,0,False,0
 savePreferences,8,3,0,1,2,0,0,5,3,2,False,0,False,0
@@ -220,14 +220,14 @@ withTestRules,5,3,3,1,2,1,1,2,1,4,False,0,False,0
 classBlock,3,1,1,0,1,0,0,0,1,1,False,0,False,0
 createTest,7,4,0,1,2,0,0,0,3,0,False,0,False,0
 createTestUsingConstructorInjection,3,1,0,0,3,1,1,3,1,2,False,0,False,0
-createTestUsingFieldInjection,29,5,0,2,14,7,4,0.33,3,19,False,0,False,0
+createTestUsingFieldInjection,29,5,0,2,14,7,4,0.33,3,19,True,0,True,0
 fieldsAreAnnotated,3,1,0,1,1,1,1,1.5,1,2,False,0,False,0
 getAnnotatedFieldsByParameter,3,1,0,0,2,1,1,3,1,1,False,0,False,0
 getName,3,1,0,0,0,0,0,0,1,1,False,0,False,0
 getRunnerAnnotations,3,1,0,0,0,0,0,0,1,0,False,0,False,0
 testName,3,1,1,2,0,0,0,1.5,1,2,False,0,False,0
 validateConstructor,6,2,1,1,2,0,0,0,2,1,False,0,False,0
-validateFields,30,9,1,3,17,2,2,1,5,9,False,0,False,0
+validateFields,30,9,1,3,17,2,2,1,5,9,False,0,True,0
 createRunnerForTestWithParameters,4,1,1,0,1,0,0,0,1,1,False,0,False,0
 getValueSources,4,1,1,0,3,0,0,0,1,1,False,0,False,0
 build,6,2,1,0,2,0,0,0,2,1,False,0,False,0
@@ -252,7 +252,7 @@ directCategories,8,8,1,0,1,0,0,0,2,2,False,0,False,0
 exclude,6,3,1,1,3,0,0,0,2,1,False,0,False,0
 exclude,3,2,1,0,1,0,0,0,1,1,False,0,False,0
 exclude,3,2,0,0,1,0,0,0,1,0,False,0,False,0
-hasCorrectCategoryAnnotation,31,17,1,2,6,4,1,1.25,3,14,False,0,False,0
+hasCorrectCategoryAnnotation,31,17,1,2,6,4,1,1.25,3,14,False,0,True,0
 hasNull,9,9,0,0,0,0,0,0,3,0,False,0,False,0
 include,6,3,1,1,3,0,0,0,2,1,False,0,False,0
 include,3,2,1,0,1,0,0,0,1,1,False,0,False,0
@@ -284,10 +284,10 @@ computeCommonPrefix,3,3,0,0,3,0,0,0,1,7,False,0,False,0
 computeCommonSuffix,4,3,0,0,4,0,0,0,1,13,False,0,False,0
 findCommonPrefix,9,3,0,0,2,0,0,0,3,10,False,0,False,0
 findCommonSuffix,10,4,0,0,3,0,0,0,3,10,False,0,False,0
-compact,12,5,1,0,0,0,0,0,3,10,False,0,False,0
+compact,12,5,1,0,0,0,0,0,3,10,False,0,True,0
 sharedPrefix,9,4,0,0,0,0,0,0,3,8,False,0,False,0
 sharedSuffix,12,3,1,0,0,0,0,0,3,11,False,0,False,0
-arrayEquals,34,13,3,4,5,0,0,0,4,9,False,0,False,0
+arrayEquals,34,13,3,4,5,0,0,0,4,9,False,0,True,0
 assertArraysAreSameLength,16,4,3,0,3,0,0,0,2,5,False,0,False,0
 assertElementsEqual,1,1,2,0,0,0,0,0,0,2,False,0,False,0
 isArray,3,2,1,1,1,1,1,0,1,3,False,0,False,0
@@ -354,7 +354,7 @@ describeCause,4,1,1,0,1,0,0,0,1,2,False,0,False,0
 getCauses,13,6,1,2,5,1,0,1,2,3,False,0,False,0
 getDescription,7,2,0,1,1,0,0,0,2,3,False,0,False,0
 run,5,2,1,1,0,0,0,0,2,2,False,0,False,0
-runCause,6,1,2,0,4,0,0,0,1,3,False,0,False,0
+runCause,6,1,2,0,4,0,0,0,1,3,True,0,False,0
 assertElementsEqual,3,1,2,0,1,0,0,0,1,2,False,0,False,0
 createFilter,3,2,1,0,0,0,0,0,1,1,False,0,False,0
 describe,3,1,0,1,0,0,0,0,1,0,False,0,False,0
@@ -375,7 +375,7 @@ cast,3,2,1,0,1,0,0,0,1,1,False,0,False,0
 castedMatchers,3,3,0,0,0,0,0,0,1,1,False,0,False,0
 expectsThrowable,3,1,0,0,1,1,1,1,1,2,False,0,False,0
 evaluate,11,4,0,1,3,1,0,2,3,2,False,0,False,0
-evaluate,20,6,0,1,8,6,2,0.5,3,10,False,0,False,0
+evaluate,20,6,0,1,8,6,2,0.5,3,10,False,0,True,0
 after,3,1,0,0,0,0,0,0,1,0,False,0,False,0
 apply,3,1,2,0,1,0,0,0,1,2,False,0,False,0
 before,3,1,0,0,0,0,0,0,1,0,False,0,False,0
@@ -410,8 +410,8 @@ shouldRun,1,1,1,0,0,0,0,0,0,1,False,0,False,0
 shouldRun,4,2,1,0,0,0,0,0,1,1,False,0,False,0
 createFilter,6,1,2,1,0,0,0,0,1,3,False,0,False,0
 createFilter,6,2,2,1,0,0,0,0,1,3,False,0,False,0
-createFilterFactory,11,4,1,0,4,1,1,0,3,3,False,0,False,0
-createFilterFactory,8,4,1,0,3,1,1,0,3,2,False,0,False,0
+createFilterFactory,11,4,1,0,4,1,1,0,3,3,True,0,False,0
+createFilterFactory,8,4,1,0,3,1,1,0,3,2,True,0,False,0
 createFilterFromFilterSpec,13,3,2,0,4,0,0,0,3,4,False,0,False,0
 getArgs,3,1,0,0,0,0,0,0,1,1,False,0,False,0
 getTopLevelDescription,3,1,0,0,0,0,0,0,1,1,False,0,False,0
@@ -446,7 +446,7 @@ getReturnType,3,2,0,1,0,0,0,2,1,2,False,0,False,0
 getType,3,2,0,0,1,0,0,0,1,0,False,0,False,0
 hashCode,3,1,0,1,0,0,0,0,1,1,False,0,False,0
 invokeExplosively,9,1,1,0,4,0,0,0,3,2,False,0,False,0
-isShadowedBy,14,8,1,9,0,0,0,0.29,2,4,False,0,False,0
+isShadowedBy,14,8,1,9,0,0,0,0.29,2,4,False,0,True,0
 producesType,4,5,1,1,2,1,0,1,1,4,False,0,False,0
 runReflectiveCall,3,1,0,0,0,0,0,0,1,1,False,0,False,0
 toString,3,1,0,1,0,0,0,0,1,1,False,0,False,0
@@ -519,7 +519,7 @@ getClasses,3,2,0,0,0,0,0,0,1,1,False,0,False,0
 getFilterSpecs,3,1,0,0,0,0,0,0,1,1,False,0,False,0
 parse,7,1,1,0,0,0,0,0,1,2,False,0,False,0
 parseArgs,3,1,1,0,0,0,0,0,1,1,False,0,False,0
-parseOptions,33,14,0,0,0,0,0,0,4,6,False,0,False,0
+parseOptions,33,14,0,0,0,0,0,0,4,6,False,0,True,0
 parseParameters,9,4,1,0,0,0,0,0,4,3,False,0,False,0
 addListener,3,1,1,1,0,0,0,0,1,2,False,0,False,0
 defaultComputer,3,1,0,0,1,0,0,0,1,0,False,0,False,0
@@ -588,7 +588,7 @@ runAfters,12,5,0,2,2,1,0,5,4,4,False,0,False,0
 runBefores,17,7,0,1,5,2,1,2.5,4,5,False,0,False,0
 runBeforesThenTestThenAfters,11,5,1,3,1,0,0,0,3,4,False,0,False,0
 runTest,7,1,0,2,2,0,0,0,3,0,False,0,False,0
-runTestMethod,21,8,0,4,15,8,3,0.62,3,14,False,0,False,0
+runTestMethod,21,8,0,4,15,8,3,0.62,3,14,False,0,True,0
 runWithTimeout,28,5,1,4,10,0,0,0,5,1,False,0,False,0
 compare,8,5,2,1,0,0,0,0,2,5,False,0,False,0
 compare,7,3,2,0,3,0,0,0,2,3,False,0,False,0
@@ -666,7 +666,7 @@ compare,3,1,2,0,0,0,0,0,1,2,False,0,False,0
 createTestClass,3,2,1,0,1,0,0,0,1,3,False,0,False,0
 describeChild,1,1,1,0,0,0,0,0,0,1,False,0,False,0
 evaluate,3,1,0,0,0,0,0,0,1,0,False,0,False,0
-filter,21,7,1,2,10,1,1,3,6,9,False,0,False,0
+filter,21,7,1,2,10,1,1,3,6,9,False,0,True,0
 finished,3,1,0,0,0,0,0,0,1,0,False,0,False,0
 getChildren,1,1,0,0,0,0,0,0,0,0,False,0,False,0
 getDescription,8,2,0,2,1,0,0,6,2,2,False,0,False,0
@@ -889,7 +889,7 @@ getName,3,1,0,0,0,0,0,0,1,1,False,0,False,0
 run,5,1,0,1,0,0,0,0,1,1,False,0,False,0
 run,3,1,1,1,0,0,0,0,1,1,False,0,False,0
 runBare,16,8,0,3,0,0,0,3,3,2,False,0,False,0
-runTest,26,7,0,3,8,5,4,0.6,3,11,False,0,False,0
+runTest,26,7,0,3,8,5,4,0.6,3,11,False,0,True,0
 setName,3,1,1,0,0,0,0,0,1,2,False,0,False,0
 setUp,2,1,0,0,0,0,0,0,1,0,False,0,False,0
 tearDown,2,1,0,0,0,0,0,0,1,0,False,0,False,0
@@ -910,7 +910,7 @@ collectValues,7,3,1,0,0,0,0,0,2,2,False,0,False,0
 equals,13,7,1,0,0,0,0,0,2,4,False,0,False,0
 getAnnotatedFields,3,1,0,0,0,0,0,0,1,1,False,0,False,0
 getAnnotatedFields,4,2,1,0,0,0,0,0,1,2,False,0,False,0
-getAnnotatedFieldValues,16,8,3,0,0,0,0,0,4,5,False,0,False,0
+getAnnotatedFieldValues,16,8,3,0,0,0,0,0,4,5,False,0,True,0
 getAnnotatedMembers,8,7,3,0,0,0,0,0,2,4,False,0,False,0
 getAnnotatedMethods,5,1,0,0,0,0,0,0,1,3,False,0,False,0
 getAnnotatedMethods,4,2,1,0,0,0,0,0,1,2,False,0,False,0
@@ -981,7 +981,7 @@ runAndWait,4,1,1,1,0,0,0,0,1,2,False,0,False,0
 runFailed,4,1,1,0,2,0,0,0,1,2,False,0,False,0
 runSingleMethod,5,2,3,0,1,0,0,0,1,5,False,0,False,0
 setPrinter,3,1,1,0,0,0,0,0,1,2,False,0,False,0
-start,36,12,1,0,20,1,1,7,4,9,False,0,False,0
+start,36,12,1,0,20,1,1,7,4,9,False,0,True,0
 testEnded,2,1,1,0,0,0,0,0,1,1,False,0,False,0
 testFailed,2,1,3,0,0,0,0,0,1,3,False,0,False,0
 testStarted,2,1,1,0,0,0,0,0,1,1,False,0,False,0
@@ -991,10 +991,10 @@ setUp,2,1,0,0,0,0,0,0,1,0,False,0,False,0
 tearDown,2,1,0,0,0,0,0,0,1,0,False,0,False,0
 addTest,3,1,1,0,1,0,0,0,1,2,False,0,False,0
 addTestMethod,14,6,3,7,3,1,0,2,2,8,False,0,False,0
-addTestsFromTestCase,26,10,1,12,8,5,3,0.8,3,12,False,0,False,0
+addTestsFromTestCase,26,10,1,12,8,5,3,0.8,3,12,False,0,True,0
 addTestSuite,3,2,1,1,1,0,0,0,1,1,False,0,False,0
 countTestCases,7,2,0,1,0,0,0,0,2,2,False,0,False,0
-createTest,26,18,2,9,11,2,1,1.6,3,8,False,0,False,0
+createTest,26,18,2,9,11,2,1,1.6,3,8,False,0,True,0
 exceptionToString,6,1,1,1,1,0,0,0,1,3,False,0,False,0
 getName,3,1,0,0,0,0,0,0,1,1,False,0,False,0
 getTestConstructor,8,6,1,0,2,2,1,4,3,2,False,0,False,0
@@ -1012,7 +1012,7 @@ toString,6,3,0,2,1,0,0,8,2,1,False,0,False,0
 warning,8,1,1,0,3,0,0,0,3,1,False,0,False,0
 getTimeout,3,1,0,0,0,0,0,0,1,1,False,0,False,0
 getTimeUnit,3,1,0,0,0,0,0,0,1,1,False,0,False,0
-apply,24,5,2,6,6,0,0,0,5,2,False,0,False,0
+apply,24,5,2,6,6,0,0,0,5,2,False,0,True,0
 evaluate,19,5,0,0,0,0,0,0,3,1,False,0,False,0
 failed,2,1,2,0,0,0,0,0,1,2,False,0,False,0
 failedQuietly,8,3,3,1,1,0,0,0,3,3,False,0,False,0
@@ -1055,7 +1055,7 @@ validateConstructor,3,1,1,0,0,0,0,0,1,1,False,0,False,0
 validateDataPointFields,15,7,1,0,0,0,0,0,3,2,False,0,False,0
 validateDataPointMethods,15,7,1,0,0,0,0,0,3,2,False,0,False,0
 validateParameterSupplier,14,8,2,0,0,0,0,0,3,4,False,0,False,0
-validateTestMethods,17,6,1,0,0,0,0,0,4,2,False,0,False,0
+validateTestMethods,17,6,1,0,0,0,0,0,4,2,False,0,True,0
 collectInitializationErrors,4,1,1,0,0,0,0,0,1,1,False,0,False,0
 createTest,9,2,0,1,4,1,1,5,2,2,False,0,False,0
 evaluate,12,3,0,2,3,1,1,2.5,2,8,False,0,False,0

@@ -18,6 +18,11 @@ namespace CodeSniffer.BBN.ParameterEstimation
                 throw new Exception("Discretized dataset empty");
             }
 
+            if(additionalCases.Count == 0 && fadingFactor != 0)
+            {
+                return;
+            }
+
             var rows = discretizedDataSet.Tables[0].Select().OrderBy(x => x.Field<string>(0));
 
             foreach (var row in additionalCases)
