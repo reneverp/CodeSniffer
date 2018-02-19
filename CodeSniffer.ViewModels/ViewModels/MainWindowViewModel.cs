@@ -12,6 +12,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using System.Threading.Tasks;
 
 namespace CodeSniffer.ViewModels
 {
@@ -32,6 +33,7 @@ namespace CodeSniffer.ViewModels
         private CodeFragmentViewModel _currentCodeFragment;
         private LinkedList<CodeFragmentViewModel> _flatList;
         private string _filename;
+        private string _dataSetFilename;
 
         public CodeFragmentViewModel CurrentCodeFragment
         {
@@ -127,6 +129,8 @@ namespace CodeSniffer.ViewModels
             ClosingCommand = new RelayCommand(Closing);
 
             _filename = "CodeSnifferSavedProject" + System.DateTime.Now.ToString("_Hmm_ddMMyyyy") + ".json";
+
+            _dataSetFilename = "TrainingSet" + System.DateTime.Now.ToString("_Hmm_ddMMyyyy") + ".csv";
         }
 
         public void Closing()
@@ -136,10 +140,15 @@ namespace CodeSniffer.ViewModels
             if (result == DialogResult.Yes)
             {
                 //SaveProject();
-                foreach (var fragment in _flatList)
-                {
-                    fragment.Model.WriteToTrainingSet();
-                }
+                GenerateDataset(_dataSetFilename);
+            }
+        }
+
+        public void GenerateDataset(string filename)
+        {
+            foreach (var fragment in _flatList)
+            {
+                fragment.Model.WriteToTrainingSet(filename);
             }
         }
 
@@ -213,10 +222,15 @@ namespace CodeSniffer.ViewModels
             return CodeFragments.Where(x => x.Children.Contains(codeFragment)).FirstOrDefault();
         }
 
-        private void OpenFolder()
+        private async void OpenFolder()
+        {
+            await OpenFolderAsync();
+        }
+
+        private async Task OpenFolderAsync()
         {
             _sourcePath = _ioService.OpenFolderDialog();
-            Refresh();
+            await RefreshAsync();
         }
 
         private void ShowCodeFragment(CodeFragmentViewModel codeFragment)
@@ -243,6 +257,11 @@ namespace CodeSniffer.ViewModels
         }
 
         public async void Refresh()
+        {
+            await RefreshAsync();
+        }
+
+        public async Task RefreshAsync()
         {
             ParseInfoLines = "";
             CurrentCodeFragment = new CodeFragmentViewModel();

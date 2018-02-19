@@ -62,7 +62,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DirectoryUtil.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -87,19 +86,13 @@
       <Project>{eb80ddcc-4b22-45f3-904e-ccf62f296dfe}</Project>
       <Name>CodeSniffer.Parser.Java</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CodeSniffer.Models\CodeSniffer.Models.csproj">
-      <Project>{eb2bda30-9729-48fa-b41c-01bc46f92e8b}</Project>
-      <Name>CodeSniffer.Models</Name>
+    <ProjectReference Include="..\CodeSniffer.ViewModels\CodeSniffer.ViewModels.csproj">
+      <Project>{252e2f68-e3aa-4743-94e8-2baeb60518e7}</Project>
+      <Name>CodeSniffer.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NLog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="App.config" />
-    <None Include="NLog.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

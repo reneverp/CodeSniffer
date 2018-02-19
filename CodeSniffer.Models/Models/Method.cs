@@ -146,13 +146,10 @@ namespace CodeSniffer.Models
             Parameters.Add(param);
         }
 
-        public void WriteToTrainingSet()
-        {
-            WriteToTrainingSet(_filename);
-        }
-
         public void WriteToTrainingSet(string file)
         {
+            file = "Method" + file;
+
             StringBuilder sb = new StringBuilder();
             StringBuilder headers = new StringBuilder();
 

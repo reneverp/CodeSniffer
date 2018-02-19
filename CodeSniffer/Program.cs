@@ -3,6 +3,7 @@ using CodeSniffer.ViewModels;
 using System;
 using System.Windows;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace CodeSniffer
 {

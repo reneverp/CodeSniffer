@@ -55,7 +55,6 @@ namespace CodeSniffer.Models
             InstanceVariables.Add(text);
         }
 
-        private string _filename;
         private string _additionalCasesFilename;
 
         public Class(string name, string text)
@@ -77,7 +76,6 @@ namespace CodeSniffer.Models
             CodeSmells = new List<ICodeSmell>();
             CodeSmells.Add(new LargeClass(Metrics[2], Metrics[3], Metrics[4], Metrics[0])); //TODO: REFACTOR THIS TEMP SOLUTION
 
-            _filename = "ClassTrainingSet" + System.DateTime.Now.ToString("_Hmm_ddMMyyyy") + ".csv";
             _additionalCasesFilename = "AdditionalClassData.csv";
 
 
@@ -121,14 +119,10 @@ namespace CodeSniffer.Models
             Methods.ToList().ForEach(x => x.FindRelatedClassForOutboundInvocation(totalClassOverView));
         }
 
-
-        public void WriteToTrainingSet()
-        {
-            WriteToTrainingSet(_filename);
-        }
-
         public void WriteToTrainingSet(string filename)
         {
+            filename = "Class" + filename;
+
             StringBuilder sb = new StringBuilder();
             StringBuilder headers = new StringBuilder();
 

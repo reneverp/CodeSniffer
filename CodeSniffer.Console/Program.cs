@@ -1,112 +1,36 @@
-﻿using CodeSniffer.Models;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using CodeSniffer.ViewModels;
+using CodeSniffer.ViewModels.Utilities;
 using System.Threading.Tasks;
-using NLog;
-using System;
-using CodeSniffer.Interfaces;
 
 namespace CodeSniffer.Console
 {
     class Program
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static MainWindowViewModel _viewModel;
 
         static void Main(string[] args)
         {
-            if(args.Length < 1)
-            {
-                System.Console.WriteLine("Directory argument missing.\n\n" +
-                                         "Example: CodeSniffer.Console.exe <path_to_source>\n\n");
-
-                return;
-            }
-
-            System.Console.ReadKey();
-
-            var stopWatch = Stopwatch.StartNew();
-
-            System.Console.WriteLine("Parsing started at: " + DateTime.Now);
-
-            DirectoryUtil dirUtil = new DirectoryUtil();
-            dirUtil.DeleteLogFile();
-
-            var files = dirUtil.GetFileNames(args[0], "java");
-
             Parser parser = new Parser();
+            DirectoryUtil dirUtil = new DirectoryUtil();
+            AsyncParserWrapper asyncParser = new AsyncParserWrapper(parser, dirUtil);
 
-            List<Task> tasks = new List<Task>();
+            ViewModels.ApplicationInterfaces.IOService ioService = new IOService();
 
-            Project project = new Project();
+            _viewModel = new MainWindowViewModel(asyncParser, ioService);
 
-            foreach (var file in files)
+            for (int i = 0; i < 100; i++)
             {
-                tasks.Add(Task.Run(() => parser.Parse(file, project)));
+                GenerateDataSet(i);
             }
-
-            Task.WaitAll(tasks.ToArray());
-
-            stopWatch.Stop();
-
-            int totalnumberOfClasses = 0;
-
-            logger.Info("Time needed for parsing::: " + stopWatch.Elapsed.ToString());
-
-            var compilationUnits = project.CompilationUnits;
-
-            logger.Info("Detected number of compilationUnits:: " + compilationUnits.Count);
-
-            foreach (var compilationUnit in compilationUnits)
-            {
-                var classes = compilationUnit.Classes;
-
-                if (classes != null)
-                {
-                    totalnumberOfClasses = PrintClasses(totalnumberOfClasses, classes);
-                }
-            }
-
-            logger.Info("TOTAL CLASSES: " + totalnumberOfClasses);
-
-            //logger.Info(Newtonsoft.Json.JsonConvert.SerializeObject(project));
-
-            System.Console.WriteLine("Parsing finished at: " + DateTime.Now);
         }
 
-        private static int PrintClasses(int totalnumberOfClasses, IList<ICodeFragment> classes)
+        private static void GenerateDataSet(int runId)
         {
- 
-            totalnumberOfClasses += classes.Count;
+            Task.Run(async () => { await _viewModel.RefreshAsync(); }).Wait();
 
-            foreach (Class cl in classes)
-            {
-                if(cl == null)
-                {
-                    break;
-                }
+            System.Console.WriteLine("Code Fragments:: " + _viewModel.CodeFragments.Count);
 
-                //logger.Info("ClassName: " + cl.Name);
-                //logger.Info("NumberOfMethods: " + cl.NumberOfMethods);
-                //logger.Info("Class complexity: " + cl.Complexity);
-                //logger.Info("Class loc: " + cl.LinesOfCode);
-
-                //foreach (var met in cl.Methods)
-                //{
-                //    logger.Info("Method number of params: " + met.NumberOfParams);
-                //    logger.Info("Method loc: " + met.LinesOfCode);
-                //    logger.Info("Method complexity: " + met.Complexity);
-                //    logger.Info("Method Number of Statements: " + met.NumberOfStatements);
-                //}
-
-
-                if(cl.Classes.Count > 0)
-                {
-                    PrintClasses(totalnumberOfClasses, cl.Children);
-                }
-
-            }
-
-            return totalnumberOfClasses;
+            _viewModel.GenerateDataset("run_" + runId + ".csv");
         }
     }
 }

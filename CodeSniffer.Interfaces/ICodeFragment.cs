@@ -13,6 +13,6 @@ namespace CodeSniffer.Interfaces
         IList<ICodeSmell> CodeSmells { get; set; }
 
         //TODO: move implementations to separate class
-        void WriteToTrainingSet();
+        void WriteToTrainingSet(string filename);
     }
 }

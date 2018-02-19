@@ -46,7 +46,7 @@ namespace CodeSniffer.Models
             return fieldName;
         }
 
-        public void WriteToTrainingSet()
+        public void WriteToTrainingSet(string filename)
         {
         }
     }

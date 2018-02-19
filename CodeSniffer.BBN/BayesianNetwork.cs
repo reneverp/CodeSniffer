@@ -27,7 +27,6 @@ namespace CodeSniffer.BBN
 
         ~BayesianNetwork()
         {
-            _network.Dispose();
             _network = null;
         }
 
