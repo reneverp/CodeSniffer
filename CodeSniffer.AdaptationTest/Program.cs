@@ -73,7 +73,7 @@ namespace CodeSniffer.AdaptationTest
             }
 
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 8; i++)
             {
 
                 GenerateDataSet(i);
@@ -83,7 +83,7 @@ namespace CodeSniffer.AdaptationTest
                 StringBuilder featureEnvSb = new StringBuilder();
                 StringBuilder longmethodSb = new StringBuilder();
 
-                for (int y = 0; y < 10; y++)
+                for (int y = 0; y < 100; y++)
                 {
                     int largeClassIndex = largeClassRandom.Next(annotatedLargeClasses.Length);
                     int featureEnvyIndex = featureEnvyRandom.Next(annotatedFeatureEnvyMethods.Length);
@@ -103,26 +103,26 @@ namespace CodeSniffer.AdaptationTest
                     longmethodSb.AppendLine(string.Join(",", fields));
                 }
 
-                for (int y = 0; y < 10; y++)
-                {
-                    int largeClassIndex = largeClassRandom.Next(annotatedLargeClassesFalse.Length);
-                    int featureEnvyIndex = featureEnvyRandom.Next(annotatedFeatureEnvyMethodsFalse.Length);
-                    int longMehodIndex = longMethodRandom.Next(annotatedLongMethodsFalse.Length);
+                //for (int y = 0; y < 10; y++)
+                //{
+                //    int largeClassIndex = largeClassRandom.Next(annotatedLargeClassesFalse.Length);
+                //    int featureEnvyIndex = featureEnvyRandom.Next(annotatedFeatureEnvyMethodsFalse.Length);
+                //    int longMehodIndex = longMethodRandom.Next(annotatedLongMethodsFalse.Length);
 
-                    var largeClassRow = annotatedLargeClassesFalse[largeClassIndex];
-                    //var featureEnvyRow = annotatedFeatureEnvyMethodsFalse[featureEnvyIndex];
-                    var longMethodRow = annotatedLongMethodsFalse[longMehodIndex];
+                //    var largeClassRow = annotatedLargeClassesFalse[largeClassIndex];
+                //    //var featureEnvyRow = annotatedFeatureEnvyMethodsFalse[featureEnvyIndex];
+                //    var longMethodRow = annotatedLongMethodsFalse[longMehodIndex];
 
-                    var fields = largeClassRow.ItemArray.Select(field => field.ToString()).ToArray();
-                    classSb.AppendLine(string.Join(",", fields));
+                //    var fields = largeClassRow.ItemArray.Select(field => field.ToString()).ToArray();
+                //    classSb.AppendLine(string.Join(",", fields));
 
-                    //fields = featureEnvyRow.ItemArray.Select(field => field.ToString()).ToArray();
-                    //featureEnvSb.AppendLine(string.Join(",", fields));
+                //    //fields = featureEnvyRow.ItemArray.Select(field => field.ToString()).ToArray();
+                //    //featureEnvSb.AppendLine(string.Join(",", fields));
 
-                    fields = longMethodRow.ItemArray.Select(field => field.ToString()).ToArray();
-                    longmethodSb.AppendLine(string.Join(",", fields));
+                //    fields = longMethodRow.ItemArray.Select(field => field.ToString()).ToArray();
+                //    longmethodSb.AppendLine(string.Join(",", fields));
 
-                }
+                //}
 
                 using (var sw = new StreamWriter(_additionalClassCasesFile, true))
                 {
@@ -131,8 +131,8 @@ namespace CodeSniffer.AdaptationTest
 
                 using (var sw = new StreamWriter(_additionalMethodCasesFile, true))
                 {
-                    sw.Write(featureEnvSb.ToString());
-                    //sw.Write(longmethodSb.ToString());
+                    //sw.Write(featureEnvSb.ToString());
+                    sw.Write(longmethodSb.ToString());
                 }
             }
         }
