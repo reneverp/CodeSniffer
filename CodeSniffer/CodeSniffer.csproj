@@ -134,8 +134,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if not exist $(TargetDir)Networks\*.xdsl (
-    xcopy /Y $(SolutionDir)\CodeSniffer.BBN\Networks\*.xdsl $(TargetDir)Networks\
+    <PostBuildEvent>if not exist "$(TargetDir)Networks\*.xdsl" (
+    xcopy /Y "$(SolutionDir)\CodeSniffer.BBN\Networks\*.xdsl" "$(TargetDir)Networks\"
 )
 </PostBuildEvent>
   </PropertyGroup>
