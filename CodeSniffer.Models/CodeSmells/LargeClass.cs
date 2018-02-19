@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CodeSniffer.BBN;
 
 namespace CodeSniffer.Models.CodeSmells
 {
@@ -18,6 +19,7 @@ namespace CodeSniffer.Models.CodeSmells
         private IMetric _atfd;
         private IMetric _loc;
         private bool _overridden;
+        private BBN.LargeClass _network;
 
         public event Action Updated;
 
@@ -27,6 +29,8 @@ namespace CodeSniffer.Models.CodeSmells
             _wmc = wmc;
             _atfd = atfd;
             _loc = loc;
+
+            _network = BBN.LargeClass.Instance;
         }
 
         public string Name => "Large_Class";
@@ -35,12 +39,12 @@ namespace CodeSniffer.Models.CodeSmells
         {
             get
             {
-                BBN.LargeClass.Instance.SetEvidenceForAtfd(_atfd.Value);
-                BBN.LargeClass.Instance.SetEvidenceForLoc(_loc.Value);
-                BBN.LargeClass.Instance.SetEvidenceForTcc(_tcc.Value);
-                BBN.LargeClass.Instance.SetEvidenceForWmc(_wmc.Value);
+                _network.SetEvidenceForAtfd(_atfd.Value);
+                _network.SetEvidenceForLoc(_loc.Value);
+                _network.SetEvidenceForTcc(_tcc.Value);
+                _network.SetEvidenceForWmc(_wmc.Value);
 
-                return Math.Round(BBN.LargeClass.Instance.IsLargeClass() * 100, 2);
+                return Math.Round(_network.IsLargeClass() * 100, 2);
             }
             set
             {

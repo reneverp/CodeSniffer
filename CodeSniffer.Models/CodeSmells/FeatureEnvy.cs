@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CodeSniffer.BBN;
 
 namespace CodeSniffer.Models.CodeSmells
 {
@@ -14,6 +15,7 @@ namespace CodeSniffer.Models.CodeSmells
         private IMetric _laa;
         private IMetric _fdp;
         private bool _overridden;
+        private BBN.FeatureEnvy _network;
 
         public event Action Updated;
 
@@ -22,6 +24,10 @@ namespace CodeSniffer.Models.CodeSmells
             _atfd = atfd;
             _laa = laa;
             _fdp = fdp;
+
+            //kick off learning.
+            _network = BBN.FeatureEnvy.Instance;
+
         }
 
         public string Name => "Feature_Envy";
@@ -30,11 +36,11 @@ namespace CodeSniffer.Models.CodeSmells
         {
             get
             {
-                BBN.FeatureEnvy.Instance.SetEvidenceForAtfd(_atfd.Value);
-                BBN.FeatureEnvy.Instance.SetEvidenceForLaa(_laa.Value);
-                BBN.FeatureEnvy.Instance.SetEvidenceForFdp(_fdp.Value);
+                _network.SetEvidenceForAtfd(_atfd.Value);
+                _network.SetEvidenceForLaa(_laa.Value);
+                _network.SetEvidenceForFdp(_fdp.Value);
 
-                return Math.Round(BBN.FeatureEnvy.Instance.IsFeatureEnvy() * 100, 2);
+                return Math.Round(_network.IsFeatureEnvy() * 100, 2);
             }
             set
             {

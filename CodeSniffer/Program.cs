@@ -1,4 +1,4 @@
-﻿using CodeSniffer.Utilities;
+﻿using CodeSniffer.ViewModels.Utilities;
 using CodeSniffer.ViewModels;
 using System;
 using System.Windows;
@@ -21,7 +21,7 @@ namespace CodeSniffer
             DirectoryUtil dirUtil = new DirectoryUtil();
             AsyncParserWrapper asyncParser = new AsyncParserWrapper(parser, dirUtil);
 
-            ApplicationInterfaces.IOService ioService = new IOService();
+            ViewModels.ApplicationInterfaces.IOService ioService = new IOService();
 
             _viewModel = new MainWindowViewModel(asyncParser, ioService);
             var window = new MainWindow { DataContext = _viewModel };

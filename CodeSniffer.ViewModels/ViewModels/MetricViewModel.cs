@@ -2,7 +2,7 @@
 
 namespace CodeSniffer.ViewModels
 {
-    class MetricViewModel : ViewModelBase
+    public class MetricViewModel : ViewModelBase
     {
         private string _name;
         private double _value;

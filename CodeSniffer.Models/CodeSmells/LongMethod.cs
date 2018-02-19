@@ -1,5 +1,6 @@
 ﻿using CodeSniffer.Interfaces;
 using System;
+using CodeSniffer.BBN;
 
 namespace CodeSniffer.Models.CodeSmells
 {
@@ -11,6 +12,7 @@ namespace CodeSniffer.Models.CodeSmells
         private IMetric _maxnesting;
         private IMetric _noav;
         private bool _overridden;
+        private BBN.LongMethod _network;
 
         public event Action Updated;
 
@@ -20,6 +22,8 @@ namespace CodeSniffer.Models.CodeSmells
             _cyclo = cyclo;
             _maxnesting = maxnesting;
             _noav = noav;
+
+            _network = BBN.LongMethod.Instance;
         }
 
         public string Name => "Long_Method";
@@ -28,12 +32,12 @@ namespace CodeSniffer.Models.CodeSmells
         {
             get
             {
-                BBN.LongMethod.Instance.SetEvidenceForLoc(_loc.Value);
-                BBN.LongMethod.Instance.SetEvidenceForCyclo(_cyclo.Value);
-                BBN.LongMethod.Instance.SetEvidenceForMaxNesting(_maxnesting.Value);
-                BBN.LongMethod.Instance.SetEvidenceForNoav(_noav.Value);
+                _network.SetEvidenceForLoc(_loc.Value);
+                _network.SetEvidenceForCyclo(_cyclo.Value);
+                _network.SetEvidenceForMaxNesting(_maxnesting.Value);
+                _network.SetEvidenceForNoav(_noav.Value);
 
-                return Math.Round(BBN.LongMethod.Instance.IsLongMethod() * 100, 2);
+                return Math.Round(_network.IsLongMethod() * 100, 2);
             }
             set
             {

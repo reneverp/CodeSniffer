@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace CodeSniffer
+namespace CodeSniffer. ViewModels.Utilities
 {
     //TODO, duplication (this functionality also exisstss in the console app
-    class DirectoryUtil
+    public class DirectoryUtil
     {
         public IList<string> GetFileNames(string directory, string extension, List<string> files = null)
         {

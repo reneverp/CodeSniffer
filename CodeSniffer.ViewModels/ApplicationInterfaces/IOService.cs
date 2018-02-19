@@ -1,7 +1,7 @@
 ﻿
-namespace CodeSniffer.ApplicationInterfaces
+namespace CodeSniffer.ViewModels.ApplicationInterfaces
 {
-    interface IOService
+    public interface IOService
     {
         string OpenFolderDialog();
         string OpenFileDialog(bool multiSelect);

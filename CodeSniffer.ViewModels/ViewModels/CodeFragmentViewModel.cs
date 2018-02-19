@@ -5,7 +5,7 @@ namespace CodeSniffer.ViewModels
 {
     
     //TODO: MOVE TO SEPARATE CLASS
-    class CodeFragmentViewModel : ViewModelBase
+    public class CodeFragmentViewModel : ViewModelBase
     {
         private bool _isSelected;
 

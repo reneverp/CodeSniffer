@@ -3,9 +3,9 @@
 using System;
 using System.Windows.Input;
 
-namespace CodeSniffer
+namespace CodeSniffer.ViewModels.Utilities
 {
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         private Action _actionToBeExecuted;
         public event EventHandler CanExecuteChanged;

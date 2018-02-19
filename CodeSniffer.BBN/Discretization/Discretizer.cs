@@ -30,9 +30,26 @@ namespace CodeSniffer.BBN.Discretization
         public static DataSet ClassDataset { get; private set; }
         public static DataSet MethodDataset { get; private set; }
 
-        public static bool IsDiscretized { get; private set; }
+        public static bool IsDiscretized
+        {
+            get
+            {
+                lock (_lockObj)
+                {
+                    return _isDiscretized;
+                }
+            }
+            private set
+            {
+                lock (_lockObj)
+                {
+                    _isDiscretized = value;
+                }
+            }
+        }
 
         private static object _lockObj;
+        private static bool _isDiscretized;
 
         static Discretizer()
         {
@@ -44,10 +61,10 @@ namespace CodeSniffer.BBN.Discretization
         {
             lock (_lockObj)
             {
+                IsDiscretized = true;
+
                 DiscretizeClassTrainingSet();
                 DiscretizeMethodTrainingSet();
-
-                IsDiscretized = true;
             }
         }
 

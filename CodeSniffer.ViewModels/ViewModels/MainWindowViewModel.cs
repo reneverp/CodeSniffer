@@ -1,6 +1,6 @@
 ﻿using CodeSniffer.Interfaces;
 using CodeSniffer.Models;
-using CodeSniffer.Utilities;
+using CodeSniffer.ViewModels.Utilities;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,10 +10,12 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.IO;
 using System.Reflection;
+using System.Windows.Forms;
+using System.Windows.Threading;
 
 namespace CodeSniffer.ViewModels
 {
-    class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase
     {
         private readonly AsyncParserWrapper _parser;
         private readonly ApplicationInterfaces.IOService _ioService;
@@ -129,9 +131,9 @@ namespace CodeSniffer.ViewModels
 
         public void Closing()
         {
-            var result = MessageBox.Show("Generate Dataset?","CodeSniffer is closing...", MessageBoxButton.YesNo);
+            var result = MessageBox.Show("Generate Dataset?","CodeSniffer is closing...", MessageBoxButtons.YesNo);
 
-            if (result == MessageBoxResult.Yes)
+            if (result == DialogResult.Yes)
             {
                 //SaveProject();
                 foreach (var fragment in _flatList)
@@ -329,7 +331,7 @@ namespace CodeSniffer.ViewModels
 
         private void OnParseInfoUpdated(string line)
         {
-            Application.Current.Dispatcher.Invoke(() => ParseInfoLines += DateTime.Now + " :: Info: " + line + "\n");
+            Dispatcher.CurrentDispatcher.Invoke(() => ParseInfoLines += DateTime.Now + " :: Info: " + line + "\n");
         }
 
     }

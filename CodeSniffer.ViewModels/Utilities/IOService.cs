@@ -4,9 +4,9 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
-namespace CodeSniffer.Utilities
+namespace CodeSniffer.ViewModels.Utilities
 {
-    class IOService : ApplicationInterfaces.IOService
+    public class IOService : ApplicationInterfaces.IOService
     {
         public string OpenFolderDialog()
         {

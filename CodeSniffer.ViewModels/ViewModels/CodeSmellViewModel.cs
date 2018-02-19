@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace CodeSniffer.ViewModels
 {
-    class CodeSmellViewModel : ViewModelBase
+    public class CodeSmellViewModel : ViewModelBase
     {
         private string _name;
         private double _value;

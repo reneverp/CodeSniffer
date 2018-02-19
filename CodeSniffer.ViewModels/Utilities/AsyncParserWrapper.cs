@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using CodeSniffer.ViewModels.Utilities;
 
-namespace CodeSniffer.Utilities
+namespace CodeSniffer.ViewModels.Utilities
 {
-    class AsyncParserWrapper
+    public class AsyncParserWrapper
     {
         private IParser _concreteParser;
         private DirectoryUtil _directoryUtil;

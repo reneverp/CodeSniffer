@@ -63,15 +63,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Networks\FeatureEnvy_network_naive.xdsl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Networks\LargeClass_network_naive.xdsl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Networks\LongMethod_network_naive.xdsl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Content Include="Networks\FeatureEnvy_network_naive.xdsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Networks\LargeClass_network_naive.xdsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Networks\LongMethod_network_naive.xdsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="TrainingsData\ClassTrainingSet_2319_17022018.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
