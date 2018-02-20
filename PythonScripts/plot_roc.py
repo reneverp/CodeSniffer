@@ -115,34 +115,34 @@ def plot_method_longMethod_data(inputfilename):
 def plot_verification_class_data():
     a = 0
     
-    while(a < 8):
+    while(a < 100):
         filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\\Release\\Classrun_{}.csv".format(a)
         plot_class_data(filename)
-        a += 1
+        a += 10
     
     plt.legend()
     plt.show()
 
 def plot_verification_longmethod_data():
     a = 0
-    while(a < 8):
+    while(a < 100):
         filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\\Release\\Methodrun_{}.csv".format(a)
         plot_method_longMethod_data(filename)
-        a += 1
+        a += 10
     
     plt.legend()
     plt.show()
 
 def plot_verification_featureenvy_data():
     a = 0
-    while(a < 8):
+    while(a < 100):
         filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\\Release\\Methodrun_{}.csv".format(a)
         plot_method_featureEnvy_data(filename)
-        a += 1
+        a += 10
     
     plt.legend()
     plt.show()
 
 plot_verification_class_data()
 plot_verification_longmethod_data()
-#plot_verification_featureenvy_data()
+plot_verification_featureenvy_data()
