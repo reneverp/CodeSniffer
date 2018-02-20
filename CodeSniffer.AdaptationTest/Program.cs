@@ -120,6 +120,7 @@ namespace CodeSniffer.AdaptationTest
                     int featureEnvyIndex = featureEnvyRandom.Next(wrongCasesMethod.Count);
                     //int longMehodIndex = longMethodRandom.Next(annotatedLongMethods.Length);
 
+
                     var largeClassRow = wrongCasesClass[largeClassIndex];
                     var featureEnvyRow = wrongCasesMethod[featureEnvyIndex];
                     //var longMethodRow = annotatedLongMethods[longMehodIndex];
@@ -164,6 +165,7 @@ namespace CodeSniffer.AdaptationTest
                 {
                     sw.Write(featureEnvSb.ToString());
                     //sw.Write(longmethodSb.ToString());
+
                 }
             }
         }
