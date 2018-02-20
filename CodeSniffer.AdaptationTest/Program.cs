@@ -62,20 +62,20 @@ namespace CodeSniffer.AdaptationTest
                 methodHeader.Add(col.ColumnName);
             }
 
-            using (var sw = new StreamWriter(_additionalClassCasesFile))
-            {
-                sw.WriteLine(string.Join(",", classHeader.ToArray()));
-            }
-
-            using (var sw = new StreamWriter(_additionalMethodCasesFile))
-            {
-                sw.WriteLine(string.Join(",", methodHeader.ToArray()));
-            }
-
-
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 25; i++)
             {
                 GenerateDataSet(i);
+
+                //generate new adaptation files every time we start the app
+                using (var sw = new StreamWriter(_additionalClassCasesFile))
+                {
+                    sw.WriteLine(string.Join(",", classHeader.ToArray()));
+                }
+
+                using (var sw = new StreamWriter(_additionalMethodCasesFile))
+                {
+                    sw.WriteLine(string.Join(",", methodHeader.ToArray()));
+                }
 
                 var classDataSet = BBN.Discretization.DataSetHelper.GetDataSetForCSV(_basePath + "\\Classrun_" + i + ".csv");
                 var methodDataSet = BBN.Discretization.DataSetHelper.GetDataSetForCSV(_basePath + "\\Methodrun_" + i + ".csv");
@@ -100,7 +100,7 @@ namespace CodeSniffer.AdaptationTest
                 z = 0;
                 foreach (DataRow row in methodDataSet.Tables[0].Rows)
                 {
-                    if (row.Field<string>("Feature_Envy") != methodVerificationDataset.Tables[0].Rows[z].Field<string>("Feature_Envy") ||
+                    if (/*row.Field<string>("Feature_Envy") != methodVerificationDataset.Tables[0].Rows[z].Field<string>("Feature_Envy") ||*/
                         row.Field<string>("Long_Method") != methodVerificationDataset.Tables[0].Rows[z].Field<string>("Long_Method"))
                     {
                         wrongCasesMethod.Add(methodVerificationDataset.Tables[0].Rows[z]);
@@ -134,27 +134,6 @@ namespace CodeSniffer.AdaptationTest
                     //fields = longMethodRow.ItemArray.Select(field => field.ToString()).ToArray();
                     //longmethodSb.AppendLine(string.Join(",", fields));
                 }
-
-                //for (int y = 0; y < 10; y++)
-                //{
-                //    int largeClassIndex = largeClassRandom.Next(annotatedLargeClassesFalse.Length);
-                //    int featureEnvyIndex = featureEnvyRandom.Next(annotatedFeatureEnvyMethodsFalse.Length);
-                //    int longMehodIndex = longMethodRandom.Next(annotatedLongMethodsFalse.Length);
-
-                //    var largeClassRow = annotatedLargeClassesFalse[largeClassIndex];
-                //    //var featureEnvyRow = annotatedFeatureEnvyMethodsFalse[featureEnvyIndex];
-                //    var longMethodRow = annotatedLongMethodsFalse[longMehodIndex];
-
-                //    var fields = largeClassRow.ItemArray.Select(field => field.ToString()).ToArray();
-                //    classSb.AppendLine(string.Join(",", fields));
-
-                //    //fields = featureEnvyRow.ItemArray.Select(field => field.ToString()).ToArray();
-                //    //featureEnvSb.AppendLine(string.Join(",", fields));
-
-                //    fields = longMethodRow.ItemArray.Select(field => field.ToString()).ToArray();
-                //    longmethodSb.AppendLine(string.Join(",", fields));
-
-                //}
 
                 using (var sw = new StreamWriter(_additionalClassCasesFile, true))
                 {

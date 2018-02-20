@@ -54,7 +54,15 @@ namespace CodeSniffer.BBN
 
             LaplaceEstimator.LaplaceEstimation(Discretizer.MethodDataset, _network, map, "Long_Method", 1);
 
-            LaplaceEstimator.Adapt(Discretizer.ProcessAdditionalMethodCases(), Discretizer.MethodDataset, _network, map, "Long_Method", 1, 0.5);
+            var cases = Discretizer.ProcessAdditionalMethodCases();
+            if (cases.Count > 0)
+            {
+                //calculate the fading factor according the samplesize of the trainingset:
+                double originalCount = Discretizer.MethodDataset.Tables[0].Rows.Count;
+                double q = (originalCount - cases.Count) / originalCount;
+
+                LaplaceEstimator.Adapt(cases, Discretizer.MethodDataset, _network, map, "Long_Method", 1, q);
+            }
         }
 
         private void SetOutcomeIds()

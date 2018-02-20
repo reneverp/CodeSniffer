@@ -2,6 +2,7 @@
 using Smile;
 using Smile.Learning;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 
 namespace CodeSniffer.BBN
@@ -78,6 +79,32 @@ namespace CodeSniffer.BBN
         public void SaveNetwork()
         {
             _network.WriteFile(_networkFile);
+        }
+
+        public IDictionary<string, IList<double>> GetSampleCounts()
+        {
+            var counts = new Dictionary<string, IList<double>>();
+
+            var jsonFile = Path.GetDirectoryName(_networkFile) + "\\" + Path.GetFileNameWithoutExtension(_networkFile) + ".json";
+
+            if(File.Exists(jsonFile))
+            {
+                var json = File.ReadAllText(jsonFile);
+                counts = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, IList<double>>>(json);
+            }
+
+            return counts;
+        }
+
+        public void SetSampleCounts(IDictionary<string, IList<double>> counts)
+        {
+            var jsonFile = Path.GetDirectoryName(_networkFile) + "\\" + Path.GetFileNameWithoutExtension(_networkFile) + ".json";
+
+            using (var sw = new StreamWriter(jsonFile))
+            {
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(counts);
+                sw.Write(json);
+            }
         }
     }
 }
