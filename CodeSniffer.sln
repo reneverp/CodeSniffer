@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.ViewModels", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.AdaptationTest", "CodeSniffer.AdaptationTest\CodeSniffer.AdaptationTest.csproj", "{68DE55CA-8F55-4B8C-A521-C7643494632D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSniffer.DatasetGenerator", "CodeSniffer.DatasetGenerator\CodeSniffer.DatasetGenerator.csproj", "{4222E1D9-94A2-40C9-83B2-834BBA6F7056}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{68DE55CA-8F55-4B8C-A521-C7643494632D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68DE55CA-8F55-4B8C-A521-C7643494632D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68DE55CA-8F55-4B8C-A521-C7643494632D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4222E1D9-94A2-40C9-83B2-834BBA6F7056}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4222E1D9-94A2-40C9-83B2-834BBA6F7056}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4222E1D9-94A2-40C9-83B2-834BBA6F7056}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4222E1D9-94A2-40C9-83B2-834BBA6F7056}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,5 +97,6 @@ Global
 		{BAFE1B5E-6491-4676-A5F6-27517D04B6C1} = {8290E73B-4F42-446D-A147-FDCF369C5B48}
 		{252E2F68-E3AA-4743-94E8-2BAEB60518E7} = {8290E73B-4F42-446D-A147-FDCF369C5B48}
 		{68DE55CA-8F55-4B8C-A521-C7643494632D} = {8290E73B-4F42-446D-A147-FDCF369C5B48}
+		{4222E1D9-94A2-40C9-83B2-834BBA6F7056} = {8290E73B-4F42-446D-A147-FDCF369C5B48}
 	EndGlobalSection
 EndGlobal

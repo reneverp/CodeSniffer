@@ -106,13 +106,13 @@ def plot_verification_method_data():
 
 def plot_verification_method_data_featureenvy():
     columns = ["LOC", "CYCLO", "ATFD", "FDP", "LAA", "MAXNESTING", "NOAV"]
-    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018.csv"
+    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\Release\\Methodtest.csv"#"\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018.csv"
     classifier = 11 #long method
     plot_data(filename, columns, classifier)
 
 def plot_verification_class_data():
     columns = ["LOC", "TCC", "WMC", "ATFD"]
-    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\VerificationData\\ClassTrainingSet_1357_18022018.csv"
+    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\Release\\Classtest.csv" #"\\..\\CodeSniffer.BBN\\VerificationData\\ClassTrainingSet_1357_18022018.csv"
     classifier = 6
     plot_data(filename, columns, classifier)
 
@@ -121,8 +121,8 @@ def plot_verification_class_data():
 #plot_method_data()
 #plot_method_data_featureenvy()
 
-plot_verification_class_data()
-plot_verification_method_data()
+#plot_verification_class_data()
+#plot_verification_method_data()
 plot_verification_method_data_featureenvy()
  
 

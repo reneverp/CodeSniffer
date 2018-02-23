@@ -34,6 +34,9 @@ def get_FP_TP_rates(results, verificationResults, cutoff, column, scoreLabel):
     falsePositives = 0
     falseNegatives = 0
 
+    tpr = 0
+    fpr = 0
+
     for idx,row in enumerate(results):
         if(row[scoreLabel] >= cutoff and verificationResults[idx][column] == "True"):
             #consider true
@@ -48,7 +51,9 @@ def get_FP_TP_rates(results, verificationResults, cutoff, column, scoreLabel):
         if(row[scoreLabel] < cutoff and verificationResults[idx][column] == "False"):
             trueNegatives += 1
 
+    
     tpr = truePositives / (truePositives + falseNegatives)
+
     fpr = falsePositives / (falsePositives + trueNegatives)
 
     #print("cutoff: {}".format(cutoff))
@@ -67,16 +72,11 @@ def plot_roc_curve(filename, verificationFilename, column, scorelabel):
     verificationResults = readcsv(verificationFilename)    
     results = genfromtxt(filename, delimiter=',', comments='(', skip_header=False, names=True)
 
-    cutoff = 0.0
-
     scores = results[scorelabel].tolist()
-
     scores.sort()
 
     for score in scores:
         get_FP_TP_rates(results, verificationResults, score, column, scorelabel)
-        #cutoff += 0.002
-        #cutoff = round(cutoff, 3)
     
     auc = np.trapz(fpr_list, tpr_list) + 1
 
@@ -89,7 +89,7 @@ def plot_roc_curve(filename, verificationFilename, column, scorelabel):
 def plot_class_data(inputFilename):
     columns = {"Large_ClassScore": 6} #large class
     filename = inputFilename
-    verificationFilename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\VerificationData\\ClassTrainingSet_1357_18022018_discretized.csv"
+    verificationFilename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\Release\ClassTest.csv" #"\\..\\CodeSniffer.BBN\\VerificationData\\ClassTrainingSet_1357_18022018_discretized.csv"
 
 
     for scoreLabel, col in columns.items():
@@ -98,7 +98,7 @@ def plot_class_data(inputFilename):
 def plot_method_featureEnvy_data(inputfilename):
     columns = {"Feature_EnvyScore":11} #large class
     filename = inputfilename
-    verificationFilename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018_discretized.csv"
+    verificationFilename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\Release\Methodtest.csv" #"\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018_discretized.csv"
 
     for scoreLabel, col in columns.items():
         plot_roc_curve(filename, verificationFilename, col, scoreLabel)
@@ -106,7 +106,7 @@ def plot_method_featureEnvy_data(inputfilename):
 def plot_method_longMethod_data(inputfilename):
     columns = {"Long_MethodScore": 13} #large class
     filename = inputfilename
-    verificationFilename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018_discretized.csv"
+    verificationFilename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\Release\Methodtest.csv" #"\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018_discretized.csv"
 
     for scoreLabel, col in columns.items():
         plot_roc_curve(filename, verificationFilename, col, scoreLabel)           
@@ -115,30 +115,30 @@ def plot_method_longMethod_data(inputfilename):
 def plot_verification_class_data():
     a = 0
     
-    while(a < 25):
+    while(a < 10):
         filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\\Release\\Classrun_{}.csv".format(a)
         plot_class_data(filename)
-        a += 4
+        a += 1
     
     plt.legend()
     plt.show()
 
 def plot_verification_longmethod_data():
     a = 0
-    while(a < 25):
+    while(a < 10):
         filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\\Release\\Methodrun_{}.csv".format(a)
         plot_method_longMethod_data(filename)
-        a += 4
+        a += 1
     
     plt.legend()
     plt.show()
 
 def plot_verification_featureenvy_data():
     a = 0
-    while(a < 25):
+    while(a < 10):
         filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\\Release\\Methodrun_{}.csv".format(a)
         plot_method_featureEnvy_data(filename)
-        a += 4
+        a += 1
     
     plt.legend()
     plt.show()

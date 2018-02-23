@@ -23,7 +23,33 @@ namespace CodeSniffer.AdaptationTest
         {
             _basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            var classVerificationName = _basePath + @"\..\..\CodeSniffer.BBN\VerificationData\ClassTrainingSet_1357_18022018.csv";
+            var filesToDelete = Directory.EnumerateFiles(_basePath, "Classrun_*.csv");
+
+            foreach (var file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+
+            filesToDelete = Directory.EnumerateFiles(_basePath, "Methodrun_*.csv");
+            foreach (var file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+
+            filesToDelete = Directory.EnumerateFiles(_basePath + @"\Networks\", "*.json");
+            foreach (var file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+
+            File.Delete(_basePath + @"\TrainingsData\ClassAdditionalData.csv");
+            File.Delete(_basePath + @"\TrainingsData\MethodAdditionalData.csv");
+
+
+
+            //var classVerificationName = _basePath + @"\..\..\CodeSniffer.BBN\VerificationData\ClassTrainingSet_1357_18022018.csv";
+
+            var classVerificationName = _basePath + @"\ClassTest.csv";
             var methodVerificationName = _basePath + @"\..\..\CodeSniffer.BBN\VerificationData\MethodTrainingSet_1357_18022018.csv";
 
             var classVerificationDataset = BBN.Discretization.DataSetHelper.GetDataSetForCSV(classVerificationName);
@@ -62,7 +88,7 @@ namespace CodeSniffer.AdaptationTest
                 methodHeader.Add(col.ColumnName);
             }
 
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 10; i++)
             {
                 GenerateDataSet(i);
 
@@ -81,7 +107,9 @@ namespace CodeSniffer.AdaptationTest
                 var methodDataSet = BBN.Discretization.DataSetHelper.GetDataSetForCSV(_basePath + "\\Methodrun_" + i + ".csv");
 
                 IList<DataRow> wrongCasesClass = new List<DataRow>();
-                IList<DataRow> wrongCasesMethod = new List<DataRow>();
+                IList<DataRow> wrongCasesMethodFE = new List<DataRow>();
+                IList<DataRow> wrongCasesMethodLM = new List<DataRow>();
+
 
 
                 //pick all wrongly predicted class rows
@@ -100,30 +128,35 @@ namespace CodeSniffer.AdaptationTest
                 z = 0;
                 foreach (DataRow row in methodDataSet.Tables[0].Rows)
                 {
-                    if (/*row.Field<string>("Feature_Envy") != methodVerificationDataset.Tables[0].Rows[z].Field<string>("Feature_Envy") ||*/
-                        row.Field<string>("Long_Method") != methodVerificationDataset.Tables[0].Rows[z].Field<string>("Long_Method"))
+                    if (row.Field<string>("Feature_Envy") != methodVerificationDataset.Tables[0].Rows[z].Field<string>("Feature_Envy"))
                     {
-                        wrongCasesMethod.Add(methodVerificationDataset.Tables[0].Rows[z]);
+                        wrongCasesMethodFE.Add(methodVerificationDataset.Tables[0].Rows[z]);
+                    }
+
+                    if(row.Field<string>("Long_Method") != methodVerificationDataset.Tables[0].Rows[z].Field<string>("Long_Method"))
+                    {
+                        wrongCasesMethodLM.Add(methodVerificationDataset.Tables[0].Rows[z]);
                     }
 
                     z++;
                 }
 
 
+
                 StringBuilder classSb = new StringBuilder();
                 StringBuilder featureEnvSb = new StringBuilder();
                 StringBuilder longmethodSb = new StringBuilder();
 
-                for (int y = 0; y < 100; y++)
+                for (int y = 0; y < 10; y++)
                 {
                     int largeClassIndex = largeClassRandom.Next(wrongCasesClass.Count);
-                    int featureEnvyIndex = featureEnvyRandom.Next(wrongCasesMethod.Count);
-                    //int longMehodIndex = longMethodRandom.Next(annotatedLongMethods.Length);
+                    int featureEnvyIndex = featureEnvyRandom.Next(wrongCasesMethodFE.Count);
+                    int longMehodIndex = longMethodRandom.Next(wrongCasesMethodLM.Count);
 
 
                     var largeClassRow = wrongCasesClass[largeClassIndex];
-                    var featureEnvyRow = wrongCasesMethod[featureEnvyIndex];
-                    //var longMethodRow = annotatedLongMethods[longMehodIndex];
+                    var featureEnvyRow = wrongCasesMethodFE[featureEnvyIndex];
+                    var longMethodRow = wrongCasesMethodLM[longMehodIndex];
 
                     var fields = largeClassRow.ItemArray.Select(field => field.ToString()).ToArray();
                     classSb.AppendLine(string.Join(",", fields));
@@ -131,8 +164,8 @@ namespace CodeSniffer.AdaptationTest
                     fields = featureEnvyRow.ItemArray.Select(field => field.ToString()).ToArray();
                     featureEnvSb.AppendLine(string.Join(",", fields));
 
-                    //fields = longMethodRow.ItemArray.Select(field => field.ToString()).ToArray();
-                    //longmethodSb.AppendLine(string.Join(",", fields));
+                    fields = longMethodRow.ItemArray.Select(field => field.ToString()).ToArray();
+                    longmethodSb.AppendLine(string.Join(",", fields));
                 }
 
                 using (var sw = new StreamWriter(_additionalClassCasesFile, true))
@@ -143,7 +176,7 @@ namespace CodeSniffer.AdaptationTest
                 using (var sw = new StreamWriter(_additionalMethodCasesFile, true))
                 {
                     sw.Write(featureEnvSb.ToString());
-                    //sw.Write(longmethodSb.ToString());
+                    sw.Write(longmethodSb.ToString());
 
                 }
             }

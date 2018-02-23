@@ -176,7 +176,16 @@ namespace CodeSniffer.BBN.Discretization
                 foreach (var row in dataset.Tables[0].Select())
                 {
                     Bin loc = LOCClass.Discretize(row.Field<int>("LOC"));
-                    Bin tcc = TCC.Discretize(row.Field<double>("TCC"));
+
+                    Bin tcc = null;
+                    try
+                    {
+                       tcc  = TCC.Discretize(row.Field<double>("TCC"));
+                    }
+                    catch
+                    {
+                        tcc = TCC.Discretize(row.Field<int>("TCC"));
+                    }
                     Bin wmc = WMC.Discretize(row.Field<int>("WMC"));
                     Bin atfd = ATFDClass.Discretize(row.Field<int>("ATFD"));
 
