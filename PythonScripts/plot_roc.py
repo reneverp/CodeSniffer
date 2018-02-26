@@ -121,7 +121,9 @@ def plot_verification_class_data():
         a += 1
     
     plt.legend()
-    plt.show()
+    os.makedirs("rocPlots", exist_ok=True)
+    plt.savefig("rocPlots\\Class.png")
+    plt.close()
 
 def plot_verification_longmethod_data():
     a = 0
@@ -131,7 +133,9 @@ def plot_verification_longmethod_data():
         a += 1
     
     plt.legend()
-    plt.show()
+    os.makedirs("rocPlots", exist_ok=True)
+    plt.savefig("rocPlots\\LongMethod.png")
+    plt.close()
 
 def plot_verification_featureenvy_data():
     a = 0
@@ -141,7 +145,8 @@ def plot_verification_featureenvy_data():
         a += 1
     
     plt.legend()
-    plt.show()
+    plt.savefig("rocPlots\\FeatureEnvy.png")
+    plt.close()
 
 plot_verification_class_data()
 plot_verification_longmethod_data()

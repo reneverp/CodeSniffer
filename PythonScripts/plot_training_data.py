@@ -48,7 +48,10 @@ def plot_data(filename, columns):
         plt.text(outlierBorder, sub.get_ylim()[1] * .8, "outliers > {}".format(round(outlierBorder,2)))
         plt.text(outlierBorder, -0.1, "test")    
 
-    plt.show()
+        os.makedirs("trainingDataResults", exist_ok=True)
+
+        plt.savefig("trainingDataResults\\{}_{}.png".format(name,os.path.basename(filename)))
+        plt.close(fig)
 
 def plot_method_data():
     columns = ["LOC", "CYCLO", "ATFD", "FDP", "LAA", "MAXNESTING", "NOAV"]
