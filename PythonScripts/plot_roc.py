@@ -1,3 +1,4 @@
+import sys
 import os
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button, RadioButtons
@@ -122,7 +123,7 @@ def plot_verification_class_data():
     
     plt.legend()
     os.makedirs("rocPlots", exist_ok=True)
-    plt.savefig("rocPlots\\Class.png")
+    plt.savefig(outDir + "\\Class.png")
     plt.close()
 
 def plot_verification_longmethod_data():
@@ -134,7 +135,7 @@ def plot_verification_longmethod_data():
     
     plt.legend()
     os.makedirs("rocPlots", exist_ok=True)
-    plt.savefig("rocPlots\\LongMethod.png")
+    plt.savefig(outDir + "\\LongMethod.png")
     plt.close()
 
 def plot_verification_featureenvy_data():
@@ -145,8 +146,14 @@ def plot_verification_featureenvy_data():
         a += 1
     
     plt.legend()
-    plt.savefig("rocPlots\\FeatureEnvy.png")
+    plt.savefig(outDir + "\\FeatureEnvy.png")
     plt.close()
+
+
+outDir = "rocPlots"
+if(len(sys.argv) == 2):
+    outDir = sys.argv[1]
+    os.makedirs(sys.argv[1], exist_ok=True)
 
 plot_verification_class_data()
 plot_verification_longmethod_data()

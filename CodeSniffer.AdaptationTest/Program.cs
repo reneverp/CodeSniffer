@@ -50,7 +50,11 @@ namespace CodeSniffer.AdaptationTest
             //var classVerificationName = _basePath + @"\..\..\CodeSniffer.BBN\VerificationData\ClassTrainingSet_1357_18022018.csv";
 
             var classVerificationName = _basePath + @"\ClassTest.csv";
-            var methodVerificationName = _basePath + @"\..\..\CodeSniffer.BBN\VerificationData\MethodTrainingSet_1357_18022018.csv";
+            //var methodVerificationName = _basePath + @"\..\..\CodeSniffer.BBN\VerificationData\MethodTrainingSet_1357_18022018.csv";
+            var methodVerificationName = _basePath + @"\MethodTest.csv";
+
+            WaitForFile(classVerificationName);
+            WaitForFile(methodVerificationName);
 
             var classVerificationDataset = BBN.Discretization.DataSetHelper.GetDataSetForCSV(classVerificationName);
             var methodVerificationDataset = BBN.Discretization.DataSetHelper.GetDataSetForCSV(methodVerificationName);
@@ -141,7 +145,9 @@ namespace CodeSniffer.AdaptationTest
                     z++;
                 }
 
-
+                System.Console.WriteLine("Wrong cases class: " + wrongCasesClass.Count);
+                System.Console.WriteLine("Wrong cases methodFE: " + wrongCasesMethodFE.Count);
+                System.Console.WriteLine("Wrong cases classLM: " + wrongCasesMethodLM.Count);
 
                 StringBuilder classSb = new StringBuilder();
                 StringBuilder featureEnvSb = new StringBuilder();
@@ -153,19 +159,27 @@ namespace CodeSniffer.AdaptationTest
                     int featureEnvyIndex = featureEnvyRandom.Next(wrongCasesMethodFE.Count);
                     int longMehodIndex = longMethodRandom.Next(wrongCasesMethodLM.Count);
 
+                    var largeClassRow = largeClassIndex > 0 ? wrongCasesClass[largeClassIndex] : null;
+                    var featureEnvyRow = featureEnvyIndex > 0 ? wrongCasesMethodFE[featureEnvyIndex] : null;
+                    var longMethodRow = longMehodIndex > 0 ? wrongCasesMethodLM[longMehodIndex] : null;
 
-                    var largeClassRow = wrongCasesClass[largeClassIndex];
-                    var featureEnvyRow = wrongCasesMethodFE[featureEnvyIndex];
-                    var longMethodRow = wrongCasesMethodLM[longMehodIndex];
+                    if (largeClassRow != null)
+                    {
+                        var fields = largeClassRow.ItemArray.Select(field => field.ToString()).ToArray();
+                        classSb.AppendLine(string.Join(",", fields));
+                    }
 
-                    var fields = largeClassRow.ItemArray.Select(field => field.ToString()).ToArray();
-                    classSb.AppendLine(string.Join(",", fields));
+                    if (featureEnvyRow != null)
+                    {
+                        var fields = featureEnvyRow.ItemArray.Select(field => field.ToString()).ToArray();
+                        featureEnvSb.AppendLine(string.Join(",", fields));
+                    }
 
-                    fields = featureEnvyRow.ItemArray.Select(field => field.ToString()).ToArray();
-                    featureEnvSb.AppendLine(string.Join(",", fields));
-
-                    fields = longMethodRow.ItemArray.Select(field => field.ToString()).ToArray();
-                    longmethodSb.AppendLine(string.Join(",", fields));
+                    if (longMethodRow != null)
+                    {
+                        var fields = longMethodRow.ItemArray.Select(field => field.ToString()).ToArray();
+                        longmethodSb.AppendLine(string.Join(",", fields));
+                    }
                 }
 
                 using (var sw = new StreamWriter(_additionalClassCasesFile, true))
@@ -182,12 +196,24 @@ namespace CodeSniffer.AdaptationTest
             }
         }
 
+        private static void WaitForFile(string filename)
+        {
+            for(int i =0; i < 10; i++)
+            {
+                if(File.Exists(filename))
+                {
+                    return;
+                }
+            }
+        }
+
         private static void GenerateDataSet(int runId)
         {
             System.Console.WriteLine("RunId: " + runId);
 
             //we write continuous data, so discretize the additional data first.
-            Process.Start(_basePath + "\\CodeSniffer.Console.exe", runId.ToString()).WaitForExit();
+            ProcessStartInfo startInfo = new ProcessStartInfo { FileName = _basePath + "\\CodeSniffer.Console.exe", Arguments = runId.ToString(), CreateNoWindow = true, WindowStyle = ProcessWindowStyle.Hidden };
+            Process.Start(startInfo).WaitForExit();
         }
     }
 }

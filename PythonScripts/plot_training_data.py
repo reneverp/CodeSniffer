@@ -22,15 +22,15 @@ def plot_data(filename, columns):
 
         outlierBorder = 0
 
-        prevVal = 0
-        for x in data:
-            outlierBorder = x
-            distance = x - prevVal
-            #if we reach a point with distance greater than 10% above standard deviation we reached the outlier threshold 
-            if(x > 7 * std):
-                outlierBorder = prevVal
-                break
-            prevVal = x
+        # prevVal = 0
+        # for x in data:
+        #     outlierBorder = x
+        #     distance = x - prevVal
+        #     #if we reach a point with distance greater than 10% above standard deviation we reached the outlier threshold 
+        #     if(x > 7 * std):
+        #         outlierBorder = prevVal
+        #         break
+        #     prevVal = x
 
         print("outlierBorder: {}".format(outlierBorder))
 
@@ -38,19 +38,19 @@ def plot_data(filename, columns):
         normD = norm.pdf(data,mean,std)
         plt.plot(data, normD, '-o')
         plt.hist(data,normed=True)
-        plt.axvline(outlierBorder, color="red", linestyle="dashed", marker="8")
-        plt.text(outlierBorder, sub.get_ylim()[1] * .8, "outliers > {}".format(round(outlierBorder,2)))
+        # plt.axvline(outlierBorder, color="red", linestyle="dashed", marker="8")
+        # plt.text(outlierBorder, sub.get_ylim()[1] * .8, "outliers > {}".format(round(outlierBorder,2)))
         plt.title(name)
         
         sub = fig.add_subplot(212)
         plt.boxplot(data, vert=False)
-        plt.axvline(outlierBorder, color="red", linestyle="dashed", marker="8")
-        plt.text(outlierBorder, sub.get_ylim()[1] * .8, "outliers > {}".format(round(outlierBorder,2)))
-        plt.text(outlierBorder, -0.1, "test")    
+        # plt.axvline(outlierBorder, color="red", linestyle="dashed", marker="8")
+        # plt.text(outlierBorder, sub.get_ylim()[1] * .8, "outliers > {}".format(round(outlierBorder,2)))
+        # plt.text(outlierBorder, -0.1, "test")    
 
-        os.makedirs("trainingDataResults", exist_ok=True)
+        os.makedirs(os.path.dirname(os.path.realpath(__file__)) + "\\trainingDataResults\\{}".format(os.path.basename(filename)[:-4]), exist_ok=True)
 
-        plt.savefig("trainingDataResults\\{}_{}.png".format(name,os.path.basename(filename)))
+        plt.savefig(os.path.dirname(os.path.realpath(__file__)) + "\\trainingDataResults\\{}\\{}.png".format(os.path.basename(filename)[:-4],name))
         plt.close(fig)
 
 def plot_method_data():

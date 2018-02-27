@@ -1,6 +1,7 @@
 ﻿using CodeSniffer.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -11,14 +12,28 @@ namespace CodeSniffer.DatasetGenerator
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             var parser = new Parser();
             var asyncParser = new ViewModels.Utilities.AsyncParserWrapper(parser, new ViewModels.Utilities.DirectoryUtil());
             var vm = new MainWindowViewModel(asyncParser, new ViewModels.Utilities.IOService());
 
-
             vm.RefreshAsync().Wait();
+
+            double largeClass_LOC = double.Parse(ConfigurationManager.AppSettings["LargeClass_LOC"]);
+            double largeClass_ATFD = double.Parse(ConfigurationManager.AppSettings["LargeClass_ATFD"]);
+            double largeClass_WMC = double.Parse(ConfigurationManager.AppSettings["LargeClass_WMC"]);
+            double largeClass_TCC = double.Parse(ConfigurationManager.AppSettings["LargeClass_TCC"]);
+
+            double longMethod_LOC = double.Parse(ConfigurationManager.AppSettings["LongMethod_LOC"]);
+            double longMethod_CYCLO = double.Parse(ConfigurationManager.AppSettings["LongMethod_CYCLO"]);
+            double longMethod_MAXNESTING = double.Parse(ConfigurationManager.AppSettings["LongMethod_MAXNESTING"]);
+            double longMethod_NOAV = double.Parse(ConfigurationManager.AppSettings["LongMethod_NOAV"]);
+
+            double featureEnvy_ATFD = double.Parse(ConfigurationManager.AppSettings["FeatureEnvy_ATFD"]);
+            double featureEnvy_LAA = double.Parse(ConfigurationManager.AppSettings["FeatureEnvy_LAA"]);
+            double featureEnvy_FDP = double.Parse(ConfigurationManager.AppSettings["FeatureEnvy_FDP"]);
 
             var p = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
@@ -27,10 +42,10 @@ namespace CodeSniffer.DatasetGenerator
 
             foreach (var frag in vm.CodeFragments)
             {
-                if (frag.Model.Metrics.Where(x => x.Name == "LOC").FirstOrDefault()?.Value > 50 &&
-                    frag.Model.Metrics.Where(x => x.Name == "ATFD").FirstOrDefault()?.Value > 1 &&
-                    frag.Model.Metrics.Where(x => x.Name == "WMC").FirstOrDefault()?.Value > 2 &&
-                    frag.Model.Metrics.Where(x => x.Name == "TCC").FirstOrDefault()?.Value > 0)
+                if (frag.Model.Metrics.Where(x => x.Name == "LOC").FirstOrDefault()?.Value > largeClass_LOC &&
+                    frag.Model.Metrics.Where(x => x.Name == "ATFD").FirstOrDefault()?.Value > largeClass_ATFD &&
+                    frag.Model.Metrics.Where(x => x.Name == "WMC").FirstOrDefault()?.Value > largeClass_WMC &&
+                    frag.Model.Metrics.Where(x => x.Name == "TCC").FirstOrDefault()?.Value > largeClass_TCC)
                 {
                     frag.Model.CodeSmells.Where(x => x.Name == "Large_Class").FirstOrDefault().IsDetected = true;
                     Console.WriteLine("selected Large_Class codesmell");
@@ -42,9 +57,9 @@ namespace CodeSniffer.DatasetGenerator
 
                 foreach (var child in frag.Children)
                 {
-                    if (child.Model.Metrics.Where(x => x.Name == "ATFD").FirstOrDefault()?.Value > 5 &&
-                        child.Model.Metrics.Where(x => x.Name == "LAA").FirstOrDefault()?.Value < 3 &&
-                        child.Model.Metrics.Where(x => x.Name == "FDP").FirstOrDefault()?.Value > 3)
+                    if (child.Model.Metrics.Where(x => x.Name == "ATFD").FirstOrDefault()?.Value > featureEnvy_ATFD &&
+                        child.Model.Metrics.Where(x => x.Name == "LAA").FirstOrDefault()?.Value < featureEnvy_LAA &&
+                        child.Model.Metrics.Where(x => x.Name == "FDP").FirstOrDefault()?.Value > featureEnvy_FDP)
                     {
                         child.Model.CodeSmells.Where(x => x.Name == "Feature_Envy").FirstOrDefault().IsDetected = true;
                         Console.WriteLine("selected Feature_Envy codesmell");
@@ -54,10 +69,10 @@ namespace CodeSniffer.DatasetGenerator
                         child.Model.CodeSmells.Where(x => x.Name == "Feature_Envy").FirstOrDefault().IsDetected = false;
                     }
 
-                    if (child.Model.Metrics.Where(x => x.Name == "LOC").FirstOrDefault()?.Value > 10 &&
-                       child.Model.Metrics.Where(x => x.Name == "CYCLO").FirstOrDefault()?.Value > 3 &&
-                       child.Model.Metrics.Where(x => x.Name == "MAXNESTING").FirstOrDefault()?.Value > 3 &&
-                       child.Model.Metrics.Where(x => x.Name == "NOAV").FirstOrDefault()?.Value > 5)
+                    if (child.Model.Metrics.Where(x => x.Name == "LOC").FirstOrDefault()?.Value > longMethod_LOC &&
+                       child.Model.Metrics.Where(x => x.Name == "CYCLO").FirstOrDefault()?.Value > longMethod_CYCLO &&
+                       child.Model.Metrics.Where(x => x.Name == "MAXNESTING").FirstOrDefault()?.Value > longMethod_MAXNESTING &&
+                       child.Model.Metrics.Where(x => x.Name == "NOAV").FirstOrDefault()?.Value > longMethod_NOAV)
                     {
                         child.Model.CodeSmells.Where(x => x.Name == "Long_Method").FirstOrDefault().IsDetected = true;
                         Console.WriteLine("selected Long_Method codesmell");
