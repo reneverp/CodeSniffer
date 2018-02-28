@@ -1,3 +1,4 @@
+import sys
 import os
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button, RadioButtons
@@ -34,8 +35,6 @@ def plot_data(filename, columns, classifier):
         if row[classifier] == "True":
             indexes.append(idx)
 
-    print(indexes)
-
     for name in columns:
         fig = plt.figure()
 
@@ -47,82 +46,64 @@ def plot_data(filename, columns, classifier):
 
         data_to_use.sort()
 
-        std = np.std(data_to_use) 
-        print("{0}: {1}".format(name, std))
-        mean = np.mean(data_to_use)
-
-        outlierBorder = 0
-
-        prevVal = 0
-        for x in data:
-            outlierBorder = x
-            distance = x - prevVal
-            #if we reach a point with distance greater than 10% above standard deviation we reached the outlier threshold 
-            if(x > 7 * std):
-                outlierBorder = prevVal
-                break
-            prevVal = x
-
-        sub = fig.add_subplot(211)
-        normD = norm.pdf(data_to_use,mean,std)
-        plt.plot(data_to_use, normD, '-o')
-        plt.hist(data_to_use,normed=True)
+        sub1 = fig.add_subplot(311)
+        #normD = norm.pdf(data_to_use,mean,std)
+        #plt.plot(data_to_use, normD, '-o')
+        hist = plt.hist(data, color="orange")
  #       plt.axvline(outlierBorder, color="red", linestyle="dashed", marker="8")
  #       plt.text(outlierBorder, sub.get_ylim()[1] * .8, "outliers > {}".format(round(outlierBorder,2)))
         plt.title(name)
         
-        sub = fig.add_subplot(212)
+        sub2 = fig.add_subplot(312)
+        plt.hist(data_to_use)
+        sub2.set_xlim(sub1.get_xlim())
+        
+
+        sub3 = fig.add_subplot(313)
         plt.boxplot(data_to_use, vert=False)
+        sub3.set_xlim(sub1.get_xlim())
  #       plt.axvline(outlierBorder, color="red", linestyle="dashed", marker="8")
  #       plt.text(outlierBorder, sub.get_ylim()[1] * .8, "outliers > {}".format(round(outlierBorder,2)))
  #       plt.text(outlierBorder, -0.1, "test")    
 
-    plt.show()
+        os.makedirs(os.path.dirname(os.path.realpath(__file__)) + "\\annotations\\{}\\{}_{}".format(outDir, os.path.basename(filename)[:-4], classifier), exist_ok=True)
+        plt.savefig(os.path.dirname(os.path.realpath(__file__)) + "\\annotations\\{}\\{}_{}\\{}.png".format(outDir, os.path.basename(filename)[:-4], classifier, name))
+        plt.close(fig)
 
-def plot_method_data():
-    columns = ["LOC", "CYCLO", "ATFD", "FDP", "LAA", "MAXNESTING", "NOAV"]
-    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\TrainingsData\\MethodTrainingSet_2319_17022018.csv"
+def plot_method_data(file):
+    columns = ["LOC", "CYCLO", "MAXNESTING", "NOAV"]
+    filename = os.path.dirname(os.path.realpath(__file__)) + file
     classifier = 13 #long method
     plot_data(filename, columns, classifier)
 
-def plot_method_data_featureenvy():
-    columns = ["LOC", "CYCLO", "ATFD", "FDP", "LAA", "MAXNESTING", "NOAV"]
-    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\TrainingsData\\MethodTrainingSet_2319_17022018.csv"
+def plot_method_data_featureenvy(file):
+    columns = ["ATFD", "FDP", "LAA"]
+    filename = os.path.dirname(os.path.realpath(__file__)) + file
     classifier = 11 #featureenvy
     plot_data(filename, columns, classifier)
 
 
-def plot_class_data():
+def plot_class_data(file):
     columns = ["LOC", "TCC", "WMC", "ATFD"]
-    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\TrainingsData\\ClassTrainingSet_2319_17022018.csv"
+    filename = os.path.dirname(os.path.realpath(__file__)) + file
     classifier = 6
     plot_data(filename, columns, classifier)
 
-def plot_verification_method_data():
-    columns = ["LOC", "CYCLO", "ATFD", "FDP", "LAA", "MAXNESTING", "NOAV"]
-    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018.csv"
-    classifier = 13 #long method
-    plot_data(filename, columns, classifier)
+outDir = "NoUser"
+if(len(sys.argv) == 2):
+    outDir = sys.argv[1]
+    os.makedirs(sys.argv[1], exist_ok=True)
 
-def plot_verification_method_data_featureenvy():
-    columns = ["LOC", "CYCLO", "ATFD", "FDP", "LAA", "MAXNESTING", "NOAV"]
-    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\Release\\Methodtest.csv"#"\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018.csv"
-    classifier = 11 #long method
-    plot_data(filename, columns, classifier)
+plot_class_data("\\..\\CodeSniffer.BBN\\TrainingsData\\ClassTrainingSet_2319_17022018.csv")
+plot_method_data("\\..\\CodeSniffer.BBN\\TrainingsData\\MethodTrainingSet_2319_17022018.csv")
+plot_method_data_featureenvy("\\..\\CodeSniffer.BBN\\TrainingsData\\MethodTrainingSet_2319_17022018.csv")
 
-def plot_verification_class_data():
-    columns = ["LOC", "TCC", "WMC", "ATFD"]
-    filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\Release\\Classtest.csv" #"\\..\\CodeSniffer.BBN\\VerificationData\\ClassTrainingSet_1357_18022018.csv"
-    classifier = 6
-    plot_data(filename, columns, classifier)
+plot_class_data("\\..\\CodeSniffer.BBN\\VerificationData\\ClassTrainingSet_1357_18022018.csv")
+plot_method_data("\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018.csv")
+plot_method_data_featureenvy("\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018.csv")
 
-
-#plot_class_data()
-#plot_method_data()
-#plot_method_data_featureenvy()
-
-#plot_verification_class_data()
-#plot_verification_method_data()
-plot_verification_method_data_featureenvy()
+plot_class_data("\\..\\Bin\\Release\\Classtest.csv")
+plot_method_data("\\..\\Bin\\Release\\Methodtest.csv")
+plot_method_data_featureenvy("\\..\\Bin\\Release\\Methodtest.csv")
  
 
