@@ -22,28 +22,7 @@ namespace CodeSniffer.AdaptationTest
         static void Main(string[] args)
         {
             _basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-            var filesToDelete = Directory.EnumerateFiles(_basePath, "Classrun_*.csv");
-
-            foreach (var file in filesToDelete)
-            {
-                File.Delete(file);
-            }
-
-            filesToDelete = Directory.EnumerateFiles(_basePath, "Methodrun_*.csv");
-            foreach (var file in filesToDelete)
-            {
-                File.Delete(file);
-            }
-
-            filesToDelete = Directory.EnumerateFiles(_basePath + @"\Networks\", "*.json");
-            foreach (var file in filesToDelete)
-            {
-                File.Delete(file);
-            }
-
-            File.Delete(_basePath + @"\TrainingsData\ClassAdditionalData.csv");
-            File.Delete(_basePath + @"\TrainingsData\MethodAdditionalData.csv");
+            DeleteFiles();
 
 
 
@@ -75,9 +54,6 @@ namespace CodeSniffer.AdaptationTest
 
             _additionalClassCasesFile = _basePath + @"\TrainingsData\ClassAdditionalData.csv";
             _additionalMethodCasesFile = _basePath + @"\TrainingsData\MethodAdditionalData.csv";
-
-            _additionalClassCasesFileDiscretized = _basePath + @"\TrainingsData\ClassAdditionalData_discretized.csv";
-            _additionalMethodCasesFileDiscretized = _basePath + @"\TrainingsData\MethodAdditionalData_discretized.csv";
 
             IList<string> classHeader = new List<string>();
             IList<string> methodHeader = new List<string>();
@@ -118,9 +94,9 @@ namespace CodeSniffer.AdaptationTest
 
                 //pick all wrongly predicted class rows
                 int z = 0;
-                foreach(DataRow row in classDataSet.Tables[0].Rows)
+                foreach (DataRow row in classDataSet.Tables[0].Rows)
                 {
-                    if(row.Field<string>("Large_Class") != classVerificationDataset.Tables[0].Rows[z].Field<string>("Large_Class"))
+                    if (row.Field<string>("Large_Class") != classVerificationDataset.Tables[0].Rows[z].Field<string>("Large_Class"))
                     {
                         wrongCasesClass.Add(classVerificationDataset.Tables[0].Rows[z]);
                     }
@@ -137,7 +113,7 @@ namespace CodeSniffer.AdaptationTest
                         wrongCasesMethodFE.Add(methodVerificationDataset.Tables[0].Rows[z]);
                     }
 
-                    if(row.Field<string>("Long_Method") != methodVerificationDataset.Tables[0].Rows[z].Field<string>("Long_Method"))
+                    if (row.Field<string>("Long_Method") != methodVerificationDataset.Tables[0].Rows[z].Field<string>("Long_Method"))
                     {
                         wrongCasesMethodLM.Add(methodVerificationDataset.Tables[0].Rows[z]);
                     }
@@ -156,12 +132,8 @@ namespace CodeSniffer.AdaptationTest
                 for (int y = 0; y < 10; y++)
                 {
                     int largeClassIndex = largeClassRandom.Next(wrongCasesClass.Count);
-                    int featureEnvyIndex = featureEnvyRandom.Next(wrongCasesMethodFE.Count);
-                    int longMehodIndex = longMethodRandom.Next(wrongCasesMethodLM.Count);
-
                     var largeClassRow = largeClassIndex > 0 ? wrongCasesClass[largeClassIndex] : null;
-                    var featureEnvyRow = featureEnvyIndex > 0 ? wrongCasesMethodFE[featureEnvyIndex] : null;
-                    var longMethodRow = longMehodIndex > 0 ? wrongCasesMethodLM[longMehodIndex] : null;
+
 
                     if (largeClassRow != null)
                     {
@@ -169,16 +141,25 @@ namespace CodeSniffer.AdaptationTest
                         classSb.AppendLine(string.Join(",", fields));
                     }
 
-                    if (featureEnvyRow != null)
+                    for (int x = 0; x < 10; x++)
                     {
-                        var fields = featureEnvyRow.ItemArray.Select(field => field.ToString()).ToArray();
-                        featureEnvSb.AppendLine(string.Join(",", fields));
-                    }
+                        int featureEnvyIndex = featureEnvyRandom.Next(wrongCasesMethodFE.Count);
+                        int longMehodIndex = longMethodRandom.Next(wrongCasesMethodLM.Count);
 
-                    if (longMethodRow != null)
-                    {
-                        var fields = longMethodRow.ItemArray.Select(field => field.ToString()).ToArray();
-                        longmethodSb.AppendLine(string.Join(",", fields));
+                        var featureEnvyRow = featureEnvyIndex > 0 ? wrongCasesMethodFE[featureEnvyIndex] : null;
+                        var longMethodRow = longMehodIndex > 0 ? wrongCasesMethodLM[longMehodIndex] : null;
+
+                        if (featureEnvyRow != null)
+                        {
+                            var fields = featureEnvyRow.ItemArray.Select(field => field.ToString()).ToArray();
+                            featureEnvSb.AppendLine(string.Join(",", fields));
+                        }
+
+                        if (longMethodRow != null)
+                        {
+                            var fields = longMethodRow.ItemArray.Select(field => field.ToString()).ToArray();
+                            longmethodSb.AppendLine(string.Join(",", fields));
+                        }
                     }
                 }
 
@@ -194,6 +175,31 @@ namespace CodeSniffer.AdaptationTest
 
                 }
             }
+        }
+
+        private static void DeleteFiles()
+        {
+            var filesToDelete = Directory.EnumerateFiles(_basePath, "Classrun_*.csv");
+
+            foreach (var file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+
+            filesToDelete = Directory.EnumerateFiles(_basePath, "Methodrun_*.csv");
+            foreach (var file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+
+            filesToDelete = Directory.EnumerateFiles(_basePath + @"\Networks\", "*.json");
+            foreach (var file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+
+            File.Delete(_basePath + @"\TrainingsData\ClassAdditionalData.csv");
+            File.Delete(_basePath + @"\TrainingsData\MethodAdditionalData.csv");
         }
 
         private static void WaitForFile(string filename)

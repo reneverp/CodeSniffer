@@ -354,7 +354,7 @@ describeCause,4,1,1,0,1,0,0,0,1,2,False,0,False,0
 getCauses,13,6,1,2,5,1,0,1,2,3,False,0,False,0
 getDescription,7,2,0,1,1,0,0,0,2,3,False,0,False,0
 run,5,2,1,1,0,0,0,0,2,2,False,0,False,0
-runCause,6,1,2,0,4,0,0,0,1,3,True,0,False,0
+runCause,6,1,2,0,4,0,0,0,1,3,False,0,False,0
 assertElementsEqual,3,1,2,0,1,0,0,0,1,2,False,0,False,0
 createFilter,3,2,1,0,0,0,0,0,1,1,False,0,False,0
 describe,3,1,0,1,0,0,0,0,1,0,False,0,False,0

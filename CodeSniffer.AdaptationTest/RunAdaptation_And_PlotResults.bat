@@ -1,3 +1,9 @@
+xcopy /Y /I ..\..\CodeSniffer.BBN\VerificationData\MethodTrainingSet_1357_18022018.csv .\Methodtest.csv*
+xcopy /Y /I ..\..\CodeSniffer.BBN\VerificationData\ClassTrainingSet_1357_18022018.csv .\Classtest.csv*
+call CodeSniffer.AdaptationTest.exe
+call python ..\..\PythonScripts\plot_annotations.py Me
+call python ..\..\PythonScripts\plot_roc.py RocPlotsMe
+
 call GenerateDatasetUser1.bat
 call CodeSniffer.AdaptationTest.exe
 call python ..\..\PythonScripts\plot_annotations.py User1

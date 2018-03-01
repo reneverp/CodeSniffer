@@ -39,17 +39,17 @@ def get_FP_TP_rates(results, verificationResults, cutoff, column, scoreLabel):
     fpr = 0
 
     for idx,row in enumerate(results):
-        if(row[scoreLabel] >= cutoff and verificationResults[idx][column] == "True"):
+        if(row[scoreLabel] > cutoff and verificationResults[idx][column] == "True"):
             #consider true
             truePositives += 1
         
-        if(row[scoreLabel] >= cutoff and verificationResults[idx][column] == "False"):
+        if(row[scoreLabel] > cutoff and verificationResults[idx][column] == "False"):
             falsePositives += 1
 
-        if(row[scoreLabel] < cutoff and verificationResults[idx][column] == "True"):
+        if(row[scoreLabel] <= cutoff and verificationResults[idx][column] == "True"):
             falseNegatives += 1
 
-        if(row[scoreLabel] < cutoff and verificationResults[idx][column] == "False"):
+        if(row[scoreLabel] <= cutoff and verificationResults[idx][column] == "False"):
             trueNegatives += 1
 
     
@@ -76,12 +76,20 @@ def plot_roc_curve(filename, verificationFilename, column, scorelabel):
     scores = results[scorelabel].tolist()
     scores.sort()
 
+    tpr_list.append(1)
+    fpr_list.append(1)
+
     for score in scores:
         get_FP_TP_rates(results, verificationResults, score, column, scorelabel)
-    
+
+    tpr_list.append(0)
+    fpr_list.append(0)
+
     auc = np.trapz(fpr_list, tpr_list) + 1
 
     plt.plot(fpr_list, tpr_list, label="{} AUC:{}".format(ntpath.basename(filename), auc), marker='o')
+    plt.ylim(0,1.1)
+    plt.xlim(0,1.1)
 
     fpr_list.clear()
     tpr_list.clear()
@@ -122,7 +130,6 @@ def plot_verification_class_data():
         a += 1
     
     plt.legend()
-    os.makedirs("rocPlots", exist_ok=True)
     plt.savefig(outDir + "\\Class.png")
     plt.close()
 
@@ -134,7 +141,6 @@ def plot_verification_longmethod_data():
         a += 1
     
     plt.legend()
-    os.makedirs("rocPlots", exist_ok=True)
     plt.savefig(outDir + "\\LongMethod.png")
     plt.close()
 
@@ -145,7 +151,7 @@ def plot_verification_featureenvy_data():
         plot_method_featureEnvy_data(filename)
         a += 1
     
-    plt.legend()
+    plt.legend() 
     plt.savefig(outDir + "\\FeatureEnvy.png")
     plt.close()
 
@@ -153,7 +159,8 @@ def plot_verification_featureenvy_data():
 outDir = "rocPlots"
 if(len(sys.argv) == 2):
     outDir = sys.argv[1]
-    os.makedirs(sys.argv[1], exist_ok=True)
+
+os.makedirs(outDir, exist_ok=True)
 
 plot_verification_class_data()
 plot_verification_longmethod_data()

@@ -771,7 +771,7 @@ getTableCellRendererComponent,5,1,5,0,0,0,0,0,1,5,False,0,False,0
 getTableComponent,4,1,0,0,0,0,0,0,1,1,False,0,False,0
 getTitle,3,1,0,0,0,0,0,0,1,1,False,0,False,0
 getToolTipText,7,4,1,0,0,0,0,0,3,1,False,0,False,0
-initComponent,68,14,0,0,0,0,0,0,6,25,True,0,True,0
+initComponent,68,14,0,0,0,0,0,0,6,25,False,0,True,0
 setTitle,3,1,1,0,0,0,0,0,1,2,False,0,False,0
 setUndefinedValueLabel,3,1,1,0,0,0,0,0,1,2,False,0,False,0
 stopEditing,5,2,0,0,0,0,0,0,2,2,False,0,False,0
@@ -1299,7 +1299,7 @@ isProjectTask,3,1,0,0,1,1,0,49,1,2,False,0,False,0
 isProjectTaskOrContainsProjectTask,11,6,1,2,1,1,1,16.33,2,4,False,0,False,0
 setSelectedTaskProperties,47,8,0,0,9,5,4,9.8,3,49,False,0,True,0
 setThird,4,1,1,0,2,2,0,24.5,1,6,False,0,False,0
-storeOriginalValues,14,1,1,8,4,4,2,4.08,1,25,True,0,False,0
+storeOriginalValues,14,1,1,8,4,4,2,4.08,1,25,False,0,False,0
 addObjectWithExpand,12,2,2,0,0,0,0,0,2,4,False,0,False,0
 applyPreservingExpansionState,14,3,2,0,0,0,0,0,2,6,False,0,False,0
 clearSelection,3,1,0,0,0,0,0,0,1,0,False,0,False,0
@@ -2125,7 +2125,7 @@ actionPerformed,17,1,1,0,0,0,0,0,1,13,False,0,False,0
 actionPerformed,20,2,1,0,0,0,0,0,4,8,False,0,False,0
 actionPerformed,11,1,1,0,0,0,0,0,3,1,False,0,False,0
 actionPerformed,11,1,1,0,0,0,0,0,3,1,False,0,False,0
-changePageOrientation,14,1,1,0,0,0,0,0,1,13,True,0,False,0
+changePageOrientation,14,1,1,0,0,0,0,0,1,13,False,0,False,0
 changeScale,25,7,0,0,0,0,0,0,2,10,False,0,False,0
 createPages,20,5,0,0,0,0,0,0,4,16,False,0,False,0
 itemStateChanged,8,1,1,0,0,0,0,0,3,1,False,0,False,0

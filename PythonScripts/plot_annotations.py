@@ -92,7 +92,9 @@ def plot_class_data(file):
 outDir = "NoUser"
 if(len(sys.argv) == 2):
     outDir = sys.argv[1]
-    os.makedirs(sys.argv[1], exist_ok=True)
+
+
+#os.makedirs(outDir, exist_ok=True)
 
 plot_class_data("\\..\\CodeSniffer.BBN\\TrainingsData\\ClassTrainingSet_2319_17022018.csv")
 plot_method_data("\\..\\CodeSniffer.BBN\\TrainingsData\\MethodTrainingSet_2319_17022018.csv")
