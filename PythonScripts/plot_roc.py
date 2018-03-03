@@ -9,6 +9,7 @@ from scipy.stats import norm
 from numpy import genfromtxt
 
 import csv
+import time
 
 tpr_list = []
 fpr_list = []
@@ -53,6 +54,7 @@ def get_FP_TP_rates(results, verificationResults, cutoff, column, scoreLabel):
             trueNegatives += 1
 
     
+
     tpr = truePositives / (truePositives + falseNegatives)
 
     fpr = falsePositives / (falsePositives + trueNegatives)
@@ -69,15 +71,15 @@ def get_FP_TP_rates(results, verificationResults, cutoff, column, scoreLabel):
     fpr_list.append(fpr)
         
 
-def plot_roc_curve(filename, verificationFilename, column, scorelabel):
-    verificationResults = readcsv(verificationFilename)    
-    results = genfromtxt(filename, delimiter=',', comments='(', skip_header=False, names=True)
+def plot_roc_curve(filename, results, verificationResults, column, scorelabel):
 
     scores = results[scorelabel].tolist()
     scores.sort()
 
     tpr_list.append(1)
     fpr_list.append(1)
+
+    scores = np.unique(scores)
 
     for score in scores:
         get_FP_TP_rates(results, verificationResults, score, column, scorelabel)
@@ -87,7 +89,7 @@ def plot_roc_curve(filename, verificationFilename, column, scorelabel):
 
     auc = np.trapz(fpr_list, tpr_list) + 1
 
-    plt.plot(fpr_list, tpr_list, label="{} AUC:{}".format(ntpath.basename(filename), auc), marker='o')
+    plt.plot(fpr_list, tpr_list, label="{} AUC:{}".format(ntpath.basename(filename), auc)) #, marker='o')
     plt.ylim(0,1.1)
     plt.xlim(0,1.1)
 
@@ -95,30 +97,39 @@ def plot_roc_curve(filename, verificationFilename, column, scorelabel):
     tpr_list.clear()
 
 
+
 def plot_class_data(inputFilename):
     columns = {"Large_ClassScore": 6} #large class
     filename = inputFilename
     verificationFilename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\Release\ClassTest.csv" #"\\..\\CodeSniffer.BBN\\VerificationData\\ClassTrainingSet_1357_18022018_discretized.csv"
 
+    verificationResults = readcsv(verificationFilename)  
+    results = genfromtxt(filename, delimiter=',', comments='(', skip_header=False, names=True)
 
     for scoreLabel, col in columns.items():
-        plot_roc_curve(filename, verificationFilename, col, scoreLabel)
+        plot_roc_curve(filename, results, verificationResults, col, scoreLabel)
 
 def plot_method_featureEnvy_data(inputfilename):
     columns = {"Feature_EnvyScore":11} #large class
     filename = inputfilename
     verificationFilename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\Release\Methodtest.csv" #"\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018_discretized.csv"
 
+    verificationResults = readcsv(verificationFilename)      
+    results = genfromtxt(filename, delimiter=',', comments='(', skip_header=False, names=True)
+
     for scoreLabel, col in columns.items():
-        plot_roc_curve(filename, verificationFilename, col, scoreLabel)
+        plot_roc_curve(filename, results, verificationResults, col, scoreLabel)
 
 def plot_method_longMethod_data(inputfilename):
     columns = {"Long_MethodScore": 13} #large class
     filename = inputfilename
     verificationFilename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\Release\Methodtest.csv" #"\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018_discretized.csv"
+    
+    verificationResults = readcsv(verificationFilename)      
+    results = genfromtxt(filename, delimiter=',', comments='(', skip_header=False, names=True)
 
     for scoreLabel, col in columns.items():
-        plot_roc_curve(filename, verificationFilename, col, scoreLabel)           
+        plot_roc_curve(filename, results, verificationResults, col, scoreLabel)           
     
 
 def plot_verification_class_data():

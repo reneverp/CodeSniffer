@@ -64,7 +64,7 @@ def plot_data(filename, columns, classifier, bins):
         sub1.set_xlim(0, upperlimit)
         sub2.set_xlim(0, upperlimit)
         sub3.set_xlim(0, upperlimit)
- # 
+        
         for boundary in bins[name]:
             sub1.axvline(boundary, color="red", linestyle="dashed")
             sub1.text(boundary + (sub1.get_xlim()[1] * 0.005), sub1.get_ylim()[1] * 0.85, boundary, style="italic", fontsize=8)
@@ -72,8 +72,8 @@ def plot_data(filename, columns, classifier, bins):
 
 
         
-        os.makedirs(os.path.dirname(os.path.realpath(__file__)) + "\\annotations\\{}\\{}_{}".format(outDir, os.path.basename(filename)[:-4], classifier[0]), exist_ok=True)
-        plt.savefig(os.path.dirname(os.path.realpath(__file__)) + "\\annotations\\{}\\{}_{}\\{}.png".format(outDir, os.path.basename(filename)[:-4], classifier[0], name))
+        os.makedirs("annotations\\{}\\{}_{}".format(outDir, os.path.basename(filename)[:-4], classifier[0]), exist_ok=True)
+        plt.savefig("annotations\\{}\\{}_{}\\{}.png".format(outDir, os.path.basename(filename)[:-4], classifier[0], name))
         plt.close(fig)
 
 def plot_method_data(file):
@@ -97,7 +97,7 @@ def plot_method_data_featureenvy(file):
     bins["LAA" ] = [6.125, 12.25, 18.375, 24.5, 30.625, 36.75, 42.875]
 
     filename = os.path.dirname(os.path.realpath(__file__)) + file
-    classifier = ["Feature Envy", 13] #featureenvy
+    classifier = ["Feature Envy", 11] #featureenvy
     plot_data(filename, columns, classifier, bins)
 
 

@@ -22,6 +22,8 @@ namespace CodeSniffer.ViewModels
         private readonly ApplicationInterfaces.IOService _ioService;
 
         private ObservableCollection<CodeFragmentViewModel> _codeFragments;
+        public LinkedList<CodeFragmentViewModel> FlatList;
+
 
         private IProject _project;
         private string _sourcePath;
@@ -31,7 +33,6 @@ namespace CodeSniffer.ViewModels
 
         private string _parseInfo;
         private CodeFragmentViewModel _currentCodeFragment;
-        private LinkedList<CodeFragmentViewModel> _flatList;
         private string _filename;
         private string _dataSetFilename;
 
@@ -108,7 +109,9 @@ namespace CodeSniffer.ViewModels
             //TODO: remove hardcoded path
             //_sourcePath =Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\ganttproject-2.8.5\ganttproject\ganttproject\src\net\sourceforge\ganttproject";
 
-            _sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\junit-4.12\junit4\src\main";
+            //_sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\junit-4.12\junit4\src\main";
+
+            _sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\spring-boot\spring-boot-project\spring-boot\src\main\java\org\springframework\boot";
 
 
             _project = new Project();
@@ -146,7 +149,7 @@ namespace CodeSniffer.ViewModels
 
         public void GenerateDataset(string filename)
         {
-            foreach (var fragment in _flatList)
+            foreach (var fragment in FlatList)
             {
                 fragment.Model.WriteToTrainingSet(filename);
             }
@@ -183,7 +186,7 @@ namespace CodeSniffer.ViewModels
 
         private void SelectPreviousFragment()
         {
-            var previousCodeFragment = _flatList.Find(CurrentCodeFragment).Previous.Value;
+            var previousCodeFragment = FlatList.Find(CurrentCodeFragment).Previous.Value;
 
             if (previousCodeFragment != null)
             {
@@ -201,7 +204,7 @@ namespace CodeSniffer.ViewModels
 
         private void SelectNextFragment()
         {
-            var nextCodeFragment = _flatList.Find(CurrentCodeFragment)?.Next?.Value;
+            var nextCodeFragment = FlatList.Find(CurrentCodeFragment)?.Next?.Value;
 
             if (nextCodeFragment != null)
             {
@@ -311,7 +314,7 @@ namespace CodeSniffer.ViewModels
         {
             CodeFragments = SortCodeFragments(CodeFragments);
 
-            _flatList = GetLinkedFlatList(CodeFragments);
+            FlatList = GetLinkedFlatList(CodeFragments);
 
             var fragment = CodeFragments.FirstOrDefault();
             if (fragment != null)

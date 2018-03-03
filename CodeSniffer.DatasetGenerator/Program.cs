@@ -40,49 +40,57 @@ namespace CodeSniffer.DatasetGenerator
             File.Delete(p + @"\ClassTest.csv");
             File.Delete(p + @"\MethodTest.csv");
 
-            foreach (var frag in vm.CodeFragments)
+            var frag = vm.FlatList.First;
+
+            while(frag != null)
             {
-                if (frag.Model.Metrics.Where(x => x.Name == "LOC").FirstOrDefault()?.Value > largeClass_LOC &&
-                    frag.Model.Metrics.Where(x => x.Name == "ATFD").FirstOrDefault()?.Value > largeClass_ATFD &&
-                    frag.Model.Metrics.Where(x => x.Name == "WMC").FirstOrDefault()?.Value > largeClass_WMC &&
-                    frag.Model.Metrics.Where(x => x.Name == "TCC").FirstOrDefault()?.Value > largeClass_TCC)
+
+                if (frag.Value.Model.CodeSmells.Where(x => x.Name == "Large_Class").FirstOrDefault() != null)
                 {
-                    frag.Model.CodeSmells.Where(x => x.Name == "Large_Class").FirstOrDefault().IsDetected = true;
-                    Console.WriteLine("selected Large_Class codesmell");
+                    if (frag.Value.Model.Metrics.Where(x => x.Name == "LOC").FirstOrDefault()?.Value > largeClass_LOC &&
+                        frag.Value.Model.Metrics.Where(x => x.Name == "ATFD").FirstOrDefault()?.Value > largeClass_ATFD &&
+                        frag.Value.Model.Metrics.Where(x => x.Name == "TCC").FirstOrDefault()?.Value < largeClass_TCC &&
+                        frag.Value.Model.Metrics.Where(x => x.Name == "WMC").FirstOrDefault()?.Value > largeClass_WMC)
+                    {
+                        frag.Value.Model.CodeSmells.Where(x => x.Name == "Large_Class").FirstOrDefault().IsDetected = true;
+                        Console.WriteLine("selected Large_Class codesmell");
+                    }
+                    else
+                    {
+                        frag.Value.Model.CodeSmells.Where(x => x.Name == "Large_Class").FirstOrDefault().IsDetected = false;
+                    }
                 }
                 else
                 {
-                    frag.Model.CodeSmells.Where(x => x.Name == "Large_Class").FirstOrDefault().IsDetected = false;
-                }
-
-                foreach (var child in frag.Children)
-                {
-                    if (child.Model.Metrics.Where(x => x.Name == "ATFD").FirstOrDefault()?.Value > featureEnvy_ATFD &&
-                        child.Model.Metrics.Where(x => x.Name == "LAA").FirstOrDefault()?.Value < featureEnvy_LAA &&
-                        child.Model.Metrics.Where(x => x.Name == "FDP").FirstOrDefault()?.Value > featureEnvy_FDP)
+                    if (frag.Value.Model.Metrics.Where(x => x.Name == "ATFD").FirstOrDefault()?.Value > featureEnvy_ATFD &&
+                        frag.Value.Model.Metrics.Where(x => x.Name == "LAA").FirstOrDefault()?.Value < featureEnvy_LAA &&
+                        frag.Value.Model.Metrics.Where(x => x.Name == "FDP").FirstOrDefault()?.Value < featureEnvy_FDP)
                     {
-                        child.Model.CodeSmells.Where(x => x.Name == "Feature_Envy").FirstOrDefault().IsDetected = true;
+                        frag.Value.Model.CodeSmells.Where(x => x.Name == "Feature_Envy").FirstOrDefault().IsDetected = true;
                         Console.WriteLine("selected Feature_Envy codesmell");
                     }
                     else
                     {
-                        child.Model.CodeSmells.Where(x => x.Name == "Feature_Envy").FirstOrDefault().IsDetected = false;
+                        frag.Value.Model.CodeSmells.Where(x => x.Name == "Feature_Envy").FirstOrDefault().IsDetected = false;
                     }
 
-                    if (child.Model.Metrics.Where(x => x.Name == "LOC").FirstOrDefault()?.Value > longMethod_LOC &&
-                       child.Model.Metrics.Where(x => x.Name == "CYCLO").FirstOrDefault()?.Value > longMethod_CYCLO &&
-                       child.Model.Metrics.Where(x => x.Name == "MAXNESTING").FirstOrDefault()?.Value > longMethod_MAXNESTING &&
-                       child.Model.Metrics.Where(x => x.Name == "NOAV").FirstOrDefault()?.Value > longMethod_NOAV)
+                    if (frag.Value.Model.Metrics.Where(x => x.Name == "LOC").FirstOrDefault()?.Value > longMethod_LOC &&
+                        frag.Value.Model.Metrics.Where(x => x.Name == "CYCLO").FirstOrDefault()?.Value > longMethod_CYCLO &&
+                        frag.Value.Model.Metrics.Where(x => x.Name == "MAXNESTING").FirstOrDefault()?.Value > longMethod_MAXNESTING &&
+                        frag.Value.Model.Metrics.Where(x => x.Name == "NOAV").FirstOrDefault()?.Value > longMethod_NOAV)
                     {
-                        child.Model.CodeSmells.Where(x => x.Name == "Long_Method").FirstOrDefault().IsDetected = true;
+                        frag.Value.Model.CodeSmells.Where(x => x.Name == "Long_Method").FirstOrDefault().IsDetected = true;
                         Console.WriteLine("selected Long_Method codesmell");
                     }
                     else
                     {
-                        child.Model.CodeSmells.Where(x => x.Name == "Long_Method").FirstOrDefault().IsDetected = false;
+                        frag.Value.Model.CodeSmells.Where(x => x.Name == "Long_Method").FirstOrDefault().IsDetected = false;
                     }
                 }
-            }
+
+                frag = frag.Next;
+
+            } 
 
 
 
