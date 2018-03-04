@@ -104,15 +104,23 @@ namespace CodeSniffer.ViewModels
         public ICommand ClosingCommand { get; private set; }
 
 
-        public MainWindowViewModel(AsyncParserWrapper asyncParser, ApplicationInterfaces.IOService ioService)
+        public MainWindowViewModel(AsyncParserWrapper asyncParser, ApplicationInterfaces.IOService ioService, string path = null)
         {
             //TODO: remove hardcoded path
             //_sourcePath =Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\ganttproject-2.8.5\ganttproject\ganttproject\src\net\sourceforge\ganttproject";
 
             //_sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\junit-4.12\junit4\src\main";
 
-            _sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\spring-boot\spring-boot-project\spring-boot\src\main\java\org\springframework\boot";
+            //_sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\spring-boot\spring-boot-project\spring-boot\src\main\java\org\springframework\boot";
 
+            if(path != null)
+            {
+                _sourcePath = path;
+            }
+            else
+            {
+                _sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\spring-boot-v2.0.0.RELEASE\spring-boot\spring-boot-project\spring-boot\src\main\java\org\springframework\boot";
+            }
 
             _project = new Project();
             _parser = asyncParser;

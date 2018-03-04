@@ -18,10 +18,16 @@ namespace CodeSniffer.Console
 
         static void Main(string[] args)
         {
-            if (args.Length != 1)
+            if (args.Length < 1)
                 return;
 
             string runId = args[0];
+            string path = null;
+
+            if(args.Length == 2)
+            {
+                path = args[1];
+            }
 
             Parser parser = new Parser();
             DirectoryUtil dirUtil = new DirectoryUtil();
@@ -29,7 +35,7 @@ namespace CodeSniffer.Console
 
             ViewModels.ApplicationInterfaces.IOService ioService = new IOService();
 
-            _viewModel = new MainWindowViewModel(asyncParser, ioService);
+            _viewModel = new MainWindowViewModel(asyncParser, ioService, path);
 
             _viewModel.RefreshAsync().Wait();
 

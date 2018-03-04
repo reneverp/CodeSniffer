@@ -10,17 +10,17 @@ call rmdir /s /q RocPlotsUser3
 
 call rmdir /s /q annotations
 
-call GenerateDatasetUser1.bat
-call CodeSniffer.AdaptationTest.exe
+call GenerateDatasetUser1.bat %1
+call CodeSniffer.AdaptationTest.exe %1
 call python ..\..\PythonScripts\plot_annotations.py User1
 call python ..\..\PythonScripts\plot_roc.py RocPlotsUser1
 
-call GenerateDatasetUser2.bat
-call CodeSniffer.AdaptationTest.exe
+call GenerateDatasetUser2.bat %1
+call CodeSniffer.AdaptationTest.exe %1
 call python ..\..\PythonScripts\plot_annotations.py User2
 call python ..\..\PythonScripts\plot_roc.py RocPlotsUser2
 
-call GenerateDatasetUser3.bat
-call CodeSniffer.AdaptationTest.exe
+call GenerateDatasetUser3.bat %1
+call CodeSniffer.AdaptationTest.exe %1
 call python ..\..\PythonScripts\plot_annotations.py User3
 call python ..\..\PythonScripts\plot_roc.py RocPlotsUser3

@@ -18,9 +18,16 @@ namespace CodeSniffer.AdaptationTest
 
         private static string _additionalClassCasesFileDiscretized;
         private static string _additionalMethodCasesFileDiscretized;
+        private static string _sourcePath;
 
         static void Main(string[] args)
         {
+
+            if (args.Length == 1)
+            {
+                _sourcePath = args[0];
+            }
+
             _basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             DeleteFiles();
 
@@ -218,7 +225,7 @@ namespace CodeSniffer.AdaptationTest
             System.Console.WriteLine("RunId: " + runId);
 
             //we write continuous data, so discretize the additional data first.
-            ProcessStartInfo startInfo = new ProcessStartInfo { FileName = _basePath + "\\CodeSniffer.Console.exe", Arguments = runId.ToString(), CreateNoWindow = true, WindowStyle = ProcessWindowStyle.Hidden };
+            ProcessStartInfo startInfo = new ProcessStartInfo { FileName = _basePath + "\\CodeSniffer.Console.exe", Arguments = runId.ToString() + " " + _sourcePath, CreateNoWindow = true, WindowStyle = ProcessWindowStyle.Hidden };
             Process.Start(startInfo).WaitForExit();
         }
     }

@@ -173,6 +173,17 @@ if(len(sys.argv) == 2):
 
 os.makedirs(outDir, exist_ok=True)
 
-plot_verification_class_data()
-plot_verification_longmethod_data()
-plot_verification_featureenvy_data()
+try:
+    plot_verification_class_data()
+except:
+    print("Unexpected error:", sys.exc_info()[0])
+
+try:
+    plot_verification_longmethod_data()
+except:
+    print("Unexpected error:", sys.exc_info()[0])
+
+try:
+    plot_verification_featureenvy_data()
+except:
+    print("Unexpected error:", sys.exc_info()[0])

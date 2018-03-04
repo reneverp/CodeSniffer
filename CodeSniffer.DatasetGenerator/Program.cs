@@ -15,9 +15,15 @@ namespace CodeSniffer.DatasetGenerator
 
         static void Main(string[] args)
         {
+            string sourcepath = null;
+            if(args.Length == 1)
+            {
+                sourcepath = args[0];
+            }
+
             var parser = new Parser();
             var asyncParser = new ViewModels.Utilities.AsyncParserWrapper(parser, new ViewModels.Utilities.DirectoryUtil());
-            var vm = new MainWindowViewModel(asyncParser, new ViewModels.Utilities.IOService());
+            var vm = new MainWindowViewModel(asyncParser, new ViewModels.Utilities.IOService(), sourcepath);
 
             vm.RefreshAsync().Wait();
 
