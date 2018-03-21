@@ -6,11 +6,11 @@ import numpy as np
 from scipy.stats import norm
 from numpy import genfromtxt
 
-def plot_data(filename, columns):
+def plot_data(filename, columns, descr):
     my_data = genfromtxt(filename, delimiter=',', comments='(', skip_header=False, names=True)
 
     for name in columns:
-        fig = plt.figure()
+        fig = plt.figure(figsize=(6,2))
 
         data = my_data[name].tolist()
 
@@ -34,15 +34,15 @@ def plot_data(filename, columns):
 
         print("outlierBorder: {}".format(outlierBorder))
 
-        sub = fig.add_subplot(211)
-        normD = norm.pdf(data,mean,std)
-        plt.plot(data, normD, '-o')
-        plt.hist(data,normed=True)
+        #sub = fig.add_subplot(211)
+        #normD = norm.pdf(data,mean,std)
+        #plt.plot(data, normD, '-o')
+        #plt.hist(data,normed=True)
         # plt.axvline(outlierBorder, color="red", linestyle="dashed", marker="8")
         # plt.text(outlierBorder, sub.get_ylim()[1] * .8, "outliers > {}".format(round(outlierBorder,2)))
-        plt.title(name)
+        plt.title("{} - {}".format(name, descr))
         
-        sub = fig.add_subplot(212)
+        #sub = fig.add_subplot(212)
         plt.boxplot(data, vert=False)
         # plt.axvline(outlierBorder, color="red", linestyle="dashed", marker="8")
         # plt.text(outlierBorder, sub.get_ylim()[1] * .8, "outliers > {}".format(round(outlierBorder,2)))
@@ -56,23 +56,23 @@ def plot_data(filename, columns):
 def plot_method_data():
     columns = ["LOC", "CYCLO", "ATFD", "FDP", "LAA", "MAXNESTING", "NOAV"]
     filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\TrainingsData\\MethodTrainingSet_2319_17022018.csv"
-    plot_data(filename, columns)
+    plot_data(filename, columns, "Method Level - GanttProject")
 
 
 def plot_class_data():
     columns = ["LOC", "TCC", "WMC", "ATFD"]
     filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\TrainingsData\\ClassTrainingSet_2319_17022018.csv"
-    plot_data(filename, columns)
+    plot_data(filename, columns, "Class Level - GanttProject")
 
 def plot_verification_method_data():
     columns = ["LOC", "CYCLO", "ATFD", "FDP", "LAA", "MAXNESTING", "NOAV"]
     filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\VerificationData\\MethodTrainingSet_1357_18022018.csv"
-    plot_data(filename, columns)
+    plot_data(filename, columns, "Method Level - JUnit")
 
 def plot_verification_class_data():
     columns = ["LOC", "TCC", "WMC", "ATFD"]
     filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\CodeSniffer.BBN\\VerificationData\\ClassTrainingSet_1357_18022018.csv"
-    plot_data(filename, columns)
+    plot_data(filename, columns, "Class Level - Junit")
 
 
 plot_class_data()
