@@ -38,7 +38,7 @@ def plot_data(filename, columns, classifier, bins):
             indexes.append(idx)
 
     for name in columns:
-        fig = plt.figure(figsize=(6,2))
+        fig = plt.figure(figsize=(12,2))
 
         data = num_data[name].tolist()
 
@@ -48,8 +48,9 @@ def plot_data(filename, columns, classifier, bins):
 
         data_to_use.sort()
 
+        toplot = [data, data_to_use]
         plot = fig.add_subplot(111)
-        plt.boxplot(data, vert=False)
+        plt.boxplot(toplot, vert=False, labels=["All fragements", "Is {}".format(classifier[0])])   
         plt.title("{} - {}".format(classifier[0], name))
               
         binsize = bins[name][-1] - bins[name][-2]
