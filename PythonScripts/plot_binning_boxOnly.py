@@ -38,7 +38,7 @@ def plot_data(filename, columns, classifier, bins):
             indexes.append(idx)
 
     for name in columns:
-        fig = plt.figure(figsize=(12,2))
+        fig = plt.figure(figsize=(6,2.5))
 
         data = num_data[name].tolist()
 
@@ -59,9 +59,9 @@ def plot_data(filename, columns, classifier, bins):
         
         for boundary in bins[name]:
             plot.axvline(boundary, color="red", linestyle="dashed")
-            plot.text(boundary + (plot.get_xlim()[1] * 0.005), plot.get_ylim()[1] * 0.85, boundary, style="italic", fontsize=8)
+            plot.text(boundary + (plot.get_xlim()[1] * 0.005), plot.get_ylim()[1] * 0.95, boundary, style="italic", fontsize=8)
 
-        
+        plt.tight_layout()
         os.makedirs("annotations\\{}\\{}_{}".format(outDir, os.path.basename(filename)[:-4], classifier[0]), exist_ok=True)
         plt.savefig("annotations\\{}\\{}_{}\\{}.png".format(outDir, os.path.basename(filename)[:-4], classifier[0], name))
         plt.close(fig)
