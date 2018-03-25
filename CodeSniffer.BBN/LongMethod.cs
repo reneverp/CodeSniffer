@@ -42,11 +42,9 @@ namespace CodeSniffer.BBN
             _network = new BayesianNetwork(p + @"\Networks\LongMethod_network_naive.xdsl");
 
             Learn();
-
-            _network.SaveNetwork();
         }
 
-        private void Learn()
+        public void Learn()
         {
             IDictionary<string, DiscretizedData> map = GenerateBinMap();
 
@@ -63,6 +61,8 @@ namespace CodeSniffer.BBN
 
                 LaplaceEstimator.Adapt(cases, Discretizer.MethodDataset, _network, map, "Long_Method", 1, q);
             }
+
+            _network.SaveNetwork();
         }
 
         private void SetOutcomeIds()

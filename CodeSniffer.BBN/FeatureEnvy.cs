@@ -40,12 +40,11 @@ namespace CodeSniffer.BBN
             string p = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             _network = new BayesianNetwork(p + @"\Networks\FeatureEnvy_network_naive.xdsl");
-            Learn();
 
-            _network.SaveNetwork();
+            Learn();
         }
 
-        private void Learn()
+        public void Learn()
         {
             IDictionary<string, DiscretizedData> map = GenerateBinMap();
 
@@ -64,6 +63,8 @@ namespace CodeSniffer.BBN
 
                 LaplaceEstimator.Adapt(cases, Discretizer.MethodDataset, _network, map, "Feature_Envy", 1, q);
             }
+
+            _network.SaveNetwork();
 
         }
 

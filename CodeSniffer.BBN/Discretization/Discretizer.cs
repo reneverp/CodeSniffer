@@ -58,6 +58,13 @@ namespace CodeSniffer.BBN.Discretization
             _lockObj = new object();
         }
 
+        public static void Reset()
+        {
+            IsDiscretized = false;
+            ClassDataset = null;
+            MethodDataset = null;
+        }
+
         public static void DiscretizeTrainingSets()
         {
             lock (_lockObj)

@@ -14,11 +14,6 @@ namespace CodeSniffer.AdaptationTest
     class Program
     {
         private static string _basePath;
-        private static string _additionalClassCasesFile;
-        private static string _additionalMethodCasesFile;
-
-        private static string _additionalClassCasesFileDiscretized;
-        private static string _additionalMethodCasesFileDiscretized;
         private static string _sourcePath;
 
         static void Main(string[] args)
