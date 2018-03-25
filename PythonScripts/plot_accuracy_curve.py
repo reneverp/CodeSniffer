@@ -100,57 +100,70 @@ def plot_method_longMethod_data(inputfilename):
 def plot_verification_class_data():
     a = 0
     
-    while(a < 10):
+    while(a < 20):
         filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\\Release\\Classrun_{}.csv".format(a)
         plot_class_data(filename)
         a += 1
     
     #plt.legend()
 
-    x = [2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,11.0]
+    x = [2,3,4,5,6,7,8,9,10,11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
 
     print(accuracy_list)
+    
     plt.plot(x, accuracy_list) #, marker='o')
+    plot = plt.gca()
+    plot.set_ylim(80, 100)
+    plt.xticks(x)
 
     accuracy_list.clear()
 
+    #plt.show()
     plt.savefig(outDir + "\\Class.png")
     plt.close()
 
 def plot_verification_longmethod_data():
     a = 0
-    while(a < 10):
+    while(a < 20):
         filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\\Release\\Methodrun_{}.csv".format(a)
         plot_method_longMethod_data(filename)
         a += 1
     
     #plt.legend()
 
-    x = [2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,11.0]
+    x = [2,3,4,5,6,7,8,9,10,11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
 
     print(accuracy_list)
     plt.plot(x, accuracy_list) #, marker='o')
+    plot = plt.gca()
+    plot.set_ylim(80, 100)
+    plt.xticks(x)
 
     accuracy_list.clear()
 
+    #plt.show()
     plt.savefig(outDir + "\\LongMethod.png")
     plt.close()
 
 def plot_verification_featureenvy_data():
     a = 0
-    while(a < 10):
+    while(a < 20):
         filename = os.path.dirname(os.path.realpath(__file__)) + "\\..\\bin\\Release\\Methodrun_{}.csv".format(a)
         plot_method_featureEnvy_data(filename)
         a += 1
     
     #plt.legend() 
-    x = [2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,11.0]
+    x = [2,3,4,5,6,7,8,9,10,11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
 
     print(accuracy_list)
     plt.plot(x, accuracy_list) #, marker='o')
+    plot = plt.gca()
+    plot.set_ylim(80, 100)
+    plt.xticks(x)
 
     accuracy_list.clear()
 
+    #plt.show()
     plt.savefig(outDir + "\\FeatureEnvy.png")
     plt.close()
 

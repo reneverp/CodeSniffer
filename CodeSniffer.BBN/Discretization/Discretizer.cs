@@ -64,10 +64,11 @@ namespace CodeSniffer.BBN.Discretization
             {
                 if (!IsDiscretized)
                 {
-                    int numBins = int.Parse(ConfigurationManager.AppSettings["NumberOfBins"]);
+                    int numBinsClass = int.Parse(ConfigurationManager.AppSettings["NumberOfBinsClass"]);
+                    int numBinsMethod = int.Parse(ConfigurationManager.AppSettings["NumberOfBinsMethod"]);
 
-                    DiscretizeClassTrainingSet(numBins);
-                    DiscretizeMethodTrainingSet(numBins);
+                    DiscretizeClassTrainingSet(numBinsClass);
+                    DiscretizeMethodTrainingSet(numBinsMethod);
                 }
 
                 IsDiscretized = true;
