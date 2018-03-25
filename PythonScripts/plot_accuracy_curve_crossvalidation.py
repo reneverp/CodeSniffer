@@ -105,6 +105,7 @@ def plot_verification_class_data():
 
     x = [1,2,3,4,5]
 
+    print("Large Class: ")
     print(accuracy_list)
     
     plt.plot(x, accuracy_list) #, marker='o')
@@ -130,6 +131,7 @@ def plot_verification_longmethod_data():
 
     x = [1,2,3,4,5]
 
+    print("Long Method: ")
     print(accuracy_list)
     plt.plot(x, accuracy_list) #, marker='o')
     plot = plt.gca()
@@ -153,6 +155,7 @@ def plot_verification_featureenvy_data():
     #plt.legend() 
     x = [1,2,3,4,5]
 
+    print("Feature Envy: ")    
     print(accuracy_list)
     plt.plot(x, accuracy_list) #, marker='o')
     plot = plt.gca()

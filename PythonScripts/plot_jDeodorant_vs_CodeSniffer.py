@@ -49,17 +49,26 @@ def plot_class_data(filename):
         if row[6] == "True":
             countCs += 1 #counts ccs
 
-    fig = plt.figure()
+    fig = plt.figure(figsize=(4,6))
 
-    plt.bar("Annotated", countAnnotated, align='center', label="Annotated Large Classes")
-    plt.bar("JDeodorant", countJd, align='center', label="JD all")
-    plt.bar("JDeodorant", countJdTp, align='center', label="JD true positives")
-    plt.bar("CodeSniffer", countCs, align='center', label="CS all")
-    plt.bar("CodeSniffer", countCsTp, align='center', label="CS true positives")
+    plt.bar("Manual Inspection", countAnnotated, align='center')
+
+    if countJd > 0:
+        plt.bar("JDeodorant", countJd, align='center', label="FP", color="red")
+
+    if countJdTp > 0:
+        plt.bar("JDeodorant", countJdTp, align='center', label="TP", color="green" )
     
-    plt.bar("CodeSniffer", countCs, align='center')
+    if countCs > 0:
+        plt.bar("CodeSniffer", countCs, align='center', color="red" )
+
+    if countCsTp > 0:
+        plt.bar("CodeSniffer", countCsTp, align='center', color="green" )
+    
     plt.title("JDeodorant vs CodeSniffer - Large Class")
     plt.legend()
+
+    plt.tight_layout()
 
     os.makedirs(os.path.dirname(os.path.realpath(__file__)) + "\\barcharts", exist_ok=True)  
     plt.savefig("barcharts\LargeClass_cs_vs_jd.png")
@@ -88,17 +97,26 @@ def plot_longmethod_data(filename):
 
     print(countCsTp)
 
-    fig = plt.figure()
+    fig = plt.figure(figsize=(4,6))
 
-    plt.bar("Annotated", countAnnotated, align='center', label="Annotated Long Methods")
-    plt.bar("JDeodorant", countJd, align='center', label="JD all")
-    plt.bar("JDeodorant", countJdTp, align='center', label="JD true positives")
-    plt.bar("CodeSniffer", countCs, align='center', label="CS all")
-    plt.bar("CodeSniffer", countCsTp, align='center', label="CS true positives")
+    plt.bar("Manual Inspection", countAnnotated, align='center')
+
+    if countJd > 0:
+        plt.bar("JDeodorant", countJd, align='center', label="FP", color="red")
+
+    if countJdTp > 0:
+        plt.bar("JDeodorant", countJdTp, align='center', label="TP", color="green" )
     
-    plt.bar("CodeSniffer", countCs, align='center')
+    if countCs > 0:
+        plt.bar("CodeSniffer", countCs, align='center', color="red" )
+
+    if countCsTp > 0:
+        plt.bar("CodeSniffer", countCsTp, align='center', color="green" )
+
     plt.title("JDeodorant vs CodeSniffer - Long Method")
     plt.legend()
+
+    plt.tight_layout()
 
     os.makedirs(os.path.dirname(os.path.realpath(__file__)) + "\\barcharts", exist_ok=True)  
     plt.savefig("barcharts\LongMethod_cs_vs_jd.png")
@@ -127,17 +145,26 @@ def plot_featureenvy_data(filename):
 
     print(countCsTp)
 
-    fig = plt.figure()
+    fig = plt.figure(figsize=(4,6))
 
-    plt.bar("Annotated", countAnnotated, align='center', label="Annotated Feature Envy Methods")
-    plt.bar("JDeodorant", countJd, align='center', label="JD all")
-    plt.bar("JDeodorant", countJdTp, align='center', label="JD true positives")
-    plt.bar("CodeSniffer", countCs, align='center', label="CS all")
-    plt.bar("CodeSniffer", countCsTp, align='center', label="CS true positives")
+    plt.bar("Manual Inspection", countAnnotated, align='center')
+
+    if countJd > 0:
+        plt.bar("JDeodorant", countJd, align='center', label="FP", color="red")
+
+    if countJdTp > 0:
+        plt.bar("JDeodorant", countJdTp, align='center', label="TP", color="green" )
     
-    plt.bar("CodeSniffer", countCs, align='center')
+    if countCs > 0:
+        plt.bar("CodeSniffer", countCs, align='center', color="red" )
+
+    if countCsTp > 0:
+        plt.bar("CodeSniffer", countCsTp, align='center', color="green" )
+    
     plt.title("JDeodorant vs CodeSniffer - Feature Envy")
     plt.legend()
+
+    plt.tight_layout()
 
     os.makedirs(os.path.dirname(os.path.realpath(__file__)) + "\\barcharts", exist_ok=True)  
     plt.savefig("barcharts\FeatureEnvy_cs_vs_jd.png")
@@ -173,8 +200,8 @@ def plot_featureenvy_data(filename):
 
 #os.makedirs(outDir, exist_ok=True)
 
-plot_class_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\04-03-2018\RQ1\Classrun_0.csv")
-plot_longmethod_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\04-03-2018\RQ1\Methodrun_0.csv")
-plot_featureenvy_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\04-03-2018\RQ1\Methodrun_0.csv")
+plot_class_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\24-03-2018\RQ1\Classrun_0.csv")
+plot_longmethod_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\24-03-2018\RQ1\Methodrun_0.csv")
+plot_featureenvy_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\24-03-2018\RQ1\Methodrun_0.csv")
  
 
