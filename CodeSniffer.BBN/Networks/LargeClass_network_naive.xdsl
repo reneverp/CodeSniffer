@@ -8,52 +8,28 @@
 			<probabilities>0.08250825082508251 0.9174917491749175</probabilities>
 		</cpt>
 		<cpt id="TCC">
-			<state id="bin_0_0_05" />
-			<state id="bin_0_05_0_1" />
-			<state id="bin_0_1_0_15" />
-			<state id="bin_0_15_0_2" />
-			<state id="bin_0_2_0_25" />
-			<state id="bin_0_25_0_3" />
-			<state id="bin_0_3_0_35" />
-			<state id="bin_0_35_andUp" />
+			<state id="State0" />
+			<state id="State1" />
 			<parents>Large_Class</parents>
-			<probabilities>0.92 0.04 0.04 0 0 0 0 0 0.9496402877697843 0.02697841726618705 0.008992805755395683 0.003597122302158274 0.003597122302158274 0.001798561151079137 0.001798561151079137 0.003597122302158274</probabilities>
+			<probabilities>1 0 0 1</probabilities>
 		</cpt>
 		<cpt id="WMC">
-			<state id="bin_0_2_25" />
-			<state id="bin_2_25_4_5" />
-			<state id="bin_4_5_6_75" />
-			<state id="bin_6_75_9" />
-			<state id="bin_9_11_25" />
-			<state id="bin_11_25_13_5" />
-			<state id="bin_13_5_15_75" />
-			<state id="bin_15_75_andUp" />
+			<state id="State0" />
+			<state id="State1" />
 			<parents>Large_Class</parents>
-			<probabilities>0.68 0.2 0.02 0.02 0.04 0.04 0 0 0.7895683453237411 0.1258992805755396 0.05035971223021583 0.01978417266187051 0.008992805755395683 0 0.001798561151079137 0.003597122302158274</probabilities>
+			<probabilities>1 0 0 1</probabilities>
 		</cpt>
 		<cpt id="ATFD">
-			<state id="bin_0_24_25" />
-			<state id="bin_24_25_48_5" />
-			<state id="bin_48_5_72_75" />
-			<state id="bin_72_75_97" />
-			<state id="bin_97_121_25" />
-			<state id="bin_121_25_145_5" />
-			<state id="bin_145_5_169_75" />
-			<state id="bin_169_75_andUp" />
+			<state id="State0" />
+			<state id="State1" />
 			<parents>Large_Class</parents>
-			<probabilities>0.8 0.04 0.06 0.04 0 0.04 0 0.02 0.8561151079136691 0.08812949640287771 0.02697841726618705 0.008992805755395683 0.007194244604316547 0.003597122302158274 0.003597122302158274 0.00539568345323741</probabilities>
+			<probabilities>1 0 0 1</probabilities>
 		</cpt>
 		<cpt id="LOC">
-			<state id="bin_0_151_125" />
-			<state id="bin_151_125_302_25" />
-			<state id="bin_302_25_453_375" />
-			<state id="bin_453_375_604_5" />
-			<state id="bin_604_5_755_625" />
-			<state id="bin_755_625_906_75" />
-			<state id="bin_906_75_1057_875" />
-			<state id="bin_1057_875_andUp" />
+			<state id="State0" />
+			<state id="State1" />
 			<parents>Large_Class</parents>
-			<probabilities>0 0.3 0.34 0.12 0.1 0.04 0.04 0.06 0.9172661870503598 0.08093525179856116 0.001798561151079137 0 0 0 0 0</probabilities>
+			<probabilities>1 0 1 0</probabilities>
 		</cpt>
 	</nodes>
 	<extensions>

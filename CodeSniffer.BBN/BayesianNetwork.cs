@@ -51,9 +51,22 @@ namespace CodeSniffer.BBN
 
         public void SetOutcomeIds(string nodeId, IList<Bin> descriptions)
         {
-            for(int i = 0; i < descriptions.Count; i++)
+            //clear all outcomes for the network to support variable amount of bins
+            int count = _network.GetOutcomeCount(nodeId);
+            for (int i = 0; i < count; i++)
             {
-                _network.SetOutcomeId(nodeId, i, descriptions[i].ToString());
+                if (i < descriptions.Count)
+                {
+                    _network.SetOutcomeId(nodeId, i, descriptions[i].ToString());
+                }
+            }
+
+            if(descriptions.Count > count)
+            {
+                for(int i = count; i < descriptions.Count; i++)
+                {
+                    _network.AddOutcome(nodeId, descriptions[i].ToString());
+                }
             }
         }
 

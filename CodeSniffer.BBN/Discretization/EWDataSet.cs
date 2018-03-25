@@ -23,6 +23,7 @@ namespace CodeSniffer.BBN.Discretization
 
     public class Bin
     {
+
         public double LowerBoundary { get; private set; }
         public double UpperBoundary { get; private set; }
 
@@ -90,12 +91,13 @@ namespace CodeSniffer.BBN.Discretization
             conn.Close();
         }
 
-        public IList<Bin> Discretize<T>(int rowIndex, int amountOfBins)
+        //Use x times the std deviation as max
+        public IList<Bin> Discretize<T>(int rowIndex, int amountOfBins, double upperLimit)
         {
             var rows = _dataset.Tables[0].Select().OrderBy(x => x.Field<T>(rowIndex));
 
             double min = 0;//Convert.ToDouble(rows.First().Field<T>(rowIndex));
-            double max = Convert.ToDouble(rows.Last().Field<T>(rowIndex));
+            double max = upperLimit; //Convert.ToDouble(rows.Last().Field<T>(rowIndex));
             double binsize = (max - min) / amountOfBins;
 
             for(int i =0; i < amountOfBins; i++)

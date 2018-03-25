@@ -20,7 +20,7 @@ def plot_data(filename, columns, descr):
         print("{0}: {1}".format(name, std))
         mean = np.mean(data)
 
-        outlierBorder = 0
+        outlierBorder = std * 8
 
         # prevVal = 0
         # for x in data:
@@ -38,8 +38,8 @@ def plot_data(filename, columns, descr):
         #normD = norm.pdf(data,mean,std)
         #plt.plot(data, normD, '-o')
         #plt.hist(data,normed=True)
-        # plt.axvline(outlierBorder, color="red", linestyle="dashed", marker="8")
-        # plt.text(outlierBorder, sub.get_ylim()[1] * .8, "outliers > {}".format(round(outlierBorder,2)))
+        plt.axvline(outlierBorder, color="red", linestyle="dashed", marker="8")
+        #plt.text(outlierBorder, sub.get_ylim()[1] * .8, "outliers > {}".format(round(outlierBorder,2)))
         plt.title("{} - {}".format(name, descr))
         
         #sub = fig.add_subplot(212)

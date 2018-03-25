@@ -8,40 +8,22 @@
 			<probabilities>0.004063572000437711 0.9959364279995623</probabilities>
 		</cpt>
 		<cpt id="ATFD">
-			<state id="bin_0_22" />
-			<state id="bin_22_44" />
-			<state id="bin_44_66" />
-			<state id="bin_66_88" />
-			<state id="bin_88_110" />
-			<state id="bin_110_132" />
-			<state id="bin_132_154" />
-			<state id="bin_154_andUp" />
+			<state id="State0" />
+			<state id="State1" />
 			<parents>Feature_Envy</parents>
-			<probabilities>0.53 0.1375 0.0675 0 0.0025 0.1925 0.0025 0.0675 0.9806917300859346 0.0149571157182359 0.00217561417003022 0.0008158831178479547 0.0008158831178479547 0 0.0002718868950516585 0.0002718868950516585</probabilities>
+			<probabilities>0 1 1 0</probabilities>
 		</cpt>
 		<cpt id="LAA">
-			<state id="bin_0_3_0625" />
-			<state id="bin_3_0625_6_125" />
-			<state id="bin_6_125_9_1875" />
-			<state id="bin_9_1875_12_25" />
-			<state id="bin_12_25_15_3125" />
-			<state id="bin_15_3125_18_375" />
-			<state id="bin_18_375_21_4375" />
-			<state id="bin_21_4375_andUp" />
+			<state id="State0" />
+			<state id="State1" />
 			<parents>Feature_Envy</parents>
-			<probabilities>0.9350000000000001 0.065 0 0 0 0 0 0 0.8874081297369821 0.06173515591716191 0.02964375328180902 0.0127824654232086 0.005166963169446408 0.002175688314261212 2.965769239723572e-07 0.001087547580206634</probabilities>
+			<probabilities>1 0 0 1</probabilities>
 		</cpt>
 		<cpt id="FDP">
-			<state id="bin_0_1_875" />
-			<state id="bin_1_875_3_75" />
-			<state id="bin_3_75_5_625" />
-			<state id="bin_5_625_7_5" />
-			<state id="bin_7_5_9_375" />
-			<state id="bin_9_375_11_25" />
-			<state id="bin_11_25_13_125" />
-			<state id="bin_13_125_andUp" />
+			<state id="State0" />
+			<state id="State1" />
 			<parents>Feature_Envy</parents>
-			<probabilities>0.325 0.26 0.13 0.1475 0.0075 0.065 0.0025 0.0625 0.9059022218505124 0.07016594813492411 0.01985315586763357 0.003263013461774867 0.0008156606851549755 0 0 0</probabilities>
+			<probabilities>1 0 0 1</probabilities>
 		</cpt>
 	</nodes>
 	<extensions>

@@ -46,7 +46,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="..\CodeSniffer\App.config">
+      <Link>App.config</Link>
+    </None>
     <None Include="RunAdaptationTest_for_projects.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

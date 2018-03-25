@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
@@ -63,39 +64,41 @@ namespace CodeSniffer.BBN.Discretization
             {
                 if (!IsDiscretized)
                 {
-                    DiscretizeClassTrainingSet();
-                    DiscretizeMethodTrainingSet();
+                    int numBins = int.Parse(ConfigurationManager.AppSettings["NumberOfBins"]);
+
+                    DiscretizeClassTrainingSet(numBins);
+                    DiscretizeMethodTrainingSet(numBins);
                 }
 
                 IsDiscretized = true;
             }
         }
 
-        private static void DiscretizeClassTrainingSet()
+        private static void DiscretizeClassTrainingSet(int numberOfBins)
         {
             _ew.Load(GetFullPath("ClassTrainingSet_2319_17022018.csv"));
 
-            LOCClass = new DiscretizedData(_ew.Discretize<int>(1, 8));
-            TCC = new DiscretizedData(_ew.Discretize<double>(3, 8));
-            WMC = new DiscretizedData(_ew.Discretize<int>(4, 8));
-            ATFDClass = new DiscretizedData(_ew.Discretize<int>(5, 8));
+            LOCClass = new DiscretizedData(_ew.Discretize<int>(1, numberOfBins, 1153));
+            TCC = new DiscretizedData(_ew.Discretize<double>(3, numberOfBins, 0.25));
+            WMC = new DiscretizedData(_ew.Discretize<int>(4, numberOfBins, 16.92));
+            ATFDClass = new DiscretizedData(_ew.Discretize<int>(5, numberOfBins, 83.05));
 
             ClassDataset = _ew.GetDiscreteDataSet();
 
             _ew.WriteToCsv(GetFullPath("ClassTrainingSet_2319_17022018_discretized.csv"));
         }
 
-        private static void DiscretizeMethodTrainingSet()
+        private static void DiscretizeMethodTrainingSet(int numberOfBins)
         {
             _ew.Load(GetFullPath("MethodTrainingSet_2319_17022018.csv"));
 
-            LOC = new DiscretizedData(_ew.Discretize<int>(1, 8));
-            CYCLO = new DiscretizedData(_ew.Discretize<int>(2, 8));
-            ATFD = new DiscretizedData(_ew.Discretize<int>(6, 8));
-            FDP = new DiscretizedData(_ew.Discretize<int>(7, 8));
-            LAA = new DiscretizedData(_ew.Discretize<double>(8, 8));
-            MAXNESTING = new DiscretizedData(_ew.Discretize<int>(9, 8));
-            NOAV = new DiscretizedData(_ew.Discretize<int>(10, 8));
+            LOC = new DiscretizedData(_ew.Discretize<int>(1, numberOfBins, 84.42));
+            CYCLO = new DiscretizedData(_ew.Discretize<int>(2, numberOfBins, 29.39));
+            ATFD = new DiscretizedData(_ew.Discretize<int>(6, numberOfBins, 22.0));
+            FDP = new DiscretizedData(_ew.Discretize<int>(7, numberOfBins, 8.09));
+            LAA = new DiscretizedData(_ew.Discretize<double>(8, numberOfBins, 29.5));
+            MAXNESTING = new DiscretizedData(_ew.Discretize<int>(9, numberOfBins, 7.95));
+            NOAV = new DiscretizedData(_ew.Discretize<int>(10, numberOfBins, 39.2));
 
             MethodDataset = _ew.GetDiscreteDataSet();
 
