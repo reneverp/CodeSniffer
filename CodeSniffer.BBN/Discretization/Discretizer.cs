@@ -94,6 +94,8 @@ namespace CodeSniffer.BBN.Discretization
             ClassDataset = _ew.GetDiscreteDataSet();
 
             _ew.WriteToCsv(GetFullPath("ClassTrainingSet_2319_17022018_discretized.csv"));
+
+            _ew.WriteBinsToCsv(GetFullPath("ClassTrainingSet_2319_17022018_bins.csv"));
         }
 
         private static void DiscretizeMethodTrainingSet(int numberOfBins)
@@ -111,6 +113,7 @@ namespace CodeSniffer.BBN.Discretization
             MethodDataset = _ew.GetDiscreteDataSet();
 
             _ew.WriteToCsv(GetFullPath("MethodTrainingSet_2319_17022018_discretized.csv"));
+            _ew.WriteBinsToCsv(GetFullPath("MethodTrainingSet_2319_17022018_bins.csv"));
         }
 
         public static IList<DataRow> ProcessAdditionalMethodCases()

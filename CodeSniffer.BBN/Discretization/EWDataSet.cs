@@ -92,9 +92,9 @@ namespace CodeSniffer.BBN.Discretization
         }
 
         //Use x times the std deviation as max
-        public IList<Bin> Discretize<T>(int rowIndex, int amountOfBins, double upperLimit)
+        public IList<Bin> Discretize<T>(int colIndex, int amountOfBins, double upperLimit)
         {
-            var rows = _dataset.Tables[0].Select().OrderBy(x => x.Field<T>(rowIndex));
+            var rows = _dataset.Tables[0].Select().OrderBy(x => x.Field<T>(colIndex));
 
             double min = 0;//Convert.ToDouble(rows.First().Field<T>(rowIndex));
             double max = upperLimit; //Convert.ToDouble(rows.Last().Field<T>(rowIndex));
@@ -111,9 +111,9 @@ namespace CodeSniffer.BBN.Discretization
                 }
 
                 Bin currentBin = new Bin(lower, upper);
-                _bins[rowIndex].Add(currentBin);
+                _bins[colIndex].Add(currentBin);
 
-                var selectedRows = rows.Where(x => lower <= Convert.ToDouble(x.Field<T>(rowIndex)) && Convert.ToDouble(x.Field<T>(rowIndex)) <= upper);
+                var selectedRows = rows.Where(x => lower <= Convert.ToDouble(x.Field<T>(colIndex)) && Convert.ToDouble(x.Field<T>(colIndex)) <= upper);
 
                 foreach(var row in selectedRows)
                 {
@@ -122,12 +122,43 @@ namespace CodeSniffer.BBN.Discretization
                         _discreteVals.Add(row, new DiscreteValue[row.ItemArray.Length]);
                     }
 
-                    _discreteVals[row][rowIndex] = new DiscreteValue(Convert.ToDouble(row.Field<T>(rowIndex)), currentBin);
+                    _discreteVals[row][colIndex] = new DiscreteValue(Convert.ToDouble(row.Field<T>(colIndex)), currentBin);
                     currentBin.Rows.Add(row);
                 }
             }
 
-            return _bins[rowIndex];
+            return _bins[colIndex];
+        }
+
+        public void WriteBinsToCsv(string filename)
+        {
+            IList<int> keys = _bins.Keys.ToList();
+
+            foreach (var key in keys)
+            {
+                if (_bins[key].Count > 0)
+                {
+                    using (StreamWriter sw = new StreamWriter(filename.Replace(".csv", "_" + key + "_.csv")))
+                    {
+                        string toWrite = "";
+
+                        foreach (var bin in _bins[key])
+                        {
+                            toWrite += bin.ToString() + ",";
+                        }
+
+                        sw.WriteLine(toWrite.Substring(0, toWrite.LastIndexOf(',')));
+
+                        toWrite = "";
+                        foreach (var bin in _bins[key])
+                        {
+                            toWrite += bin.Rows.Count() + ",";
+                        }
+
+                        sw.WriteLine(toWrite.Substring(0, toWrite.LastIndexOf(',')));
+                    }
+                }
+            }
         }
 
         public DataSet GetDiscreteDataSet()
