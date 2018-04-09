@@ -262,13 +262,5 @@ namespace CodeSniffer.AdaptationTest
             File.Delete(_basePath + @"\TrainingsData\MethodAdditionalData.csv");
         }
 
-        private static void GenerateDataSet(int runId)
-        {
-            System.Console.WriteLine("RunId: " + runId);
-
-            //we write continuous data, so discretize the additional data first.
-            ProcessStartInfo startInfo = new ProcessStartInfo { FileName = _basePath + "\\CodeSniffer.Console.exe", Arguments = runId.ToString() + " " + _sourcePath, CreateNoWindow = true, WindowStyle = ProcessWindowStyle.Hidden };
-            Process.Start(startInfo).WaitForExit();
-        }
     }
 }

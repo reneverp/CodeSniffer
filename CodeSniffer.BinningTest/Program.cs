@@ -30,27 +30,34 @@ namespace CodeSniffer.AdaptationTest
             _basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             DeleteFiles();
 
-            string appConf = "CodeSniffer.CrossValidation.exe.config";
+            string appConfCrossValidation = "CodeSniffer.CrossValidation.exe.config";
+            string appConfCodeSnifferConsole = "CodeSniffer.Console.exe.config";
+
 
             for (int i = 0; i < 20; i++)
             {
-                doc.Load(appConf);
+                UpdateBinCount(doc, appConfCrossValidation, i);
+                UpdateBinCount(doc, appConfCodeSnifferConsole, i);
 
-                var root = doc.DocumentElement;
-                var nodes = root.SelectNodes("appSettings//add");
-                foreach(XmlNode node in nodes)
-                {
-                    if (node.OuterXml.Contains("key=\"NumberOfBinsMethod\"") || node.OuterXml.Contains("key=\"NumberOfBinsClass\""))
-                    {
-                        node.Attributes["value"].Value = (i + 2).ToString();
-                    }
-                }
-
-                doc.Save(appConf);
-
-                //GenerateDataSet(i);
                 RunCrossValidation(i);
             }
+        }
+
+        private static void UpdateBinCount(XmlDocument doc, string appConf, int i)
+        {
+            doc.Load(appConf);
+
+            var root = doc.DocumentElement;
+            var nodes = root.SelectNodes("appSettings//add");
+            foreach (XmlNode node in nodes)
+            {
+                if (node.OuterXml.Contains("key=\"NumberOfBinsMethod\"") || node.OuterXml.Contains("key=\"NumberOfBinsClass\""))
+                {
+                    node.Attributes["value"].Value = (i + 2).ToString();
+                }
+            }
+
+            doc.Save(appConf);
         }
 
         private static void DeleteFiles()
