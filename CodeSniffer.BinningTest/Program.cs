@@ -30,17 +30,26 @@ namespace CodeSniffer.AdaptationTest
             _basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             DeleteFiles();
 
+            string appConf = "CodeSniffer.CrossValidation.exe.config";
+
             for (int i = 0; i < 20; i++)
             {
-                doc.Load("CodeSniffer.Console.exe.config");
+                doc.Load(appConf);
 
                 var root = doc.DocumentElement;
-                var node = root.SelectSingleNode("appSettings//add");
-                node.Attributes["value"].Value = (i+2).ToString();
+                var nodes = root.SelectNodes("appSettings//add");
+                foreach(XmlNode node in nodes)
+                {
+                    if (node.OuterXml.Contains("key=\"NumberOfBinsMethod\"") || node.OuterXml.Contains("key=\"NumberOfBinsClass\""))
+                    {
+                        node.Attributes["value"].Value = (i + 2).ToString();
+                    }
+                }
 
-                doc.Save("CodeSniffer.Console.exe.config");
+                doc.Save(appConf);
 
-                GenerateDataSet(i);
+                //GenerateDataSet(i);
+                RunCrossValidation(i);
             }
         }
 
@@ -67,6 +76,11 @@ namespace CodeSniffer.AdaptationTest
 
             File.Delete(_basePath + @"\TrainingsData\ClassAdditionalData.csv");
             File.Delete(_basePath + @"\TrainingsData\MethodAdditionalData.csv");
+
+            if (File.Exists(_basePath + @"\BinningTestCrossValidationOutput.csv"))
+            {
+                File.Delete(_basePath + @"\BinningTestCrossValidationOutput.csv");
+            }
         }
 
         private static void GenerateDataSet(int runId)
@@ -76,6 +90,33 @@ namespace CodeSniffer.AdaptationTest
             //we write continuous data, so discretize the additional data first.
             ProcessStartInfo startInfo = new ProcessStartInfo { FileName = _basePath + "\\CodeSniffer.Console.exe", Arguments = runId.ToString() + " " + _sourcePath, CreateNoWindow = true, WindowStyle = ProcessWindowStyle.Hidden };
             Process.Start(startInfo).WaitForExit();
+        }
+
+        private static void RunCrossValidation(int runId)
+        {
+            System.Console.WriteLine("RunId: " + runId);
+
+            //we write continuous data, so discretize the additional data first.
+            ProcessStartInfo startInfo = new ProcessStartInfo { FileName = _basePath + "\\CodeSniffer.CrossValidation.exe", CreateNoWindow = true, WindowStyle = ProcessWindowStyle.Hidden };
+            Process.Start(startInfo).WaitForExit();
+
+            ProcessStartInfo pythonStartInfo = new ProcessStartInfo { FileName = @"D:\Programs\Python\Python36\python.exe", Arguments = _basePath + @"\..\..\PythonScripts\plot_accuracy_curve_crossvalidation.py CrossValidation_" + runId, UseShellExecute = false, RedirectStandardOutput = true, RedirectStandardError = true, RedirectStandardInput = true };
+            var p = Process.Start(pythonStartInfo);
+            p.WaitForExit();
+
+            string toWrite ="";
+            while (!p.StandardOutput.EndOfStream)
+            {
+                toWrite += p.StandardOutput.ReadLine() + ",";
+            }
+
+            System.Console.WriteLine(toWrite);
+
+            using (StreamWriter sw = new StreamWriter(_basePath + "\\BinningTestCrossValidationOutput.csv", true))
+            {
+                sw.WriteLine(toWrite.Substring(0, toWrite.Length - 1));
+            }
+
         }
     }
 }

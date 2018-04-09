@@ -7,6 +7,7 @@ import ntpath
 
 from scipy.stats import norm
 from numpy import genfromtxt
+from numpy import mean
 
 import csv
 import time
@@ -54,7 +55,6 @@ def get_FP_TP_rates(results, verificationResults, column, scoreLabel):
     
 
     accuracy = ((truePositives + trueNegatives) / (truePositives + trueNegatives + falsePositives + falseNegatives)) * 100
-    print(accuracy)
 
     accuracy_list.append(accuracy)
         
@@ -104,14 +104,15 @@ def plot_verification_class_data():
     #plt.legend()
 
     x = [1,2,3,4,5]
-
-    print("Large Class: ")
-    print(accuracy_list)
     
-    plt.plot(x, accuracy_list) #, marker='o')
+    meanAccuracy = mean(accuracy_list)
+    print(meanAccuracy)
+
+    plt.plot(x, accuracy_list, label="Mean Accuracy: {}".format(meanAccuracy)) #, marker='o')
     plot = plt.gca()
     plot.set_ylim(80, 100)
     plt.xticks(x)
+    plt.legend()
 
     accuracy_list.clear()
 
@@ -131,12 +132,14 @@ def plot_verification_longmethod_data():
 
     x = [1,2,3,4,5]
 
-    print("Long Method: ")
-    print(accuracy_list)
-    plt.plot(x, accuracy_list) #, marker='o')
+    meanAccuracy = mean(accuracy_list)
+    print(meanAccuracy)
+    
+    plt.plot(x, accuracy_list, label="Mean Accuracy: {}".format(meanAccuracy)) #, marker='o')
     plot = plt.gca()
     plot.set_ylim(80, 100)
     plt.xticks(x)
+    plt.legend()    
 
     accuracy_list.clear()
 
@@ -155,12 +158,14 @@ def plot_verification_featureenvy_data():
     #plt.legend() 
     x = [1,2,3,4,5]
 
-    print("Feature Envy: ")    
-    print(accuracy_list)
-    plt.plot(x, accuracy_list) #, marker='o')
+    meanAccuracy = mean(accuracy_list)
+    print(meanAccuracy)
+
+    plt.plot(x, accuracy_list, label="Mean Accuracy: {}".format(meanAccuracy)) #, marker='o')
     plot = plt.gca()
     plot.set_ylim(80, 100)
     plt.xticks(x)
+    plt.legend()        
 
     accuracy_list.clear()
 

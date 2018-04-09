@@ -24,9 +24,6 @@ namespace CodeSniffer.AdaptationTest
                 _sourcePath = args[0];
             }
 
-
-            XmlDocument doc = new XmlDocument();
-
             _basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             DeleteFiles();
 
@@ -220,6 +217,42 @@ namespace CodeSniffer.AdaptationTest
             }
 
             filesToDelete = Directory.EnumerateFiles(_basePath + @"\Networks\", "*.json");
+            foreach (var file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+
+            filesToDelete = Directory.EnumerateFiles(_basePath, "ClassTestSet_*.csv");
+            foreach (var file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+
+            filesToDelete = Directory.EnumerateFiles(_basePath, "MethodTestSet_*.csv");
+            foreach (var file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+
+            filesToDelete = Directory.EnumerateFiles(_basePath, "ClassTrainingSet_*.csv");
+            foreach (var file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+
+            filesToDelete = Directory.EnumerateFiles(_basePath, "MethodTrainingSet_*.csv");
+            foreach (var file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+
+            filesToDelete = Directory.EnumerateFiles(_basePath, "ClassSetOutput_*.csv");
+            foreach (var file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+
+            filesToDelete = Directory.EnumerateFiles(_basePath, "MethodSetOutput_*.csv");
             foreach (var file in filesToDelete)
             {
                 File.Delete(file);
