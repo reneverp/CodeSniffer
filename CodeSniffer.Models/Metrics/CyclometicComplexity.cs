@@ -40,21 +40,15 @@ namespace CodeSniffer.Models.Metrics
 
         public double Calculate()
         {
-            //measure the complexity: http://metrics.sourceforge.net/
             //Cyclometic complexity starts with 1;
             //for every conditional, 1 is added.
             int complexity = 1;
 
             complexity += CountOccurrences(_block, @"if\s*?\(");
-            complexity += CountOccurrences(_block, @"else(\s|\n)*?{");
             complexity += CountOccurrences(_block, @"for\s*?\(");
             complexity += CountOccurrences(_block, @"foreach\s*?\(");
             complexity += CountOccurrences(_block, @"while\s*?\(");
-            complexity += CountOccurrences(_block, @"do(\s|\n)*?{");
-            complexity += CountOccurrences(_block, @"try(\s|\n)*?{");
-            complexity += CountOccurrences(_block, @"finally(\s|\n)*?{");
             complexity += CountOccurrences(_block, @"catch\s*?\(?");
-            complexity += CountOccurrences(_block, @"default.*?:");
             complexity += CountOccurrences(_block, @"case.*?:");
             complexity += CountOccurrences(_block, @"continue\s*?;");
             complexity += CountOccurrences(_block, @"&&\s*?");
