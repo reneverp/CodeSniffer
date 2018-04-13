@@ -103,9 +103,9 @@ namespace CodeSniffer.BBN.Discretization
             _ew.Load(GetFullPath("MethodTrainingSet_2319_17022018.csv"));
 
             LOC = new DiscretizedData(_ew.Discretize<int>(1, numberOfBins, 84.42));
-            CYCLO = new DiscretizedData(_ew.Discretize<int>(2, numberOfBins, 29.39));
+            CYCLO = new DiscretizedData(_ew.Discretize<int>(2, numberOfBins, 21.58));
             ATFD = new DiscretizedData(_ew.Discretize<int>(6, numberOfBins, 22.0));
-            FDP = new DiscretizedData(_ew.Discretize<int>(7, numberOfBins, 8.09));
+            FDP = new DiscretizedData(_ew.Discretize<int>(7, numberOfBins, 8.13));
             LAA = new DiscretizedData(_ew.Discretize<double>(8, numberOfBins, 29.5));
             MAXNESTING = new DiscretizedData(_ew.Discretize<int>(9, numberOfBins, 7.95));
             NOAV = new DiscretizedData(_ew.Discretize<int>(10, numberOfBins, 39.2));

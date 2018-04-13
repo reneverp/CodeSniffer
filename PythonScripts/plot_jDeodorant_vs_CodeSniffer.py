@@ -200,8 +200,8 @@ def plot_featureenvy_data(filename):
 
 #os.makedirs(outDir, exist_ok=True)
 
-plot_class_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\24-03-2018\RQ1\Classrun_0.csv")
-plot_longmethod_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\24-03-2018\RQ1\Methodrun_0.csv")
-plot_featureenvy_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\24-03-2018\RQ1\Methodrun_0.csv")
+plot_class_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\13-04-2018\RQ1\Classrun_0.csv")
+plot_longmethod_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\13-04-2018\RQ1\Methodrun_0.csv")
+plot_featureenvy_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\13-04-2018\RQ1\Methodrun_0.csv")
  
 

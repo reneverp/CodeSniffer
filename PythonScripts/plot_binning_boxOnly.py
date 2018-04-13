@@ -63,8 +63,8 @@ def plot_data(filename, columns, classifier, bins):
         upperlimit = bins[name][-1] + binsize
         plot.set_xlim(0, upperlimit)
 
-        plot.axvline(outlierBorder, color="red", linestyle="dashed")
-        plt.text(outlierBorder, plot.get_ylim()[1] * .90, "{}".format(round(outlierBorder,2)))
+        #plot.axvline(outlierBorder, color="red", linestyle="dashed")
+        #plt.text(outlierBorder, plot.get_ylim()[1] * .90, "{}".format(round(outlierBorder,2)))
         
         #for boundary in bins[name]:
             #plt.axvline(outlierBorder, color="red", linestyle="dashed", marker="8")        
