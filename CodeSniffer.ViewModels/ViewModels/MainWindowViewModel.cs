@@ -115,8 +115,8 @@ namespace CodeSniffer.ViewModels
                 //TODO: remove hardcoded paths
 
                 //_sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\spring-boot\spring-boot-project\spring-boot\src\main\java\org\springframework\boot";
-                //_sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\ganttproject-2.8.5\ganttproject\ganttproject\src\net\sourceforge\ganttproject";
-                _sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\junit-4.12\junit4\src\main";
+                _sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\ganttproject-2.8.5\ganttproject\ganttproject\src\net\sourceforge\ganttproject";
+                //_sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\CodeProjects\junit-4.12\junit4\src\main";
             }
 
             _project = new Project();
