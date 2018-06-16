@@ -169,37 +169,6 @@ def plot_featureenvy_data(filename):
     os.makedirs(os.path.dirname(os.path.realpath(__file__)) + "\\barcharts", exist_ok=True)  
     plt.savefig("barcharts\FeatureEnvy_cs_vs_jd.png")
 
-# def plot_longmethod_data(filename):
-#     my_data = readcsv(filename)
-
-#     countAnnotated = 0
-#     countJd = 0
-#     countCs = 0
-
-#     for idx, row in enumerate(my_data):
-#         if row[9] == "True":
-#             countAnnotated += 1 #counts annotated
-#         if row[8] == "True" and row[9] == "True":
-#             countJd += 1 #counts jd
-#         if row[6] == "True" and row[9] == "True":
-#             countCs += 1 #counts ccs
-
-#     fig = plt.figure()
-
-#     plt.bar("Annotated", countAnnotated, align='center')
-#     plt.bar("JDeodorant", countJd, align='center')
-#     plt.bar("JDeodorant", countJdTp, align='center')
-#     plt.bar("CodeSniffer", countCs, align='center')
-#     plt.bar("CodeSniffer", countCsTp, align='center')
-#     plt.title("TP - Large Class")
-
-#     os.makedirs(os.path.dirname(os.path.realpath(__file__)) + "\\barcharts", True)  
-#     plt.savefig("barcharts\LongMethod_cs_vs_jd.png")
-
-
-
-#os.makedirs(outDir, exist_ok=True)
-
 plot_class_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\13-04-2018\RQ1\Classrun_0.csv")
 plot_longmethod_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\13-04-2018\RQ1\Methodrun_0.csv")
 plot_featureenvy_data(r"D:\Dropbox\Master Software Engineering\14 Afstuderen\data\13-04-2018\RQ1\Methodrun_0.csv")

@@ -59,14 +59,6 @@ def get_FP_TP_rates(results, verificationResults, cutoff, column, scoreLabel):
 
     fpr = falsePositives / (falsePositives + trueNegatives)
 
-    #print("cutoff: {}".format(cutoff))
-    #print("truePositives: {}".format(truePositives))    
-    #print("trueNegatives: {}".format(trueNegatives))    
-    #print("falsePositives: {}".format(falsePositives))    
-    #print("falseNegatives: {}".format(falseNegatives))        
-    #print("tpr: {}".format(tpr))
-    #print("fpr: {}".format(fpr))
-
     tpr_list.append(tpr)
     fpr_list.append(fpr)
         

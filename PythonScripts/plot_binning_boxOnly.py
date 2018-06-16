@@ -63,13 +63,6 @@ def plot_data(filename, columns, classifier, bins):
         upperlimit = bins[name][-1] + binsize
         plot.set_xlim(0, upperlimit)
 
-        #plot.axvline(outlierBorder, color="red", linestyle="dashed")
-        #plt.text(outlierBorder, plot.get_ylim()[1] * .90, "{}".format(round(outlierBorder,2)))
-        
-        #for boundary in bins[name]:
-            #plt.axvline(outlierBorder, color="red", linestyle="dashed", marker="8")        
-            #plot.text(boundary + (plot.get_xlim()[1] * 0.005), plot.get_ylim()[1] * 0.95, boundary, style="italic", fontsize=8)
-
         plt.tight_layout()
         os.makedirs("annotations\\{}\\{}_{}".format(outDir, os.path.basename(filename)[:-4], classifier[0]), exist_ok=True)
         plt.savefig("annotations\\{}\\{}_{}\\{}.png".format(outDir, os.path.basename(filename)[:-4], classifier[0], name))
