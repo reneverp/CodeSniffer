@@ -4,12 +4,13 @@ call rmdir /s /q RocPlotsUser3
 
 call rmdir /s /q annotations
 
+REM ----- Uncomment the below lines to compare JUnit with the annotated verificationset -----
 REM xcopy /Y /I ..\..\CodeSniffer.BBN\VerificationData\MethodTrainingSet_1357_18022018.csv .\Methodtest.csv*
 REM xcopy /Y /I ..\..\CodeSniffer.BBN\VerificationData\ClassTrainingSet_1357_18022018.csv .\Classtest.csv*
 REM call CodeSniffer.AdaptationTest.exe "CodeProjects\junit-4.12\junit4\src\main"
 REM call python ..\..\PythonScripts\plot_annotations.py Me
 REM call python ..\..\PythonScripts\plot_roc.py RocPlotsMe
-
+REM --------------------------------------------------------------------------------------------
 
 call GenerateDatasetUser1.bat %1
 call CodeSniffer.AdaptationTest.exe %1

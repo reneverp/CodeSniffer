@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace CodeSniffer.Models.Metrics
 {
-    //Foreign Data Providers
     class WMC : IMetric
     {
         IList<Method> _methods;

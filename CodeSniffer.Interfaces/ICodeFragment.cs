@@ -12,7 +12,6 @@ namespace CodeSniffer.Interfaces
         IList<IMetric> Metrics { get; set; }
         IList<ICodeSmell> CodeSmells { get; set; }
 
-        //TODO: move implementations to separate class
         void WriteToTrainingSet(string filename, string dir = "");
     }
 }
